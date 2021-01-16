@@ -1,0 +1,1 @@
+jsonCompile.bat & flutter build apk
