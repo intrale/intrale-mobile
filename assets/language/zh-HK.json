@@ -1,5 +1,9 @@
 {
     "title": "Intrale",
+    "signup.name":"Nombre",
+    "signup.familyName":"Apellido",
+    "signup.email":"Email",
+    "signup.password":"Contraseña",
     "home":"家",
     "brand":"牌",
     "cart":"大车",

@@ -42,7 +42,7 @@ class _signupScreenState extends State<Signup>
   IntraleTextField name = IntraleTextField(
       icon: Icons.person,
       password: false,
-      description: 'name',
+      description: 'signup.name',
       inputType: TextInputType.name,
       validator:
           MultipleValidations(validations: [Required(), MinLength(length: 3)]));
@@ -50,14 +50,14 @@ class _signupScreenState extends State<Signup>
   IntraleTextField familyName = IntraleTextField(
       icon: Icons.person,
       password: false,
-      description: 'name',
+      description: 'signup.familyName',
       inputType: TextInputType.name,
       validator: Required());
 
   IntraleTextField email = IntraleTextField(
       icon: Icons.email,
       password: false,
-      description: 'email',
+      description: 'signup.email',
       inputType: TextInputType.emailAddress,
       validator: MultipleValidations(validations: [
         Required(),
@@ -69,7 +69,7 @@ class _signupScreenState extends State<Signup>
   IntraleTextField password = IntraleTextField(
     icon: Icons.vpn_key,
     password: true,
-    description: 'password',
+    description: 'signup.password',
     inputType: TextInputType.text,
     validator: MultipleValidations(validations: [
       Required(),
