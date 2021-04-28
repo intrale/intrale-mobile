@@ -283,34 +283,36 @@ _showDialog(BuildContext ctx) {
   showDialog(
     context: ctx,
     barrierDismissible: true,
-    child: SimpleDialog(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(top: 30.0, right: 60.0, left: 60.0),
-          color: Colors.white,
-          child: Image.asset(
-            "assets/img/checklist.png",
-            height: 110.0,
-            color: Colors.lightGreen,
+    builder: (ctx) {
+      return SimpleDialog(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 30.0, right: 60.0, left: 60.0),
+            color: Colors.white,
+            child: Image.asset(
+              "assets/img/checklist.png",
+              height: 110.0,
+              color: Colors.lightGreen,
+            ),
           ),
-        ),
-        Center(
-            child: Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: Text(
-            AppLocalizations.of(ctx).tr('yuppy'),
-            style: _txtCustomHead,
-          ),
-        )),
-        Center(
-            child: Padding(
-          padding: const EdgeInsets.only(top: 30.0, bottom: 40.0),
-          child: Text(
-            AppLocalizations.of(ctx).tr('paymentReceive'),
-            style: _txtCustomSub,
-          ),
-        )),
-      ],
-    ),
+          Center(
+              child: Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Text(
+              AppLocalizations.of(ctx).tr('yuppy'),
+              style: _txtCustomHead,
+            ),
+          )),
+          Center(
+              child: Padding(
+            padding: const EdgeInsets.only(top: 30.0, bottom: 40.0),
+            child: Text(
+              AppLocalizations.of(ctx).tr('paymentReceive'),
+              style: _txtCustomSub,
+            ),
+          )),
+        ],
+      );
+    },
   );
 }

@@ -1,22 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'SignupRequest.dart';
+part of 'ConfirmRecoveryRequest.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignupRequest _$SignupRequestFromJson(Map<String, dynamic> json) {
-  return SignupRequest(
+ConfirmRecoveryRequest _$ConfirmRecoveryRequestFromJson(
+    Map<String, dynamic> json) {
+  return ConfirmRecoveryRequest(
     email: json['email'] as String,
+    password: json['password'] as String,
+    code: json['code'] as String,
   )
     ..businessName = json['businessName'] as String
     ..requestId = json['requestId'] as String;
 }
 
-Map<String, dynamic> _$SignupRequestToJson(SignupRequest instance) =>
+Map<String, dynamic> _$ConfirmRecoveryRequestToJson(
+        ConfirmRecoveryRequest instance) =>
     <String, dynamic>{
       'businessName': instance.businessName,
       'requestId': instance.requestId,
       'email': instance.email,
+      'password': instance.password,
+      'code': instance.code,
     };

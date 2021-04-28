@@ -1,9 +1,22 @@
 {
     "title": "Intrale",
+    "notHave":"No tenes usuario? Registrate",
+    "missing":"No recuerdas tu contraseña? Recuperalá",
+    "haveCode":"Tienes código de verificación? Confirmalo",
+    "haveUser":"Tenes usuario? Ingresa",
+
+    "recovery.button": "Recuperar contraseña",
+    "confirm.button": "Confirmar",
+
     "signup.name":"Nombre",
     "signup.familyName":"Apellido",
     "signup.email":"Email",
     "signup.password":"Contraseña",
+
+    "confirm.code":"Código de verificación",
+
+
+
     "home":"Inicio",
     "brand":"Marca",
     "cart":"Carrito",
@@ -210,10 +223,9 @@
     "login":"Ingresa",
     "or":"O",
     "password":"Contraseña",
-    "notHave":"No tenes usuario? Registrate",
+
     "loginFacebook":"Ingresa con Facebook",
     "loginGoogle":"Ingresa con Google",
-    "notHaveLogin":"Tenes usuario? Ingresa",
     "welcomeTo":"Bienvenido a",
     "languageSetting":"Language",
     "titleCard":"Change Language?",

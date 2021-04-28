@@ -20,12 +20,12 @@ import 'package:intrale/util/services/signup/SignupRequest.dart';
 import 'package:intrale/util/services/signup/SignupResponse.dart';
 import 'package:intrale/util/services/signup/SignupService.dart';
 import 'package:intrale/util/validation/FormatValidation.dart';
-import 'package:intrale/util/validation/MinLength.dart';
 
 import 'package:intrale/util/validation/MultipleValidations.dart';
 import 'package:intrale/util/validation/Required.dart';
 
-import 'package:intrale/scrn/BottomNavigationBar.dart';
+import 'Confirm.dart';
+import 'Recovery.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -38,22 +38,6 @@ class _signupScreenState extends State<Signup>
     implements SubmitEvent {
   SignupService signupService = new SignupService();
 
-// Fields declarations
-  IntraleTextField name = IntraleTextField(
-      icon: Icons.person,
-      password: false,
-      description: 'signup.name',
-      inputType: TextInputType.name,
-      validator:
-          MultipleValidations(validations: [Required(), MinLength(length: 3)]));
-
-  IntraleTextField familyName = IntraleTextField(
-      icon: Icons.person,
-      password: false,
-      description: 'signup.familyName',
-      inputType: TextInputType.name,
-      validator: Required());
-
   IntraleTextField email = IntraleTextField(
       icon: Icons.email,
       password: false,
@@ -65,19 +49,6 @@ class _signupScreenState extends State<Signup>
             regexp: FormatValidation.EMAIL_PATTERN,
             message: 'Debe tener formato de email.')
       ]));
-
-  IntraleTextField password = IntraleTextField(
-    icon: Icons.vpn_key,
-    password: true,
-    description: 'signup.password',
-    inputType: TextInputType.text,
-    validator: MultipleValidations(validations: [
-      Required(),
-      FormatValidation(
-          regexp: FormatValidation.PASSWORD_PATTERN,
-          message: 'Debe tener formato de contraseña.')
-    ]),
-  );
 
   /// Component Widget layout UI
   @override
@@ -124,23 +95,13 @@ class _signupScreenState extends State<Signup>
                       ],
                     ),
 
-                    Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-
-                    this.name,
-
-                    Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-
-                    this.familyName,
-
                     /// TextFromField Email
                     Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
 
                     this.email,
 
-                    /// TextFromField Password
-                    Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-
-                    this.password,
+                    new LoginChoreographer(
+                        form: form, vsync: this, description: 'signUp'),
 
                     /// Button Signup
                     FlatButton(
@@ -152,20 +113,42 @@ class _signupScreenState extends State<Signup>
                                       new Login()));
                         },
                         child: Text(
-                          AppLocalizations.of(context).tr('notHaveLogin'),
+                          AppLocalizations.of(context).tr('haveUser'),
                           style: SansWhiteW6S13Style(),
                         )),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: mediaQueryData.padding.top + 100.0, bottom: 0.0),
-                    )
+
+                    /// Button Missing Password
+                    FlatButton(
+                        padding: EdgeInsets.only(top: 20.0),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      new Recovery()));
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).tr('missing'),
+                          style: SansWhiteW6S13Style(),
+                        )),
+
+                    /// Button have verification code
+                    FlatButton(
+                        padding: EdgeInsets.only(top: 20.0),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      new Confirm()));
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).tr('haveCode'),
+                          style: SansWhiteW6S13Style(),
+                        )),
                   ],
                 ),
               ),
             ],
           ),
-          new LoginChoreographer(
-              form: form, vsync: this, description: 'signUp'),
         ],
       ),
     ]);
@@ -174,12 +157,8 @@ class _signupScreenState extends State<Signup>
 
   @override
   Future<bool> onSubmit() async {
-    SignupResponse signupResponse = await signupService.post(SignupRequest(
-        name: this.name.value,
-        familyName: this.familyName.value,
-        username: this.email.value,
-        email: this.email.value,
-        password: this.password.value));
+    SignupResponse signupResponse =
+        await signupService.post(SignupRequest(email: this.email.value));
 
     if (signupResponse.statusCode != 200) {
       Error error = signupResponse.errors.first;
@@ -191,9 +170,8 @@ class _signupScreenState extends State<Signup>
                 content: Text(error.description));
           });
     } else {
-      debugPrint('Userstatus: ' + signupResponse.userStatus);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => new bottomNavigationBar()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (BuildContext context) => new Login()));
     }
     return true;
   }

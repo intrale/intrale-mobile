@@ -1,6 +1,8 @@
-class Request {
-  String businessName;
-  String requestId;
+import 'package:uuid/uuid.dart';
 
-  Request({this.businessName, this.requestId}) {}
+class Request {
+  String businessName = 'INTRALE';
+  String requestId = Uuid().v4();
+
+  Request() {}
 }

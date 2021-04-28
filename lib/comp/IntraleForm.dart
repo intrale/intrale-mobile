@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
 import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:intrale/comp/SubmitEvent.dart';
 

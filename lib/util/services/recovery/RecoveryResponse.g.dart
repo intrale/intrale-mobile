@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'SignupResponse.dart';
+part of 'RecoveryResponse.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) {
-  return SignupResponse(
-    businessName: json['businessName'] as String,
+RecoveryResponse _$RecoveryResponseFromJson(Map<String, dynamic> json) {
+  return RecoveryResponse(
     email: json['email'] as String,
   )
     ..statusCode = json['statusCode'] as int
@@ -18,10 +17,9 @@ SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) {
         ?.toList();
 }
 
-Map<String, dynamic> _$SignupResponseToJson(SignupResponse instance) =>
+Map<String, dynamic> _$RecoveryResponseToJson(RecoveryResponse instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'errors': instance.errors,
-      'businessName': instance.businessName,
       'email': instance.email,
     };

@@ -1,19 +1,14 @@
 import 'dart:async';
 
-import 'package:http/http.dart' as HTTP;
-
 import 'package:flutter/material.dart';
 
 import 'package:intrale/comp/styles/SansWhiteW6S13Style.dart';
-import 'package:intrale/comp/styles/SansWhiteW9S17LS2Style.dart';
 import 'package:intrale/comp/styles/SansWhiteW9S20LS6Style.dart';
 
 import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
 
 import 'package:intrale/comp/IntraleForm.dart';
 import 'package:intrale/comp/IntraleTextField.dart';
-import 'package:intrale/comp/FacebookButton.dart';
-import 'package:intrale/comp/GoogleButton.dart';
 import 'package:intrale/comp/SubmitEvent.dart';
 
 import 'package:intrale/scrn/LoginOrSignup/LoginChoreographer.dart';
@@ -21,23 +16,49 @@ import 'package:intrale/scrn/LoginOrSignup/LoginScaffold.dart';
 
 import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
 import 'package:intrale/util/validation/Required.dart';
+import 'package:intrale/util/services/Error.dart';
 
 import 'package:intrale/util/services/signin/SigninRequest.dart';
 import 'package:intrale/util/services/signin/SigninResponse.dart';
 import 'package:intrale/util/services/signin/SigninService.dart';
 
+import '../BottomNavigationBar.dart';
+
 class ChangePassword extends StatefulWidget {
+  String email;
+
+  ChangePassword({this.email}) {}
+
   @override
-  ChangePasswordState createState() => ChangePasswordState();
+  ChangePasswordState createState() => ChangePasswordState(email: email);
 }
 
 /// Component Widget this layout UI
 class ChangePasswordState extends State<ChangePassword>
     with TickerProviderStateMixin
     implements SubmitEvent {
+  String email;
+
+  ChangePasswordState({this.email}) {}
+
   SigninService signinService = new SigninService();
 
 // Fields declarations
+  IntraleTextField name = IntraleTextField(
+    icon: Icons.vpn_key,
+    password: false,
+    description: 'name',
+    inputType: TextInputType.text,
+    validator: Required(),
+  );
+
+  IntraleTextField familyName = IntraleTextField(
+    icon: Icons.vpn_key,
+    password: false,
+    description: 'familyName',
+    inputType: TextInputType.text,
+    validator: Required(),
+  );
 
   IntraleTextField actual = IntraleTextField(
     icon: Icons.vpn_key,
@@ -50,7 +71,7 @@ class ChangePasswordState extends State<ChangePassword>
   IntraleTextField newPassword = IntraleTextField(
     icon: Icons.vpn_key,
     password: true,
-    description: 'actual',
+    description: 'newPassword',
     inputType: TextInputType.text,
     validator: Required(),
   );
@@ -58,7 +79,7 @@ class ChangePasswordState extends State<ChangePassword>
   IntraleTextField repeatPassword = IntraleTextField(
     icon: Icons.vpn_key,
     password: true,
-    description: 'actual',
+    description: 'repeatPassword',
     inputType: TextInputType.text,
     validator: Required(),
   );
@@ -120,22 +141,15 @@ class ChangePasswordState extends State<ChangePassword>
                       ],
                     ),
 
-                    /// ButtonCustomFacebook
-                    Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
-                    FacebookButton(),
-
-                    /// ButtonCustomGoogle
-                    Padding(padding: EdgeInsets.symmetric(vertical: 7.0)),
-                    GoogleButton(),
-
-                    /// Set Text
-                    Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-                    Text(
-                      AppLocalizations.of(context).tr('or'),
-                      style: SansWhiteW9S17LS2Style(),
-                    ),
-
                     /// TextFromField Actual Pass
+                    Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+
+                    this.name,
+
+                    Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+
+                    this.familyName,
+
                     Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
 
                     this.actual,
@@ -144,6 +158,11 @@ class ChangePasswordState extends State<ChangePassword>
                     Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
 
                     this.newPassword,
+
+                    /// TextFromField Password
+                    Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+
+                    this.repeatPassword,
 
                     /// Button Signup
                     FlatButton(
@@ -176,6 +195,28 @@ class ChangePasswordState extends State<ChangePassword>
 
   @override
   Future<bool> onSubmit() async {
+    SigninResponse signinResponse = await signinService.post(SigninRequest(
+        name: this.name.value,
+        familyName: this.familyName.value,
+        username: this.email,
+        email: this.email,
+        password: this.actual.value,
+        newPassword: this.newPassword.value));
+
+    if (signinResponse.statusCode != 200) {
+      Error error = signinResponse.errors.first;
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                title: Text("Ocurrio un error:" + error.code),
+                content: Text(error.description));
+          });
+    } else {
+      // Ingresa normalmente a la aplicacion
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (BuildContext context) => new bottomNavigationBar()));
+    }
     return true;
   }
 }

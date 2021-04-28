@@ -10,73 +10,76 @@ import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dar
 import 'package:intrale/comp/IntraleForm.dart';
 import 'package:intrale/comp/IntraleTextField.dart';
 import 'package:intrale/comp/SubmitEvent.dart';
-import 'package:intrale/scrn/LoginOrSignup/Confirm.dart';
-import 'package:intrale/util/services/Error.dart';
 
 import 'package:intrale/scrn/LoginOrSignup/LoginChoreographer.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginScaffold.dart';
-import 'package:intrale/scrn/LoginOrSignup/Recovery.dart';
 
-import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
-import 'package:intrale/scrn/LoginOrSignup/ChangePassword.dart';
+import 'package:intrale/scrn/LoginOrSignup/Login.dart';
+import 'package:intrale/util/services/Error.dart';
+import 'package:intrale/util/services/confirm/ConfirmRecoveryRequest.dart';
+import 'package:intrale/util/services/confirm/ConfirmRecoveryResponse.dart';
+import 'package:intrale/util/services/confirm/ConfirmRecoveryService.dart';
+import 'package:intrale/util/validation/FormatValidation.dart';
+import 'package:intrale/util/validation/MinLength.dart';
 
+import 'package:intrale/util/validation/MultipleValidations.dart';
 import 'package:intrale/util/validation/Required.dart';
 
-import 'package:intrale/util/services/signin/SigninRequest.dart';
-import 'package:intrale/util/services/signin/SigninResponse.dart';
-import 'package:intrale/util/services/signin/SigninService.dart';
+import 'Recovery.dart';
+import 'Signup.dart';
 
-import '../BottomNavigationBar.dart';
-
-class Login extends StatefulWidget {
+class Confirm extends StatefulWidget {
   @override
-  _loginScreenState createState() => _loginScreenState();
+  _confirmScreenState createState() => _confirmScreenState();
 }
 
 /// Component Widget this layout UI
-class _loginScreenState extends State<Login>
+class _confirmScreenState extends State<Confirm>
     with TickerProviderStateMixin
     implements SubmitEvent {
-  SigninService signinService = new SigninService();
+  ConfirmRecoveryService confirmRecoveryService = new ConfirmRecoveryService();
 
 // Fields declarations
+  IntraleTextField code = IntraleTextField(
+      icon: Icons.code,
+      password: false,
+      description: 'confirm.code',
+      inputType: TextInputType.name,
+      validator:
+          MultipleValidations(validations: [Required(), MinLength(length: 3)]));
+
   IntraleTextField email = IntraleTextField(
       icon: Icons.email,
       password: false,
-      description: 'email',
+      description: 'signup.email',
       inputType: TextInputType.emailAddress,
-      validator: Required());
+      validator: MultipleValidations(validations: [
+        Required(),
+        FormatValidation(
+            regexp: FormatValidation.EMAIL_PATTERN,
+            message: 'Debe tener formato de email.')
+      ]));
 
   IntraleTextField password = IntraleTextField(
     icon: Icons.vpn_key,
     password: true,
-    description: 'password',
+    description: 'signup.password',
     inputType: TextInputType.text,
-    validator: Required(),
+    validator: MultipleValidations(validations: [
+      Required(),
+      FormatValidation(
+          regexp: FormatValidation.PASSWORD_PATTERN,
+          message: 'Debe tener formato de contraseña.')
+    ]),
   );
-
-  var tap = 0;
-
-  @override
-
-  /// set state animation controller
-  void initState() {
-    super.initState();
-  }
-
-  /// Dispose animation controller
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   /// Component Widget layout UI
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
-    /*mediaQueryData.devicePixelRatio;
+    mediaQueryData.devicePixelRatio;
     mediaQueryData.size.width;
-    mediaQueryData.size.height;*/
+    mediaQueryData.size.height;
 
     var form = IntraleForm(submitEvent: this);
 
@@ -125,9 +128,27 @@ class _loginScreenState extends State<Login>
 
                     this.password,
 
-                    /// Button Signup
+                    /// TextFromField Code
+                    Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
+
+                    this.code,
+
                     new LoginChoreographer(
-                        form: form, vsync: this, description: 'login'),
+                        form: form, vsync: this, description: 'confirm.button'),
+
+                    /// Button Signup
+                    FlatButton(
+                        padding: EdgeInsets.only(top: 20.0),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      new Login()));
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).tr('haveUser'),
+                          style: SansWhiteW6S13Style(),
+                        )),
 
                     FlatButton(
                         padding: EdgeInsets.only(top: 20.0),
@@ -155,20 +176,6 @@ class _loginScreenState extends State<Login>
                           AppLocalizations.of(context).tr('missing'),
                           style: SansWhiteW6S13Style(),
                         )),
-
-                    /// Button have verification code
-                    FlatButton(
-                        padding: EdgeInsets.only(top: 20.0),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new Confirm()));
-                        },
-                        child: Text(
-                          AppLocalizations.of(context).tr('haveCode'),
-                          style: SansWhiteW6S13Style(),
-                        )),
                   ],
                 ),
               ),
@@ -182,48 +189,25 @@ class _loginScreenState extends State<Login>
 
   @override
   Future<bool> onSubmit() async {
-    try {
-      SigninResponse signinResponse = await signinService.post(SigninRequest(
-          username: this.email.value,
-          email: this.email.value,
-          password: this.password.value));
+    ConfirmRecoveryResponse recoveryResponse =
+        await confirmRecoveryService.post(ConfirmRecoveryRequest(
+            email: this.email.value,
+            password: this.password.value,
+            code: this.code.value));
 
-      if ((signinResponse.statusCode != 200) &&
-          (signinResponse.statusCode != 426)) {
-        Error error = signinResponse.errors.first;
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                  title: Text("Ocurrio un error:" + error.code),
-                  content: Text(error.description));
-            });
-        return false;
-      }
-
-      if (signinResponse.statusCode == 200) {
-        // Ingresa normalmente a la aplicacion
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => new bottomNavigationBar()));
-      } else {
-        // Necesita cambio de contraseña
-        Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (_, __, ___) => new ChangePassword(
-                  email: this.email.value,
-                ),
-            transitionDuration: Duration(milliseconds: 750),
-            transitionsBuilder:
-                (_, Animation<double> animation, __, Widget child) {
-              return Opacity(
-                opacity: animation.value,
-                child: child,
-              );
-            }));
-      }
-    } catch (exception) {
-      debugPrint('Login exception: ' + exception.toString());
+    if (recoveryResponse.statusCode != 200) {
+      Error error = recoveryResponse.errors.first;
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                title: Text("Ocurrio un error:" + error.code),
+                content: Text(error.description));
+          });
+    } else {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (BuildContext context) => new Login()));
     }
-
     return true;
   }
 }

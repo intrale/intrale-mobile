@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as HTTP;
 
 abstract class Service<Response> {
-  static Map<String, String> headers = {"Content-type": "application/json"};
+  Map<String, String> headers;
 
   String endpoint;
+  String function;
 
-  Service({this.endpoint}) {}
+  Service({this.endpoint, this.function}) {
+    headers = {"Content-type": "application/json", "function": function};
+  }
 
   Response mapToResponse(Map responseMap);
 
@@ -16,19 +19,16 @@ abstract class Service<Response> {
     String body = jsonEncode(request);
 
     debugPrint("INTRALE: Invocando:" + endpoint);
+    debugPrint("INTRALE: function:" + function);
     debugPrint("INTRALE: body => \n" + body);
 
     HTTP.Response response =
         await HTTP.post(endpoint, headers: headers, body: body);
 
-    /*if (response.statusCode != 200) {
-      debugPrint('Service return exception ');
-      throw new Exception(response);
-
-    }*/
-    debugPrint("INTRALE: response => \n" + response.body);
+    debugPrint(
+        "INTRALE: response statusCode => \n" + response.statusCode.toString());
+    debugPrint("INTRALE: response body => \n" + response.body);
     Map responseMap = jsonDecode(response.body);
-    //responseMap.putIfAbsent('statusCode', () => response.statusCode);
 
     return mapToResponse(responseMap);
   }

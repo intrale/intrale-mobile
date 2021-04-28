@@ -18,7 +18,8 @@ class SigninRequest extends Request {
       this.username,
       this.password,
       this.newPassword,
-      this.email}) : super(businessName: 'test', requestId: '#1');
+      this.email})
+      : super();
 
   factory SigninRequest.fromJson(Map<String, dynamic> json) =>
       _$SigninRequestFromJson(json);

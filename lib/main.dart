@@ -16,7 +16,9 @@ void main() => runApp(EasyLocalization(child: myApp()));
 class myApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    debugPrint('INTRALE: Build Start');
     var data = EasyLocalizationProvider.of(context).data;
+    debugPrint('INTRALE: Build Step 1');
 
     /// To set orientation always portrait
     SystemChrome.setPreferredOrientations([
@@ -31,7 +33,7 @@ class myApp extends StatelessWidget {
     return EasyLocalizationProvider(
       data: data,
       child: new MaterialApp(
-        title: "Treva Shop",
+        title: "Intrale",
         theme: ThemeData(
             brightness: Brightness.light,
             backgroundColor: Colors.white,
