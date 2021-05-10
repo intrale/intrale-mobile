@@ -26,11 +26,13 @@ import '../BottomNavigationBar.dart';
 
 class ChangePassword extends StatefulWidget {
   String email;
+  String password;
 
-  ChangePassword({this.email}) {}
+  ChangePassword({this.email, this.password}) {}
 
   @override
-  ChangePasswordState createState() => ChangePasswordState(email: email);
+  ChangePasswordState createState() =>
+      ChangePasswordState(email: email, password: password);
 }
 
 /// Component Widget this layout UI
@@ -38,16 +40,17 @@ class ChangePasswordState extends State<ChangePassword>
     with TickerProviderStateMixin
     implements SubmitEvent {
   String email;
+  String password;
 
-  ChangePasswordState({this.email}) {}
+  ChangePasswordState({this.email, this.password}) {}
 
   SigninService signinService = new SigninService();
 
 // Fields declarations
   IntraleTextField name = IntraleTextField(
-    icon: Icons.vpn_key,
+    icon: Icons.person,
     password: false,
-    description: 'name',
+    description: 'changePassword.name',
     inputType: TextInputType.text,
     validator: Required(),
   );
@@ -55,15 +58,7 @@ class ChangePasswordState extends State<ChangePassword>
   IntraleTextField familyName = IntraleTextField(
     icon: Icons.vpn_key,
     password: false,
-    description: 'familyName',
-    inputType: TextInputType.text,
-    validator: Required(),
-  );
-
-  IntraleTextField actual = IntraleTextField(
-    icon: Icons.vpn_key,
-    password: true,
-    description: 'actual',
+    description: 'changePassword.familyName',
     inputType: TextInputType.text,
     validator: Required(),
   );
@@ -71,15 +66,7 @@ class ChangePasswordState extends State<ChangePassword>
   IntraleTextField newPassword = IntraleTextField(
     icon: Icons.vpn_key,
     password: true,
-    description: 'newPassword',
-    inputType: TextInputType.text,
-    validator: Required(),
-  );
-
-  IntraleTextField repeatPassword = IntraleTextField(
-    icon: Icons.vpn_key,
-    password: true,
-    description: 'repeatPassword',
+    description: 'changePassword.password',
     inputType: TextInputType.text,
     validator: Required(),
   );
@@ -150,43 +137,20 @@ class ChangePasswordState extends State<ChangePassword>
 
                     this.familyName,
 
-                    Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-
-                    this.actual,
-
                     /// TextFromField Password
                     Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
 
                     this.newPassword,
 
-                    /// TextFromField Password
-                    Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-
-                    this.repeatPassword,
-
-                    /// Button Signup
-                    FlatButton(
-                        padding: EdgeInsets.only(top: 20.0),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new Signup()));
-                        },
-                        child: Text(
-                          AppLocalizations.of(context).tr('notHave'),
-                          style: SansWhiteW6S13Style(),
-                        )),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: mediaQueryData.padding.top + 100.0, bottom: 0.0),
-                    )
+                    new LoginChoreographer(
+                        form: form,
+                        vsync: this,
+                        description: 'changePassword.update'),
                   ],
                 ),
               ),
             ],
           ),
-          new LoginChoreographer(form: form, vsync: this, description: 'login'),
         ],
       ),
     ]);
@@ -195,12 +159,14 @@ class ChangePasswordState extends State<ChangePassword>
 
   @override
   Future<bool> onSubmit() async {
+    debugPrint("INTRALE: onSubmit =>" + this.password);
+
     SigninResponse signinResponse = await signinService.post(SigninRequest(
         name: this.name.value,
         familyName: this.familyName.value,
         username: this.email,
         email: this.email,
-        password: this.actual.value,
+        password: this.password,
         newPassword: this.newPassword.value));
 
     if (signinResponse.statusCode != 200) {

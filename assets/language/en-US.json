@@ -15,7 +15,11 @@
 
     "confirm.code":"Código de verificación",
 
-
+    "changePassword.name":"Nombre",
+    "changePassword.familyName":"Apellido",
+    "changePassword.update":"Actualizar",
+    "changePassword.password":"Contraseña",
+    
 
     "home":"Inicio",
     "brand":"Marca",

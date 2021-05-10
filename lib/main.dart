@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intrale/util/DeepLinkBloc.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intrale/scrn/LoginOrSignup/ChoseLoginOrSignup.dart';
 import 'package:intrale/scrn/OnBoarding.dart';
@@ -16,9 +18,8 @@ void main() => runApp(EasyLocalization(child: myApp()));
 class myApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    debugPrint('INTRALE: Build Start');
+    DeepLinkBloc _bloc = DeepLinkBloc();
     var data = EasyLocalizationProvider.of(context).data;
-    debugPrint('INTRALE: Build Step 1');
 
     /// To set orientation always portrait
     SystemChrome.setPreferredOrientations([
@@ -30,6 +31,7 @@ class myApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
       statusBarColor: Colors.transparent, //or set color with: Color(0xFF0000FF)
     ));
+
     return EasyLocalizationProvider(
       data: data,
       child: new MaterialApp(
@@ -41,7 +43,13 @@ class myApp extends StatelessWidget {
             primaryColorBrightness: Brightness.light,
             primaryColor: Colors.white),
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: Scaffold(
+            body: Provider<DeepLinkBloc>(
+                create: (context) => _bloc,
+                dispose: (context, bloc) => bloc.dispose(),
+                child: SplashScreen())
+
+            /*body: SplashScreen()*/),
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -120,6 +128,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   /// Code Create UI Splash Screen
   Widget build(BuildContext context) {
+    DeepLinkBloc _bloc = Provider.of<DeepLinkBloc>(context);
     var data = EasyLocalizationProvider.of(context).data;
     return EasyLocalizationProvider(
       data: data,
@@ -163,7 +172,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
                       /// Animation text Treva Shop to choose Login with Hero Animation (Click to open code)
                       Hero(
-                        tag: "Treva",
+                        tag: "Intrale",
                         child: Text(
                           AppLocalizations.of(context).tr('title'),
                           style: TextStyle(

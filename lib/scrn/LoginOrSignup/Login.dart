@@ -210,6 +210,7 @@ class _loginScreenState extends State<Login>
         Navigator.of(context).push(PageRouteBuilder(
             pageBuilder: (_, __, ___) => new ChangePassword(
                   email: this.email.value,
+                  password: this.password.value,
                 ),
             transitionDuration: Duration(milliseconds: 750),
             transitionsBuilder:
