@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:intrale/comp/styles/SansWhiteW6S13Style.dart';
 import 'package:intrale/comp/styles/SansWhiteW9S20LS6Style.dart';
 
@@ -202,9 +204,11 @@ class _loginScreenState extends State<Login>
       }
 
       if (signinResponse.statusCode == 200) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
         // Ingresa normalmente a la aplicacion
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => new bottomNavigationBar()));
+        pref.setString('token', signinResponse.accessToken);
       } else {
         // Necesita cambio de contraseña
         Navigator.of(context).push(PageRouteBuilder(

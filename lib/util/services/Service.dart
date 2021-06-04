@@ -10,7 +10,11 @@ abstract class Service<Response> {
   String function;
 
   Service({this.endpoint, this.function}) {
-    headers = {"Content-type": "application/json", "function": function};
+    headers = {
+      "Content-type": "application/json",
+      "Authorization": 'Bearer ' /*+ localStorage.getItem('accessToken')*/,
+      "function": function
+    };
   }
 
   Response mapToResponse(Map responseMap);

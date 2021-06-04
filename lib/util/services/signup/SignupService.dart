@@ -6,7 +6,7 @@ class SignupService extends Service {
   SignupService() : super(endpoint: Endpoints.USERS, function: 'signup');
 
   @override
-  mapToResponse(Map responseMap) {
+  SignupResponse mapToResponse(Map responseMap) {
     return SignupResponse.fromJson(responseMap);
   }
 }

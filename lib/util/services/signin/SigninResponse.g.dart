@@ -8,9 +8,9 @@ part of 'SigninResponse.dart';
 
 SigninResponse _$SigninResponseFromJson(Map<String, dynamic> json) {
   return SigninResponse(
-    username: json['username'] as String,
-    userStatus: json['userStatus'] as String,
-    enabled: json['enabled'] as bool,
+    idToken: json['idToken'] as String,
+    accessToken: json['accessToken'] as String,
+    refreshToken: json['refreshToken'] as String,
   )
     ..statusCode = json['statusCode'] as int
     ..errors = (json['errors'] as List)
@@ -23,7 +23,7 @@ Map<String, dynamic> _$SigninResponseToJson(SigninResponse instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'errors': instance.errors,
-      'username': instance.username,
-      'userStatus': instance.userStatus,
-      'enabled': instance.enabled,
+      'idToken': instance.idToken,
+      'accessToken': instance.accessToken,
+      'refreshToken': instance.refreshToken,
     };

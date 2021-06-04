@@ -7,11 +7,11 @@ part 'SigninResponse.g.dart';
 
 @JsonSerializable()
 class SigninResponse extends Response {
-  String username;
-  String userStatus;
-  bool enabled;
+  String idToken;
+  String accessToken;
+  String refreshToken;
 
-  SigninResponse({this.username, this.userStatus, this.enabled}) {}
+  SigninResponse({this.idToken, this.accessToken, this.refreshToken}) {}
 
   factory SigninResponse.fromJson(Map<String, dynamic> json) =>
       _$SigninResponseFromJson(json);

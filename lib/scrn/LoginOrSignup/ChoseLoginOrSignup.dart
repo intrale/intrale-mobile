@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
 import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
+import 'package:intrale/util/services/Request.dart';
+import 'package:intrale/util/services/validateToken/ValidateTokenService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:intrale/scrn/BottomNavigationBar.dart';
@@ -20,6 +23,8 @@ class _ChoseLoginState extends State<ChoseLogin> with TickerProviderStateMixin {
   AnimationController animationController;
   var tapLogin = 0;
   var tapSignup = 0;
+
+  ValidateTokenService validateTokenService = new ValidateTokenService();
 
   @override
 
@@ -59,6 +64,28 @@ class _ChoseLoginState extends State<ChoseLogin> with TickerProviderStateMixin {
   /// Component Widget layout UI
   @override
   Widget build(BuildContext context) {
+    Future<SharedPreferences> sharedPreferences =
+        SharedPreferences.getInstance();
+    sharedPreferences.then((preferences) => {
+          if (preferences.getString('token') != null)
+            {
+              // Validar que el token sea valido
+              validateTokenService
+                  .post(new Request())
+                  .then((response) => {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                new bottomNavigationBar()))
+                      })
+                  .onError((error, stackTrace) => {
+                        Navigator.of(context)
+                            .pushReplacement(MaterialPageRoute(
+                                builder: (BuildContext context) => new Login()))
+                            .then((value) => {preferences.remove('token')})
+                      })
+            }
+        });
+
     MediaQueryData mediaQuery = MediaQuery.of(context);
     mediaQuery.devicePixelRatio;
     mediaQuery.size.height;
