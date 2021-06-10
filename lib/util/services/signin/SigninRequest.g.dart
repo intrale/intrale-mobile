@@ -14,14 +14,11 @@ SigninRequest _$SigninRequestFromJson(Map<String, dynamic> json) {
     password: json['password'] as String,
     newPassword: json['newPassword'] as String,
     email: json['email'] as String,
-  )
-    ..businessName = json['businessName'] as String
-    ..requestId = json['requestId'] as String;
+  )..requestId = json['requestId'] as String;
 }
 
 Map<String, dynamic> _$SigninRequestToJson(SigninRequest instance) =>
     <String, dynamic>{
-      'businessName': instance.businessName,
       'requestId': instance.requestId,
       'name': instance.name,
       'familyName': instance.familyName,

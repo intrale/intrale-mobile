@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
 import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:intrale/util/services/Request.dart';
+import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/validateToken/ValidateTokenService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,38 @@ class _ChoseLoginState extends State<ChoseLogin> with TickerProviderStateMixin {
     // TODO: implement dispose
   }
 
+  void tokenOk(Response response) async {
+    debugPrint('Inicio tokenOk');
+    if (response.statusCode == 200) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (BuildContext context) => new bottomNavigationBar()));
+    } else {
+      forwardToLogin();
+    }
+    debugPrint('Fin tokenOk');
+  }
+
+  void tokenError(dynamic error, StackTrace stackTrace) async {
+    debugPrint('Inicio tokenError');
+    debugPrint('Error:' + error.toString());
+    debugPrint('stackTrace:' + stackTrace.toString());
+    forwardToLogin();
+    debugPrint('Fin tokenError');
+  }
+
+  void removeTokens(SharedPreferences sharedPreferences) {
+    sharedPreferences.remove('accessToken');
+    sharedPreferences.remove('idToken');
+  }
+
+  void forwardToLogin() {
+    Future<SharedPreferences> sharedPreferences =
+        SharedPreferences.getInstance();
+    sharedPreferences.then((preference) => removeTokens(preference));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => new Login()));
+  }
+
   /// Playanimation set forward reverse
   Future<Null> _Playanimation() async {
     try {
@@ -67,22 +100,13 @@ class _ChoseLoginState extends State<ChoseLogin> with TickerProviderStateMixin {
     Future<SharedPreferences> sharedPreferences =
         SharedPreferences.getInstance();
     sharedPreferences.then((preferences) => {
-          if (preferences.getString('token') != null)
+          if (preferences.getString('accessToken') != null)
             {
               // Validar que el token sea valido
               validateTokenService
                   .post(new Request())
-                  .then((response) => {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new bottomNavigationBar()))
-                      })
-                  .onError((error, stackTrace) => {
-                        Navigator.of(context)
-                            .pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => new Login()))
-                            .then((value) => {preferences.remove('token')})
-                      })
+                  .then((response) => tokenOk(response))
+                  .onError((error, stackTrace) => tokenError(error, stackTrace))
             }
         });
 

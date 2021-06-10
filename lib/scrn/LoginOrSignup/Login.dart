@@ -208,7 +208,8 @@ class _loginScreenState extends State<Login>
         // Ingresa normalmente a la aplicacion
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => new bottomNavigationBar()));
-        pref.setString('token', signinResponse.accessToken);
+        pref.setString('accessToken', signinResponse.accessToken);
+        pref.setString('idToken', signinResponse.idToken);
       } else {
         // Necesita cambio de contraseña
         Navigator.of(context).push(PageRouteBuilder(

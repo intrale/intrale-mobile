@@ -12,15 +12,12 @@ ConfirmRecoveryRequest _$ConfirmRecoveryRequestFromJson(
     email: json['email'] as String,
     password: json['password'] as String,
     code: json['code'] as String,
-  )
-    ..businessName = json['businessName'] as String
-    ..requestId = json['requestId'] as String;
+  )..requestId = json['requestId'] as String;
 }
 
 Map<String, dynamic> _$ConfirmRecoveryRequestToJson(
         ConfirmRecoveryRequest instance) =>
     <String, dynamic>{
-      'businessName': instance.businessName,
       'requestId': instance.requestId,
       'email': instance.email,
       'password': instance.password,
