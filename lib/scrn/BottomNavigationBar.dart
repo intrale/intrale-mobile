@@ -1,10 +1,12 @@
 import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
 import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/brand/BrandLayout.dart';
 import 'package:intrale/scrn/cart/CartLayout.dart';
 import 'package:intrale/scrn/home/Home.dart';
 import 'package:intrale/scrn/account/Profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class bottomNavigationBar extends StatefulWidget {
   @override
@@ -16,22 +18,42 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
 
   /// Set a type current number a layout class
   Widget callPage(int current) {
+    debugPrint('callPage:' + current.toString());
     switch (current) {
       case 0:
         {
           debugPrint('Invocando a Menu desde bottomNavigationBar');
           return new Menu();
         }
+      //case 1:
+      //return new brand();
       case 1:
-        return new brand();
-      case 2:
         return new cart();
-      case 3:
+      case 2:
         return new profil();
+      case 3:
+        forwardToLogin();
         break;
       default:
         return Menu();
     }
+  }
+
+  void removeTokens(SharedPreferences sharedPreferences) {
+    sharedPreferences.remove('accessToken');
+    sharedPreferences.remove('idToken');
+  }
+
+  void forward(SharedPreferences sharedPreferences) {
+    removeTokens(sharedPreferences);
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => new Login()));
+  }
+
+  void forwardToLogin() {
+    Future<SharedPreferences> sharedPreferences =
+        SharedPreferences.getInstance();
+    sharedPreferences.then((preference) => forward(preference));
   }
 
   /// Build BottomNavigationBar Widget
@@ -53,6 +75,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
               currentIndex: currentIndex,
               fixedColor: Color(0xFF6991C7),
               onTap: (value) {
+                debugPrint('BottomNavigationBar onTap:' + value.toString());
                 currentIndex = value;
                 setState(() {});
               },
@@ -67,13 +90,13 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
                       style:
                           TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
                     )),
-                BottomNavigationBarItem(
+                /*BottomNavigationBarItem(
                     icon: Icon(Icons.shop),
                     title: Text(
                       AppLocalizations.of(context).tr('brand'),
                       style:
                           TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
+                    )), */
                 BottomNavigationBarItem(
                     icon: Icon(Icons.shopping_cart),
                     title: Text(
@@ -88,6 +111,13 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
                     ),
                     title: Text(
                       AppLocalizations.of(context).tr('account'),
+                      style:
+                          TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
+                    )),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.exit_to_app),
+                    title: Text(
+                      AppLocalizations.of(context).tr('exit'),
                       style:
                           TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
                     )),
