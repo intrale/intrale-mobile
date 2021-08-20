@@ -10,6 +10,8 @@ import 'package:intrale/scrn/home/DetailProduct.dart';
 import 'package:intrale/scrn/home/FlashSale.dart';
 import 'package:intrale/scrn/home/MenuDetail.dart';
 import 'package:intrale/scrn/home/PromotionDetail.dart';
+import 'package:intrale/util/services/products/read/ReadProductsRequest.dart';
+import 'package:intrale/util/services/products/read/ReadProductsService.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -22,6 +24,8 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
   GridItem gridItem;
 
   bool isStarted = false;
+
+  ReadProductsService readProductsServices = new ReadProductsService();
 
   @override
   Widget build(BuildContext context) {
@@ -490,6 +494,20 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
     );
 
     ///  Grid item in bottom of Category
+    gridItemArray = new List<GridItem>();
+    readProductsServices.post(new ReadProductsRequest()).then((value) => {
+          value.products.forEach((element) {
+            gridItemArray.add(GridItem(
+                id: element.id,
+                img: "assets/imgItem/fashion1.jpg",
+                title: element.name,
+                price: element.price.unitPrice.toString(),
+                itemSale: "932 Sale",
+                rattingValue: "4.8",
+                description: element.description));
+          })
+        });
+
     var Grid = SingleChildScrollView(
       child: Container(
         color: Colors.white,
@@ -543,16 +561,16 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                   imageSlider,
 
                   /// Call var categoryIcon
-                  categoryIcon,
+                  /*categoryIcon,
                   Padding(
                     padding: EdgeInsets.only(top: 10.0),
                   ),
-
+                  */
                   /// Call var PromoHorizontalList
-                  PromoHorizontalList,
+                  //PromoHorizontalList,
 
                   /// Call var a FlashSell, i am sorry Typo :v
-                  FlashSell,
+                  /*FlashSell,
                   Padding(
                     padding: EdgeInsets.only(top: 10.0),
                   ),
@@ -560,7 +578,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                   Padding(
                     padding: EdgeInsets.only(bottom: 10.0),
                   ),
-
+                  */
                   /// Call a Grid variable, this is item list in Recomended item
                   Grid,
                 ],
@@ -714,7 +732,7 @@ class ItemGrid extends StatelessWidget {
                             size: 14.0,
                           )
                         ],
-                      ),
+                      ) /*,
                       Text(
                         gridItem.itemSale,
                         style: TextStyle(
@@ -722,7 +740,7 @@ class ItemGrid extends StatelessWidget {
                             color: Colors.black26,
                             fontWeight: FontWeight.w500,
                             fontSize: 12.0),
-                      )
+                      )*/
                     ],
                   ),
                 ),

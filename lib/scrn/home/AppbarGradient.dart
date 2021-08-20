@@ -46,7 +46,7 @@ class _AppbarGradientState extends State<AppbarGradient> {
           children: <Widget>[
             /// if user click shape white in appbar navigate to search layout
             InkWell(
-              onTap: () {
+              /*onTap: () {
                 Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (_, __, ___) => searchAppbar(),
 
@@ -61,23 +61,24 @@ class _AppbarGradientState extends State<AppbarGradient> {
                         child: child,
                       );
                     }));
-              },
+              },*/
 
               /// Create shape background white in appbar (background treva shop text)
               child: Container(
                 margin: EdgeInsets.only(left: media.padding.left + 15),
                 height: 37.0,
                 width: 222.0,
-                decoration: BoxDecoration(
-                    color: Colors.white,
+                /*decoration: BoxDecoration(
+                    color: Colors.cyanAccent,
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    shape: BoxShape.rectangle),
+                    shape: BoxShape.rectangle),*/
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    /**/
                     Padding(padding: EdgeInsets.only(left: 17.0)),
                     Image.asset(
-                      "assets/img/search2.png",
+                      "assets/img/Logo.png",
                       height: 22.0,
                     ),
                     Padding(
@@ -90,12 +91,13 @@ class _AppbarGradientState extends State<AppbarGradient> {
                         AppLocalizations.of(context).tr('title'),
                         style: TextStyle(
                             fontFamily: "Popins",
-                            color: Colors.black12,
+                            color: Colors.white,
                             fontWeight: FontWeight.w900,
                             letterSpacing: 0.0,
                             fontSize: 16.4),
                       ),
                     ),
+                    /**/
                   ],
                 ),
               ),

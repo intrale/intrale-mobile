@@ -18,29 +18,29 @@ class _notificationState extends State<notification> {
         Post(
             image: "assets/img/Logo.png",
             id: 1,
-            title: "Treva Shop",
-            desc: "Thanks for downloaded treva shop application"),
+            title: "Intrale App",
+            desc: "Gracias por descargar nuestra aplicación"),
       );
       items.add(
         Post(
             image: "assets/img/Logo.png",
             id: 2,
-            title: "Treva Shop",
-            desc: "Your Item Delivery"),
+            title: "Intrale App",
+            desc: "Tu orden esta siendo procesada"),
       );
       items.add(
         Post(
             image: "assets/img/Logo.png",
             id: 3,
-            title: "Treva Shop",
-            desc: "Pending List Item Shoes"),
+            title: "Intrale App",
+            desc: "Tenes productos pendientes en tu carrito"),
       );
       items.add(
         Post(
             image: "assets/img/Logo.png",
             id: 4,
-            title: "Treva Shop",
-            desc: "Get 10% Discount for macbook pro 2018"),
+            title: "Intrale App",
+            desc: "Obten un 10% de descuento en macbook pro 2018"),
       );
     });
   }

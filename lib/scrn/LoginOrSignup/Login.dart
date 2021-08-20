@@ -24,9 +24,9 @@ import 'package:intrale/scrn/LoginOrSignup/ChangePassword.dart';
 
 import 'package:intrale/util/validation/Required.dart';
 
-import 'package:intrale/util/services/signin/SigninRequest.dart';
-import 'package:intrale/util/services/signin/SigninResponse.dart';
-import 'package:intrale/util/services/signin/SigninService.dart';
+import 'package:intrale/util/services/users/signin/SigninRequest.dart';
+import 'package:intrale/util/services/users/signin/SigninResponse.dart';
+import 'package:intrale/util/services/users/signin/SigninService.dart';
 
 import '../BottomNavigationBar.dart';
 

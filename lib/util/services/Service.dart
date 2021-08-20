@@ -6,16 +6,22 @@ import 'package:http/http.dart' as HTTP;
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class Service<Response> {
+  bool initialized = false;
+
   Map<String, String> headers;
 
   String endpoint;
   String function;
-  String token;
 
-  void initializeHeaders() async {
+  Future initializeHeaders() async {
+    if (this.headers != null) {
+      return;
+    }
+    debugPrint('Inicializando Servicio');
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String accessToken = '';
     String idToken = '';
+
     if (sharedPreferences.containsKey('accessToken')) {
       accessToken = sharedPreferences.getString('accessToken');
     }
@@ -30,17 +36,19 @@ abstract class Service<Response> {
       'function': function,
       'businessname': 'INTRALE',
     };
+
+    debugPrint("INTRALE: initializeHeaders headers:" + this.headers.toString());
+    debugPrint('Fin Inicializando Servicio');
+    return;
   }
 
-  Service({this.endpoint, this.function}) {
-    debugPrint('Inicializando Servicio');
-    initializeHeaders();
-    debugPrint('Fin Inicializando Servicio');
-  }
+  Service({this.endpoint, this.function}) {}
 
   Response mapToResponse(Map responseMap);
 
   Future<Response> post(Object request) async {
+    await initializeHeaders();
+
     String body = jsonEncode(request);
 
     debugPrint("INTRALE: Invocando:" + endpoint);

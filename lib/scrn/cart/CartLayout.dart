@@ -68,6 +68,7 @@ class _cartState extends State<cart> {
                     ///
                     return Slidable(
                       //delegate: new SlidableDrawerDelegate(),
+                      actionPane: SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
                       actions: <Widget>[
                         new IconSlideAction(

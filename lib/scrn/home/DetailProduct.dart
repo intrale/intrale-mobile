@@ -359,7 +359,7 @@ class _detailProdukState extends State<detailProduk> {
                     ),
 
                     /// Background white for chose Size and Color
-                    Padding(
+                    /*Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Container(
                         height: 220.0,
@@ -422,7 +422,7 @@ class _detailProdukState extends State<detailProduk> {
                           ),
                         ),
                       ),
-                    ),
+                    ),*/
 
                     /// Background white for description
                     Padding(

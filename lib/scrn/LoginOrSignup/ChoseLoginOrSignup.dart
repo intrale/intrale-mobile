@@ -4,7 +4,7 @@ import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dar
 import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:intrale/util/services/Request.dart';
 import 'package:intrale/util/services/Response.dart';
-import 'package:intrale/util/services/validateToken/ValidateTokenService.dart';
+import 'package:intrale/util/services/users/validateToken/ValidateTokenService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';

@@ -75,6 +75,8 @@ flutter:
           weight : 600
 
   assets:
+    - assets/logo/intrale.png
+    - assets/logo/intraleOnlyLogo.png
     - assets/img/google.png
     - assets/img/googlewallet.png
     - assets/img/credit.png

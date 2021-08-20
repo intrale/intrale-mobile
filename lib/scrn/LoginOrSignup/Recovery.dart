@@ -17,9 +17,9 @@ import 'package:intrale/scrn/LoginOrSignup/LoginScaffold.dart';
 
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/util/services/Error.dart';
-import 'package:intrale/util/services/recovery/RecoveryResponse.dart';
-import 'package:intrale/util/services/recovery/RecoveryService.dart';
-import 'package:intrale/util/services/signup/SignupRequest.dart';
+import 'package:intrale/util/services/users/recovery/RecoveryResponse.dart';
+import 'package:intrale/util/services/users/recovery/RecoveryService.dart';
+import 'package:intrale/util/services/users/signup/SignupRequest.dart';
 import 'package:intrale/util/validation/FormatValidation.dart';
 
 import 'package:intrale/util/validation/MultipleValidations.dart';

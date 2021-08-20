@@ -1,6 +1,6 @@
 import 'package:intrale/util/services/Endpoints.dart';
 import 'package:intrale/util/services/Service.dart';
-import 'package:intrale/util/services/confirm/ConfirmRecoveryResponse.dart';
+import 'package:intrale/util/services/users/confirm/ConfirmRecoveryResponse.dart';
 
 class ConfirmRecoveryService extends Service {
   ConfirmRecoveryService()

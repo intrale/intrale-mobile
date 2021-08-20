@@ -1,6 +1,6 @@
 import 'package:intrale/util/services/Endpoints.dart';
 import 'package:intrale/util/services/Service.dart';
-import 'package:intrale/util/services/recovery/RecoveryResponse.dart';
+import 'package:intrale/util/services/users/recovery/RecoveryResponse.dart';
 
 class RecoveryService extends Service {
   RecoveryService()
