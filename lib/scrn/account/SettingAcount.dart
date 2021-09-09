@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 
 class settingAcount extends StatefulWidget {
@@ -24,58 +22,53 @@ class _settingAcountState extends State<settingAcount> {
 
   @override
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
-
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            AppLocalizations.of(context).tr('settingAccount'),
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 18.0,
-                color: Colors.black54,
-                fontFamily: "Gotik"),
-          ),
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Color(0xFF6991C7)),
-          elevation: 0.0,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'settingAccount',
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 18.0,
+              color: Colors.black54,
+              fontFamily: "Gotik"),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                setting(
-                  head: AppLocalizations.of(context).tr('account'),
-                  sub1: AppLocalizations.of(context).tr('address'),
-                  sub2: AppLocalizations.of(context).tr('telephone'),
-                  sub3: AppLocalizations.of(context).tr('email'),
-                ),
-                setting(
-                  head: AppLocalizations.of(context).tr('setting'),
-                  sub1: AppLocalizations.of(context).tr('orderNotification'),
-                  sub2: AppLocalizations.of(context).tr('discountNotification'),
-                  sub3: AppLocalizations.of(context).tr('creditCard'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Container(
-                    height: 50.0,
-                    width: 1000.0,
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 13.0, left: 20.0, bottom: 15.0),
-                      child: Text(
-                        AppLocalizations.of(context).tr('logout'),
-                        style: _txtCustomHead,
-                      ),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+        elevation: 0.0,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              setting(
+                head: 'account',
+                sub1: 'address',
+                sub2: 'telephone',
+                sub3: 'email',
+              ),
+              setting(
+                head: 'setting',
+                sub1: 'orderNotification',
+                sub2: 'discountNotification',
+                sub3: 'creditCard',
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Container(
+                  height: 50.0,
+                  width: 1000.0,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 13.0, left: 20.0, bottom: 15.0),
+                    child: Text(
+                      'logout',
+                      style: _txtCustomHead,
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/BrandDataList.dart';
@@ -19,51 +17,45 @@ class _chatItemState extends State<chatItem> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.4,
-          title: Text(
-            AppLocalizations.of(context).tr('chatting'),
-            style: TextStyle(
-                fontFamily: "Gotik", fontSize: 18.0, color: Colors.black54),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.4,
+        title: Text(
+          'chatting',
+          style: TextStyle(
+              fontFamily: "Gotik", fontSize: 18.0, color: Colors.black54),
+        ),
+        iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
+
+      /// body in chat like a list in a message
+      body: Container(
+        color: Colors.white,
+        child: new Column(children: <Widget>[
+          new Flexible(
+            child: _messages.length > 0
+                ? Container(
+                    child: new ListView.builder(
+                      itemBuilder: (_, int index) => _messages[index],
+                      itemCount: _messages.length,
+                      reverse: true,
+                      padding: new EdgeInsets.all(10.0),
+                    ),
+                  )
+                : NoMessage(),
           ),
-          iconTheme: IconThemeData(color: Color(0xFF6991C7)),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-        ),
 
-        /// body in chat like a list in a message
-        body: Container(
-          color: Colors.white,
-          child: new Column(children: <Widget>[
-            new Flexible(
-              child: _messages.length > 0
-                  ? Container(
-                      child: new ListView.builder(
-                        itemBuilder: (_, int index) => _messages[index],
-                        itemCount: _messages.length,
-                        reverse: true,
-                        padding: new EdgeInsets.all(10.0),
-                      ),
-                    )
-                  : NoMessage(),
-            ),
-
-            /// Line
-            new Divider(height: 1.5),
-            new Container(
-              child: _buildComposer(),
-              decoration: new BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  boxShadow: [
-                    BoxShadow(blurRadius: 1.0, color: Colors.black12)
-                  ]),
-            ),
-          ]),
-        ),
+          /// Line
+          new Divider(height: 1.5),
+          new Container(
+            child: _buildComposer(),
+            decoration: new BoxDecoration(
+                color: Theme.of(context).cardColor,
+                boxShadow: [BoxShadow(blurRadius: 1.0, color: Colors.black12)]),
+          ),
+        ]),
       ),
     );
   }
@@ -99,8 +91,7 @@ class _chatItemState extends State<chatItem> with TickerProviderStateMixin {
                         },
                         onSubmitted: _submitMsg,
                         decoration: new InputDecoration.collapsed(
-                            hintText:
-                                AppLocalizations.of(context).tr('hintChat'),
+                            hintText: 'hintChat',
                             hintStyle: TextStyle(
                                 fontFamily: "Sans",
                                 fontSize: 16.0,
@@ -235,7 +226,7 @@ class NoMessage extends StatelessWidget {
           ),
           Center(
               child: Text(
-            AppLocalizations.of(context).tr('notHaveMessage'),
+            'notHaveMessage',
             style: TextStyle(
                 fontWeight: FontWeight.w300,
                 color: Colors.black12,

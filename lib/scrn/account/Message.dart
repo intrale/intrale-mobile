@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 
 class chat extends StatefulWidget {
@@ -14,7 +12,7 @@ class _chatState extends State<chat> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context).tr('message'),
+          'message',
           style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 22.0,
@@ -42,7 +40,7 @@ class _chatState extends State<chat> {
             ),
             Padding(padding: EdgeInsets.only(bottom: 20.0)),
             Text(
-              AppLocalizations.of(context).tr('noMessage'),
+              'noMessage',
               style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 19.5,

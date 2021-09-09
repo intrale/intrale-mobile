@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
+import 'package:intrale/const/TextStyleConst.dart';
 
 import 'package:intrale/util/validation/Validator.dart';
 import 'package:intrale/comp/TapEvent.dart';
@@ -63,7 +62,6 @@ class IntraleTextFieldState extends State<IntraleTextField> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('IntraleTextField build');
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.0),
       child: Container(
@@ -98,17 +96,12 @@ class IntraleTextFieldState extends State<IntraleTextField> {
               obscureText: password,
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  labelText: AppLocalizations.of(context).tr(description),
+                  labelText: description,
                   icon: Icon(
                     icon,
                     color: Colors.black38,
                   ),
-                  labelStyle: TextStyle(
-                      fontSize: 15.0,
-                      fontFamily: 'Sans',
-                      letterSpacing: 0.3,
-                      color: Colors.black38,
-                      fontWeight: FontWeight.w600)),
+                  labelStyle: INTRALE_TEXT_FIELD),
               keyboardType: inputType),
         ),
       ),

@@ -1,235 +1,185 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intrale/comp/IntraleButton.dart';
+import 'package:intrale/comp/IntraleState.dart';
+
+import 'package:intrale/util/tools.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:intrale/comp/styles/SansWhiteW6S13Style.dart';
-import 'package:intrale/comp/styles/SansWhiteW9S20LS6Style.dart';
-
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-
-import 'package:intrale/comp/IntraleForm.dart';
 import 'package:intrale/comp/IntraleTextField.dart';
-import 'package:intrale/comp/SubmitEvent.dart';
-import 'package:intrale/scrn/LoginOrSignup/Confirm.dart';
 import 'package:intrale/util/services/Error.dart';
 
-import 'package:intrale/scrn/LoginOrSignup/LoginChoreographer.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginScaffold.dart';
-import 'package:intrale/scrn/LoginOrSignup/Recovery.dart';
 
-import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
 import 'package:intrale/scrn/LoginOrSignup/ChangePassword.dart';
 
 import 'package:intrale/util/validation/Required.dart';
 
 import 'package:intrale/util/services/users/signin/SigninRequest.dart';
-import 'package:intrale/util/services/users/signin/SigninResponse.dart';
 import 'package:intrale/util/services/users/signin/SigninService.dart';
 
-import '../BottomNavigationBar.dart';
+import 'package:intrale/scrn/BottomNavigationBar.dart';
 
 class Login extends StatefulWidget {
   @override
-  _loginScreenState createState() => _loginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
 /// Component Widget this layout UI
-class _loginScreenState extends State<Login>
-    with TickerProviderStateMixin
-    implements SubmitEvent {
+class LoginScreenState extends IntraleState<Login> {
+  // Texts declarations
+  Text ok;
+  Text badCredentials;
+
+  // Fields declarations
+  IntraleTextField email;
+  IntraleTextField password;
+
+  // Services declarations
   SigninService signinService = new SigninService();
 
-// Fields declarations
-  IntraleTextField email = IntraleTextField(
-      icon: Icons.email,
-      password: false,
-      description: 'email',
-      inputType: TextInputType.emailAddress,
-      validator: Required());
+  // Buttons declarations
+  IntraleButton submit;
 
-  IntraleTextField password = IntraleTextField(
-    icon: Icons.vpn_key,
-    password: true,
-    description: 'password',
-    inputType: TextInputType.text,
-    validator: Required(),
-  );
+  // Images declarations
 
-  var tap = 0;
+  // Other Components declarations
+  Column fields;
 
   @override
-
-  /// set state animation controller
-  void initState() {
-    super.initState();
+  void buttonsInitializations() {
+    submit = IntraleButton(
+      description: AppLocalizations.of(context).login_submit,
+      onTap: () => onSubmit(),
+    );
   }
 
-  /// Dispose animation controller
   @override
-  void dispose() {
-    super.dispose();
+  void fieldsInitializations() {
+    email = IntraleTextField(
+        icon: Icons.email,
+        password: false,
+        description: AppLocalizations.of(context).login_email,
+        inputType: TextInputType.emailAddress,
+        validator: Required());
+
+    password = IntraleTextField(
+      icon: Icons.vpn_key,
+      password: true,
+      description: AppLocalizations.of(context).login_password,
+      inputType: TextInputType.text,
+      validator: Required(),
+    );
+  }
+
+  @override
+  void imagesInitializations() {}
+
+  @override
+  void othersInitializations() {
+    fields = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+              alignment: AlignmentDirectional.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  /// padding logo
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: mediaQueryData.padding.top + 40.0)),
+                  header,
+                  Padding(padding: EdgeInsets.all(10)),
+                  email,
+                  Padding(padding: EdgeInsets.all(10)),
+                  password,
+
+                  submit,
+
+                  notHaveButton,
+                  missingButton,
+                  haveCodeButton,
+                ],
+              ))
+        ]);
+  }
+
+  @override
+  void servicesInitializations() {
+    signinService = new SigninService();
+  }
+
+  @override
+  void textsInitializations() {
+    ok = Text(AppLocalizations.of(context).login_ok);
+    badCredentials = Text(AppLocalizations.of(context).login_badCredentials);
   }
 
   /// Component Widget layout UI
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    /*mediaQueryData.devicePixelRatio;
-    mediaQueryData.size.width;
-    mediaQueryData.size.height;*/
-
-    var form = IntraleForm(submitEvent: this);
-
-    form.child = LoginScaffold(children: <Widget>[
-      Stack(
-        alignment: AlignmentDirectional.bottomCenter,
-        children: <Widget>[
-          Column(
+    return new Form(
+        key: formKey,
+        child: LoginScaffold(children: <Widget>[
+          Stack(
+            alignment: AlignmentDirectional.center,
             children: <Widget>[
-              Container(
-                alignment: AlignmentDirectional.topCenter,
-                child: Column(
-                  children: <Widget>[
-                    /// padding logo
-                    Padding(
-                        padding: EdgeInsets.only(
-                            top: mediaQueryData.padding.top + 40.0)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image(
-                          image: AssetImage("assets/img/Logo.png"),
-                          height: 70.0,
-                        ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10.0)),
-
-                        /// Animation text treva shop accept from signup layout (Click to open code)
-                        Hero(
-                          tag: "Intrale",
-                          child: Text(
-                            AppLocalizations.of(context).tr('title'),
-                            style: SansWhiteW9S20LS6Style(),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    /// TextFromField Email
-                    Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-
-                    this.email,
-
-                    /// TextFromField Password
-                    Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-
-                    this.password,
-
-                    /// Button Signup
-                    new LoginChoreographer(
-                        form: form, vsync: this, description: 'login'),
-
-                    FlatButton(
-                        padding: EdgeInsets.only(top: 20.0),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new Signup()));
-                        },
-                        child: Text(
-                          AppLocalizations.of(context).tr('notHave'),
-                          style: SansWhiteW6S13Style(),
-                        )),
-
-                    /// Button Missing Password
-                    FlatButton(
-                        padding: EdgeInsets.only(top: 20.0),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new Recovery()));
-                        },
-                        child: Text(
-                          AppLocalizations.of(context).tr('missing'),
-                          style: SansWhiteW6S13Style(),
-                        )),
-
-                    /// Button have verification code
-                    FlatButton(
-                        padding: EdgeInsets.only(top: 20.0),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new Confirm()));
-                        },
-                        child: Text(
-                          AppLocalizations.of(context).tr('haveCode'),
-                          style: SansWhiteW6S13Style(),
-                        )),
-                  ],
-                ),
-              ),
+              fields,
             ],
           ),
-        ],
-      ),
-    ]);
-    return form;
+        ]));
   }
 
-  @override
-  Future<bool> onSubmit() async {
-    try {
-      SigninResponse signinResponse = await signinService.post(SigninRequest(
-          username: this.email.value,
-          email: this.email.value,
-          password: this.password.value));
-
-      if ((signinResponse.statusCode != 200) &&
-          (signinResponse.statusCode != 426)) {
-        Error error = signinResponse.errors.first;
-        showDialog(
+  onSubmit() {
+    debugPrint('Login onSubmit');
+    if (formKey.currentState.validate()) {
+      formKey.currentState.save();
+      signinService
+          .post(SigninRequest(
+              username: this.email.value,
+              email: this.email.value,
+              password: this.password.value))
+          .then((signinResponse) {
+        if (signinResponse.statusCode == 200) {
+          SharedPreferences.getInstance().then((pref) {
+            pref.setString('accessToken', signinResponse.accessToken);
+            pref.setString('idToken', signinResponse.idToken);
+            // Ingresa normalmente a la aplicacion
+            redirectTo(context, new bottomNavigationBar());
+          });
+        } else if (signinResponse.statusCode == 426) {
+          // Necesita cambio de contraseña
+          redirectTo(
+              context,
+              new ChangePassword(
+                email: this.email.value,
+                password: this.password.value,
+              ));
+        } else {
+          Error error = signinResponse.errors.first;
+          showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                  title: Text("Ocurrio un error:" + error.code),
-                  content: Text(error.description));
-            });
-        return false;
-      }
-
-      if (signinResponse.statusCode == 200) {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        // Ingresa normalmente a la aplicacion
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => new bottomNavigationBar()));
-        pref.setString('accessToken', signinResponse.accessToken);
-        pref.setString('idToken', signinResponse.idToken);
-      } else {
-        // Necesita cambio de contraseña
-        Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (_, __, ___) => new ChangePassword(
-                  email: this.email.value,
-                  password: this.password.value,
-                ),
-            transitionDuration: Duration(milliseconds: 750),
-            transitionsBuilder:
-                (_, Animation<double> animation, __, Widget child) {
-              return Opacity(
-                opacity: animation.value,
-                child: child,
+                title: badCredentials,
+                /*content: Text(error.code + " - " + error.description),*/
+                actions: [
+                  TextButton(
+                    child: ok,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
               );
-            }));
-      }
-    } catch (exception) {
-      debugPrint('Login exception: ' + exception.toString());
+            },
+          );
+        }
+      });
     }
-
-    return true;
   }
 }

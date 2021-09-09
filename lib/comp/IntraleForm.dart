@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
-import 'package:intrale/comp/SubmitEvent.dart';
-
-class IntraleForm extends StatefulWidget implements SubmitEvent {
-  Widget child;
+class IntraleForm extends StatefulWidget {
   final formKey = GlobalKey<FormState>();
-  SubmitEvent submitEvent;
+  Widget child;
 
-  IntraleForm({this.child, this.submitEvent}) {}
+  IntraleForm({this.child}) {}
 
   @override
-  State<StatefulWidget> createState() {
-    return IntraleFormState(child, formKey);
+  State<StatefulWidget> createState() => IntraleFormState(formKey, child);
+
+  void save() {
+    formKey.currentState.save();
   }
 
-  @override
-  Future<bool> onSubmit() {
-    formKey.currentState.save();
-    return submitEvent.onSubmit();
+  bool validate() {
+    debugPrint('IntraleFormState onSubmit');
+    bool value = formKey.currentState.validate();
+    if (value) {
+      save();
+    }
+    return value;
   }
 }
 
 class IntraleFormState extends State<IntraleForm> {
   final Widget child;
-  final formKey;
+  GlobalKey<FormState> formKey;
 
-  IntraleFormState(this.child, this.formKey) {}
+  IntraleFormState(this.formKey, this.child) {}
 
   @override
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
     return Form(
       key: formKey,
-      child: EasyLocalizationProvider(data: data, child: child),
+      child: child,
     );
   }
 }

@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/scrn/account/AboutApps.dart';
 import 'package:intrale/scrn/account/CallCenter.dart';
@@ -64,7 +62,7 @@ class _profilState extends State<profil> {
               Padding(
                 padding: const EdgeInsets.only(top: 5.0),
                 child: Text(
-                  AppLocalizations.of(context).tr('name'),
+                  'name',
                   style: _txtName,
                 ),
               ),
@@ -73,7 +71,7 @@ class _profilState extends State<profil> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 0.0),
                   child: Text(
-                    AppLocalizations.of(context).tr('editProfile'),
+                    'editProfile',
                     style: _txtEdit,
                   ),
                 ),
@@ -85,167 +83,162 @@ class _profilState extends State<profil> {
       ),
     );
 
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: Stack(
-            children: <Widget>[
-              /// Setting Header Banner
-              Container(
-                height: 240.0,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/img/headerProfile.png"),
-                        fit: BoxFit.cover)),
-              ),
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            /// Setting Header Banner
+            Container(
+              height: 240.0,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/img/headerProfile.png"),
+                      fit: BoxFit.cover)),
+            ),
 
-              /// Calling _profile variable
-              _profile,
-              Padding(
-                padding: const EdgeInsets.only(top: 360.0),
-                child: Column(
-                  /// Setting Category List
-                  children: <Widget>[
-                    /// Call category class
-                    category(
-                      txt: AppLocalizations.of(context).tr('notification'),
-                      padding: 35.0,
-                      image: "assets/icon/notification.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => new notification()));
-                      },
+            /// Calling _profile variable
+            _profile,
+            Padding(
+              padding: const EdgeInsets.only(top: 360.0),
+              child: Column(
+                /// Setting Category List
+                children: <Widget>[
+                  /// Call category class
+                  category(
+                    txt: 'notification',
+                    padding: 35.0,
+                    image: "assets/icon/notification.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new notification()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 85.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.black12,
+                      height: 2.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 85.0, right: 30.0),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 2.0,
-                      ),
+                  ),
+                  category(
+                    txt: 'payments',
+                    padding: 35.0,
+                    image: "assets/icon/creditAcount.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) =>
+                              new creditCardSetting()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 85.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.black12,
+                      height: 2.0,
                     ),
-                    category(
-                      txt: AppLocalizations.of(context).tr('payments'),
-                      padding: 35.0,
-                      image: "assets/icon/creditAcount.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) =>
-                                new creditCardSetting()));
-                      },
+                  ),
+                  category(
+                    txt: 'message',
+                    padding: 26.0,
+                    image: "assets/icon/chat.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new chat()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 85.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.black12,
+                      height: 2.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 85.0, right: 30.0),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 2.0,
-                      ),
+                  ),
+                  category(
+                    txt: 'myOrders',
+                    padding: 23.0,
+                    image: "assets/icon/truck.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new order()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 85.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.black12,
+                      height: 2.0,
                     ),
-                    category(
-                      txt: AppLocalizations.of(context).tr('message'),
-                      padding: 26.0,
-                      image: "assets/icon/chat.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => new chat()));
-                      },
+                  ),
+                  category(
+                    txt: 'settingAccount',
+                    padding: 30.0,
+                    image: "assets/icon/setting.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new settingAcount()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 85.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.black12,
+                      height: 2.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 85.0, right: 30.0),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 2.0,
-                      ),
+                  ),
+                  category(
+                    txt: 'callCenter',
+                    padding: 30.0,
+                    image: "assets/icon/callcenter.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new callCenter()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 85.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.black12,
+                      height: 2.0,
                     ),
-                    category(
-                      txt: AppLocalizations.of(context).tr('myOrders'),
-                      padding: 23.0,
-                      image: "assets/icon/truck.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => new order()));
-                      },
+                  ),
+                  category(
+                    txt: 'language',
+                    padding: 30.0,
+                    image: "assets/icon/language.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new languageSetting()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 85.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.black12,
+                      height: 2.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 85.0, right: 30.0),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 2.0,
-                      ),
-                    ),
-                    category(
-                      txt: AppLocalizations.of(context).tr('settingAccount'),
-                      padding: 30.0,
-                      image: "assets/icon/setting.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => new settingAcount()));
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 85.0, right: 30.0),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 2.0,
-                      ),
-                    ),
-                    category(
-                      txt: AppLocalizations.of(context).tr('callCenter'),
-                      padding: 30.0,
-                      image: "assets/icon/callcenter.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => new callCenter()));
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 85.0, right: 30.0),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 2.0,
-                      ),
-                    ),
-                    category(
-                      txt: AppLocalizations.of(context).tr('language'),
-                      padding: 30.0,
-                      image: "assets/icon/language.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) =>
-                                new languageSetting()));
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 85.0, right: 30.0),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 2.0,
-                      ),
-                    ),
-                    category(
-                      padding: 38.0,
-                      txt: AppLocalizations.of(context).tr('aboutApps'),
-                      image: "assets/icon/aboutapp.png",
-                      tap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => new aboutApps()));
-                      },
-                    ),
-                    Padding(padding: EdgeInsets.only(bottom: 20.0)),
-                  ],
-                ),
+                  ),
+                  category(
+                    padding: 38.0,
+                    txt: 'aboutApps',
+                    image: "assets/icon/aboutapp.png",
+                    tap: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new aboutApps()));
+                    },
+                  ),
+                  Padding(padding: EdgeInsets.only(bottom: 20.0)),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

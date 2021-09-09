@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:intrale/scrn/brand/BrandDetail.dart';
@@ -25,7 +23,7 @@ class _brandState extends State<brand> {
       title: Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
         child: Text(
-          AppLocalizations.of(context).tr('categoryBrand'),
+          'categoryBrand',
           style: TextStyle(
               fontFamily: "Gotik",
               fontSize: 20.0,
@@ -51,17 +49,12 @@ class _brandState extends State<brand> {
       ],
     );
 
-    var data = EasyLocalizationProvider.of(context).data;
-
-    return EasyLocalizationProvider(
-      data: data,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Scaffold(
-          /// Calling variable appbar
-          appBar: _appbar,
-          body: _imageLoaded(context),
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Scaffold(
+        /// Calling variable appbar
+        appBar: _appbar,
+        body: _imageLoaded(context),
       ),
     );
   }

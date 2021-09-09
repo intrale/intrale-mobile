@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:intrale/model/PromotionData.dart';
@@ -58,7 +56,7 @@ class _promoDetailState extends State<promoDetail> {
                     color: Colors.black38,
                     size: 18.0,
                   ),
-                  hintText: AppLocalizations.of(context).tr('description'),
+                  hintText: 'description',
                   hintStyle: TextStyle(color: Colors.black38, fontSize: 14.0)),
             ),
           ),
@@ -100,38 +98,35 @@ class _promoDetailState extends State<promoDetail> {
       ),
     );
 
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        /// Appbar item
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            AppLocalizations.of(context).tr('weekPromotion'),
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 16.0,
-                color: Colors.black54,
-                fontFamily: "Gotik"),
-          ),
-          iconTheme: IconThemeData(
-            color: Color(0xFF6991C7),
-          ),
-          elevation: 0.0,
+    return Scaffold(
+      /// Appbar item
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'weekPromotion',
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16.0,
+              color: Colors.black54,
+              fontFamily: "Gotik"),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              /// Calling search and grid variable
-              children: <Widget>[
-                _search,
-                _grid,
-              ],
-            ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF6991C7),
+        ),
+        elevation: 0.0,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            /// Calling search and grid variable
+            children: <Widget>[
+              _search,
+              _grid,
+            ],
           ),
         ),
       ),
+      //),
     );
   }
 }

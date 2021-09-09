@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/FlashSaleItem.dart';
@@ -48,7 +46,7 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
                       Padding(padding: EdgeInsets.only(top: 20.0)),
                       Center(
                           child: Text(
-                        AppLocalizations.of(context).tr('description'),
+                        'description',
                         style: _subHeaderCustomStyle,
                       )),
                       Padding(
@@ -101,7 +99,7 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context).tr('topRated'),
+                  'topRated',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: "Gotik",
@@ -110,7 +108,7 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    AppLocalizations.of(context).tr('seeAll'),
+                    'seeAll',
                     style: TextStyle(
                         color: Colors.indigoAccent.withOpacity(0.8),
                         fontFamily: "Gotik",
@@ -126,34 +124,34 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
                 children: <Widget>[
                   FavoriteItem(
                     image: "assets/imgItem/shoes1.jpg",
-                    title: AppLocalizations.of(context).tr('productTitle1'),
+                    title: 'productTitle1',
                     Salary: "\$ 10",
                     Rating: "4.8",
-                    sale: AppLocalizations.of(context).tr('productSale1'),
+                    sale: 'productSale1',
                   ),
                   Padding(padding: EdgeInsets.only(left: 10.0)),
                   FavoriteItem(
                     image: "assets/imgItem/acesoris1.jpg",
-                    title: AppLocalizations.of(context).tr('productTitle2'),
+                    title: 'productTitle2',
                     Salary: "\$ 200",
                     Rating: "4.2",
-                    sale: AppLocalizations.of(context).tr('productSale2'),
+                    sale: 'productSale2',
                   ),
                   Padding(padding: EdgeInsets.only(left: 10.0)),
                   FavoriteItem(
                     image: "assets/imgItem/kids1.jpg",
-                    title: AppLocalizations.of(context).tr('productTitle3'),
+                    title: 'productTitle3',
                     Salary: "\$ 3",
                     Rating: "4.8",
-                    sale: AppLocalizations.of(context).tr('productSale3'),
+                    sale: 'productSale3',
                   ),
                   Padding(padding: EdgeInsets.only(left: 10.0)),
                   FavoriteItem(
                     image: "assets/imgItem/man1.jpg",
-                    title: AppLocalizations.of(context).tr('productTitle1'),
+                    title: 'productTitle1',
                     Salary: "\$ 8",
                     Rating: "4.4",
-                    sale: AppLocalizations.of(context).tr('productSale2'),
+                    sale: 'productSale2',
                   ),
                   Padding(padding: EdgeInsets.only(right: 10.0)),
                 ],
@@ -164,117 +162,207 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
       ),
     );
 
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        key: _key,
-        appBar: AppBar(
-          actions: <Widget>[
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => new cart()));
-              },
-              child: Stack(
-                alignment: AlignmentDirectional(-1.0, -0.8),
-                children: <Widget>[
-                  IconButton(
-                      onPressed: null,
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.black26,
-                      )),
-                  CircleAvatar(
-                    radius: 10.0,
-                    backgroundColor: Colors.red,
-                    child: Text(
-                      valueItemChart.toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 13.0),
-                    ),
+    return Scaffold(
+      key: _key,
+      appBar: AppBar(
+        actions: <Widget>[
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                  PageRouteBuilder(pageBuilder: (_, __, ___) => new cart()));
+            },
+            child: Stack(
+              alignment: AlignmentDirectional(-1.0, -0.8),
+              children: <Widget>[
+                IconButton(
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black26,
+                    )),
+                CircleAvatar(
+                  radius: 10.0,
+                  backgroundColor: Colors.red,
+                  child: Text(
+                    valueItemChart.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 13.0),
                   ),
-                ],
-              ),
-            ),
-          ],
-          elevation: 0.5,
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          title: Text(
-            AppLocalizations.of(context).tr('productDetail'),
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: Colors.black54,
-              fontSize: 17.0,
-              fontFamily: "Gotik",
+                ),
+              ],
             ),
           ),
+        ],
+        elevation: 0.5,
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        title: Text(
+          'productDetail',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.black54,
+            fontSize: 17.0,
+            fontFamily: "Gotik",
+          ),
         ),
-        body: Column(
-          children: <Widget>[
-            Flexible(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    /// ImageSlider in header
-                    Container(
-                        height: 300.0,
-                        child: Hero(
-                          tag: "hero-flashsale-${itemSale.id}",
-                          child: Material(
-                            child: new Carousel(
-                              dotColor: Colors.black26,
-                              dotIncreaseSize: 1.7,
-                              dotBgColor: Colors.transparent,
-                              autoplay: false,
-                              boxFit: BoxFit.cover,
-                              images: [
-                                AssetImage(itemSale.image),
-                                AssetImage(itemSale.image),
-                                AssetImage(itemSale.image),
-                              ],
-                            ),
-                          ),
-                        )),
-
-                    ///Label FlashSale in bottom header
-                    Container(
-                      height: 50.0,
-                      width: 1000.0,
-                      color: Colors.redAccent,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Padding(padding: EdgeInsets.only(left: 20.0)),
-                              Image.asset(
-                                "assets/icon/flashSaleIcon.png",
-                                height: 25.0,
-                              ),
-                              Padding(padding: EdgeInsets.only(left: 10.0)),
-                              Text(
-                                AppLocalizations.of(context).tr('flashSale'),
-                                style: _customTextStyle.copyWith(
-                                    color: Colors.white),
-                              ),
+      ),
+      body: Column(
+        children: <Widget>[
+          Flexible(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  /// ImageSlider in header
+                  Container(
+                      height: 300.0,
+                      child: Hero(
+                        tag: "hero-flashsale-${itemSale.id}",
+                        child: Material(
+                          child: new Carousel(
+                            dotColor: Colors.black26,
+                            dotIncreaseSize: 1.7,
+                            dotBgColor: Colors.transparent,
+                            autoplay: false,
+                            boxFit: BoxFit.cover,
+                            images: [
+                              AssetImage(itemSale.image),
+                              AssetImage(itemSale.image),
+                              AssetImage(itemSale.image),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
-                            child: Text(
-                              itemSale.stock,
+                        ),
+                      )),
+
+                  ///Label FlashSale in bottom header
+                  Container(
+                    height: 50.0,
+                    width: 1000.0,
+                    color: Colors.redAccent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Padding(padding: EdgeInsets.only(left: 20.0)),
+                            Image.asset(
+                              "assets/icon/flashSaleIcon.png",
+                              height: 25.0,
+                            ),
+                            Padding(padding: EdgeInsets.only(left: 10.0)),
+                            Text(
+                              'flashSale',
                               style: _customTextStyle.copyWith(
-                                  color: Colors.white, fontSize: 13.5),
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            itemSale.stock,
+                            style: _customTextStyle.copyWith(
+                                color: Colors.white, fontSize: 13.5),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  /// White Background for Title, Price and Ratting
+                  Container(
+                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFF656565).withOpacity(0.15),
+                        blurRadius: 1.0,
+                        spreadRadius: 0.2,
+                      )
+                    ]),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20.0, top: 10.0, right: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            itemSale.title,
+                            style: _customTextStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 5.0)),
+                          Text(
+                            itemSale.normalprice,
+                            style: _customTextStyle.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                fontSize: 13.0,
+                                color: Colors.black26),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 5.0)),
+                          Text(
+                            itemSale.discountprice,
+                            style: _customTextStyle.copyWith(
+                                color: Colors.redAccent, fontSize: 20.0),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 10.0)),
+                          Divider(
+                            color: Colors.black12,
+                            height: 1.0,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  height: 30.0,
+                                  width: 75.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.lightGreen,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20.0)),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        itemSale.ratingStart,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.only(left: 8.0)),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.white,
+                                        size: 19.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    itemSale.ratingvalue,
+                                    style: TextStyle(
+                                        color: Colors.black26,
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                )
+                              ],
                             ),
                           )
                         ],
                       ),
                     ),
+                  ),
 
-                    /// White Background for Title, Price and Ratting
-                    Container(
+                  /// Detail Product
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      height: 205.0,
+                      width: 600.0,
                       decoration:
                           BoxDecoration(color: Colors.white, boxShadow: [
                         BoxShadow(
@@ -284,288 +372,189 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
                         )
                       ]),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20.0, top: 10.0, right: 20.0),
+                        padding: EdgeInsets.only(top: 20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              itemSale.title,
-                              style: _customTextStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Padding(padding: EdgeInsets.only(top: 5.0)),
-                            Text(
-                              itemSale.normalprice,
-                              style: _customTextStyle.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                  fontSize: 13.0,
-                                  color: Colors.black26),
-                            ),
-                            Padding(padding: EdgeInsets.only(top: 5.0)),
-                            Text(
-                              itemSale.discountprice,
-                              style: _customTextStyle.copyWith(
-                                  color: Colors.redAccent, fontSize: 20.0),
-                            ),
-                            Padding(padding: EdgeInsets.only(top: 10.0)),
-                            Divider(
-                              color: Colors.black12,
-                              height: 1.0,
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0),
+                              child: Text(
+                                'detailProduct',
+                                style: _subHeaderCustomStyle,
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 10.0, bottom: 10.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    height: 30.0,
-                                    width: 75.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.lightGreen,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0)),
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          itemSale.ratingStart,
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(left: 8.0)),
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.white,
-                                          size: 19.0,
-                                        ),
-                                      ],
+                                  top: 20.0,
+                                  right: 20.0,
+                                  bottom: 10.0,
+                                  left: 20.0),
+                              child: Text(
+                                itemSale.detailProduct,
+                                style: _detailText,
+                                textDirection: TextDirection.ltr,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  /// Description
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      width: 600.0,
+                      decoration:
+                          BoxDecoration(color: Colors.white, boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFF656565).withOpacity(0.15),
+                          blurRadius: 1.0,
+                          spreadRadius: 0.2,
+                        )
+                      ]),
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0),
+                              child: Text(
+                                'description',
+                                style: _subHeaderCustomStyle,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 15.0,
+                                  right: 20.0,
+                                  bottom: 10.0,
+                                  left: 20.0),
+                              child: Text(itemSale.description,
+                                  style: _detailText),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Center(
+                                child: InkWell(
+                                  onTap: () {
+                                    _bottomSheet();
+                                  },
+                                  child: Text(
+                                    'viewMore',
+                                    style: TextStyle(
+                                      color: Colors.indigoAccent,
+                                      fontSize: 15.0,
+                                      fontFamily: "Gotik",
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      itemSale.ratingvalue,
-                                      style: TextStyle(
-                                          color: Colors.black26,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             )
                           ],
                         ),
                       ),
                     ),
+                  ),
 
-                    /// Detail Product
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        height: 205.0,
-                        width: 600.0,
-                        decoration:
-                            BoxDecoration(color: Colors.white, boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF656565).withOpacity(0.15),
-                            blurRadius: 1.0,
-                            spreadRadius: 0.2,
-                          )
-                        ]),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20.0),
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .tr('detailProduct'),
-                                  style: _subHeaderCustomStyle,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20.0,
-                                    right: 20.0,
-                                    bottom: 10.0,
-                                    left: 20.0),
-                                child: Text(
-                                  itemSale.detailProduct,
-                                  style: _detailText,
-                                  textDirection: TextDirection.ltr,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    /// Description
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        width: 600.0,
-                        decoration:
-                            BoxDecoration(color: Colors.white, boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF656565).withOpacity(0.15),
-                            blurRadius: 1.0,
-                            spreadRadius: 0.2,
-                          )
-                        ]),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20.0),
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .tr('description'),
-                                  style: _subHeaderCustomStyle,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 15.0,
-                                    right: 20.0,
-                                    bottom: 10.0,
-                                    left: 20.0),
-                                child: Text(itemSale.description,
-                                    style: _detailText),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10.0),
-                                child: Center(
-                                  child: InkWell(
-                                    onTap: () {
-                                      _bottomSheet();
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context)
-                                          .tr('viewMore'),
-                                      style: TextStyle(
-                                        color: Colors.indigoAccent,
-                                        fontSize: 15.0,
-                                        fontFamily: "Gotik",
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    ///Call a variable suggested Item(Top Rated Product Card) in bottom of description
-                    _suggestedItem
-                  ],
-                ),
+                  ///Call a variable suggested Item(Top Rated Product Card) in bottom of description
+                  _suggestedItem
+                ],
               ),
             ),
+          ),
 
-            /// If user click icon chart SnackBar show
-            /// this code to show a SnackBar
-            /// and Increase a valueItemChart + 1
-            InkWell(
-              onTap: () {
-                var snackbar = SnackBar(
-                    content: Text(
-                  AppLocalizations.of(context).tr('itemAdded'),
-                ));
-                setState(() {
-                  valueItemChart++;
-                });
-                _key.currentState.showSnackBar(snackbar);
-              },
+          /// If user click icon chart SnackBar show
+          /// this code to show a SnackBar
+          /// and Increase a valueItemChart + 1
+          InkWell(
+            onTap: () {
+              var snackbar = SnackBar(
+                  content: Text(
+                'itemAdded',
+              ));
+              setState(() {
+                valueItemChart++;
+              });
+              _key.currentState.showSnackBar(snackbar);
+            },
 
-              /// Shopping Cart in bottom layout
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: Container(
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
+            /// Shopping Cart in bottom layout
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Container(
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      height: 40.0,
+                      width: 60.0,
+                      decoration: BoxDecoration(
+                          color: Colors.white12.withOpacity(0.1),
+                          border: Border.all(color: Colors.black12)),
+                      child: Center(
+                        child: Image.asset(
+                          "assets/icon/shopping-cart.png",
+                          height: 23.0,
+                        ),
+                      ),
+                    ),
+
+                    /// Icon Message in bottom layout with Flexible
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(PageRouteBuilder(
+                            pageBuilder: (_, ___, ____) => new chatItem()));
+                      },
+                      child: Container(
                         height: 40.0,
                         width: 60.0,
                         decoration: BoxDecoration(
                             color: Colors.white12.withOpacity(0.1),
                             border: Border.all(color: Colors.black12)),
                         child: Center(
-                          child: Image.asset(
-                            "assets/icon/shopping-cart.png",
-                            height: 23.0,
-                          ),
+                          child: Image.asset("assets/icon/message.png",
+                              height: 20.0),
                         ),
                       ),
+                    ),
 
-                      /// Icon Message in bottom layout with Flexible
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(PageRouteBuilder(
-                              pageBuilder: (_, ___, ____) => new chatItem()));
-                        },
-                        child: Container(
-                          height: 40.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                              color: Colors.white12.withOpacity(0.1),
-                              border: Border.all(color: Colors.black12)),
-                          child: Center(
-                            child: Image.asset("assets/icon/message.png",
-                                height: 20.0),
+                    /// Button Pay
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(PageRouteBuilder(
+                            pageBuilder: (_, __, ___) => new delivery()));
+                      },
+                      child: Container(
+                        height: 45.0,
+                        width: 200.0,
+                        decoration: BoxDecoration(
+                          color: Colors.indigoAccent,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'cartPay',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),
-
-                      /// Button Pay
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(PageRouteBuilder(
-                              pageBuilder: (_, __, ___) => new delivery()));
-                        },
-                        child: Container(
-                          height: 45.0,
-                          width: 200.0,
-                          decoration: BoxDecoration(
-                            color: Colors.indigoAccent,
-                          ),
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.of(context).tr('cartPay'),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
+      //),
     );
   }
 }

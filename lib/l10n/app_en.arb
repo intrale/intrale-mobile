@@ -1,0 +1,33 @@
+{
+    "welcomeTo": "Bienvenido a",
+    "businessName":"Intrale",
+
+    "notHave": "¿No tiene usuario?, Registrese",
+    "missing": "¿No recuerda su contraseña?, Recuperela",
+    "haveCode": "¿Posee un codigo de recuperacion?, Ingreselo",
+    "haveUser":"¿Se encuentra registrado?, Ingrese",
+
+    "emailFormat":"Debe tener formato de email",
+    "review":"Por favor, revise su correo",
+
+    "choseLogin_hint":"Seleccione una opción",
+    "choseLogin_orSkip":"O",
+    "choseLogin_login":"Ingresar",
+    "choseLogin_signup":"Registrarse",
+
+    "login_submit": "Ingresar",
+    "login_email": "Email",
+    "login_password":"Contraseña",
+    "login_ok":"Aceptar",
+    "login_badCredentials":"Usuario o contraseña incorrectos",
+
+    "signup_submit":"Registrar", 
+    "signup_email":"Email",
+    "signup_ok":"Aceptar",
+
+    "changePassword_submit":"Confirmar",
+
+    "recovery_submit":"Recuperar",
+
+    "confirm_submit":"Confirmar"
+}

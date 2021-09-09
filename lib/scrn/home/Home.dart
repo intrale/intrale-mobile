@@ -1,25 +1,25 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
-import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/countdown_timer/countDownTimer.dart';
+
 import 'package:intrale/model/HomeGridItemRecomended.dart';
 import 'package:intrale/scrn/home/AppbarGradient.dart';
 import 'package:intrale/scrn/home/CategoryDetail.dart';
-import 'package:intrale/scrn/home/DetailProduct.dart';
-import 'package:intrale/scrn/home/FlashSale.dart';
-import 'package:intrale/scrn/home/MenuDetail.dart';
-import 'package:intrale/scrn/home/PromotionDetail.dart';
+//import 'package:intrale/scrn/home/CategoryIconValue.dart';
+import 'package:intrale/scrn/home/CategoryItemValue.dart';
+import 'package:intrale/scrn/home/FlashSaleItem.dart';
+import 'package:intrale/scrn/home/ImageSlider.dart';
+import 'package:intrale/scrn/home/ItemGrid.dart';
+//import 'package:intrale/scrn/home/MenuDetail.dart';
 import 'package:intrale/util/services/products/read/ReadProductsRequest.dart';
 import 'package:intrale/util/services/products/read/ReadProductsService.dart';
 
 class Menu extends StatefulWidget {
   @override
-  _MenuState createState() => _MenuState();
+  MenuState createState() => MenuState();
 }
 
 /// Component all widget in home
-class _MenuState extends State<Menu> with TickerProviderStateMixin {
+class MenuState extends State<Menu> with TickerProviderStateMixin {
   /// Declare class GridItem from HomeGridItemReoomended.dart in folder ListItem
   GridItem gridItem;
 
@@ -29,11 +29,10 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     double size = mediaQueryData.size.height;
 
-    /// Navigation to MenuDetail.dart if user Click icon in category Menu like a example camera
+    /*  /// Navigation to MenuDetail.dart if user Click icon in category Menu like a example camera
     var onClickMenuIcon = () {
       Navigator.of(context).push(PageRouteBuilder(
           pageBuilder: (_, __, ___) => new menuDetail(),
@@ -47,11 +46,11 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
               child: child,
             );
           }));
-    };
+    };*/
 
     /// Navigation to promoDetail.dart if user Click icon in Week Promotion
     var onClickWeekPromotion = () {
-      Navigator.of(context).push(PageRouteBuilder(
+      /*Navigator.of(context).push(PageRouteBuilder(
           pageBuilder: (_, __, ___) => new promoDetail(),
           transitionDuration: Duration(milliseconds: 750),
           transitionsBuilder:
@@ -60,7 +59,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
               opacity: animation.value,
               child: child,
             );
-          }));
+          }));*/
     };
 
     /// Navigation to categoryDetail.dart if user Click icon in Category
@@ -81,7 +80,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
     var deviceSize = MediaQuery.of(context).size;
 
     /// ImageSlider in header
-    var imageSlider = Container(
+    /*var imageSlider = Container(
       height: 182.0,
       child: new Carousel(
         boxFit: BoxFit.cover,
@@ -101,10 +100,10 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           AssetImage("assets/img/baner4.png"),
         ],
       ),
-    );
+    );*/
 
     /// CategoryIcon Component
-    var categoryIcon = Container(
+    /*var categoryIcon = Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 20.0),
       alignment: AlignmentDirectional.centerStart,
@@ -114,7 +113,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           Padding(
             padding: EdgeInsets.only(left: 20.0, top: 0.0, right: 20.0),
             child: Text(
-              AppLocalizations.of(context).tr('menu'),
+              'menu',
               style: TextStyle(
                   fontSize: 13.5,
                   fontFamily: "Sans",
@@ -127,54 +126,54 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           CategoryIconValue(
             tap1: onClickMenuIcon,
             icon1: "assets/icon/camera.png",
-            title1: AppLocalizations.of(context).tr('camera'),
+            title1: 'camera',
             tap2: onClickMenuIcon,
             icon2: "assets/icon/food.png",
-            title2: AppLocalizations.of(context).tr('food'),
+            title2: 'food',
             tap3: onClickMenuIcon,
             icon3: "assets/icon/handphone.png",
-            title3: AppLocalizations.of(context).tr('handphone'),
+            title3: 'handphone',
             tap4: onClickMenuIcon,
             icon4: "assets/icon/game.png",
-            title4: AppLocalizations.of(context).tr('gamming'),
+            title4: 'gamming',
           ),
           Padding(padding: EdgeInsets.only(top: 23.0)),
           CategoryIconValue(
             icon1: "assets/icon/fashion.png",
             tap1: onClickMenuIcon,
-            title1: AppLocalizations.of(context).tr('fashion'),
+            title1: 'fashion',
             icon2: "assets/icon/health.png",
             tap2: onClickMenuIcon,
-            title2: AppLocalizations.of(context).tr('healthCare'),
+            title2: 'healthCare',
             icon3: "assets/icon/pc.png",
             tap3: onClickMenuIcon,
-            title3: AppLocalizations.of(context).tr('computer'),
+            title3: 'computer',
             icon4: "assets/icon/mesin.png",
             tap4: onClickMenuIcon,
-            title4: AppLocalizations.of(context).tr('equipment'),
+            title4: 'equipment',
           ),
           Padding(padding: EdgeInsets.only(top: 23.0)),
           CategoryIconValue(
             icon1: "assets/icon/otomotif.png",
             tap1: onClickMenuIcon,
-            title1: AppLocalizations.of(context).tr('otomotif'),
+            title1: 'otomotif',
             icon2: "assets/icon/sport.png",
             tap2: onClickMenuIcon,
-            title2: AppLocalizations.of(context).tr('sport'),
+            title2: 'sport',
             icon3: "assets/icon/ticket.png",
             tap3: onClickMenuIcon,
-            title3: AppLocalizations.of(context).tr('ticketCinema'),
+            title3: 'ticketCinema',
             icon4: "assets/icon/book.png",
             tap4: onClickMenuIcon,
-            title4: AppLocalizations.of(context).tr('books'),
+            title4: 'books',
           ),
           Padding(padding: EdgeInsets.only(bottom: 30.0))
         ],
       ),
-    );
+    );*/
 
     /// ListView a WeekPromotion Component
-    var PromoHorizontalList = Container(
+    /*var PromoHorizontalList = Container(
       color: Colors.white,
       height: 230.0,
       padding: EdgeInsets.only(bottom: 40.0),
@@ -185,7 +184,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
               padding: EdgeInsets.only(
                   left: 20.0, top: 15.0, bottom: 3.0, right: 20.0),
               child: Text(
-                AppLocalizations.of(context).tr('weekPromotion'),
+                'weekPromotion',
                 style: TextStyle(
                     fontSize: 15.0,
                     fontFamily: "Sans",
@@ -226,10 +225,10 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           ),
         ],
       ),
-    );
+    );*/
 
     /// FlashSale component
-    var FlashSell = Container(
+    /*var FlashSell = Container(
       height: 390.0,
       decoration: BoxDecoration(
         /// To set Gradient in flashSale background
@@ -260,7 +259,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                     height: deviceSize.height * 0.087,
                   ),
                   Text(
-                    AppLocalizations.of(context).tr('flash'),
+                    'flash',
                     style: TextStyle(
                       fontFamily: "Popins",
                       fontSize: 30.0,
@@ -269,7 +268,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                     ),
                   ),
                   Text(
-                    AppLocalizations.of(context).tr('sale'),
+                    'sale',
                     style: TextStyle(
                       fontFamily: "Sans",
                       fontSize: 28.0,
@@ -282,7 +281,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                         EdgeInsets.only(top: mediaQueryData.padding.top + 30),
                   ),
                   Text(
-                    AppLocalizations.of(context).tr('endSaleIn'),
+                    'endSaleIn',
                     style: TextStyle(
                       fontFamily: "Sans",
                       fontSize: 15.0,
@@ -316,70 +315,70 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           /// Get a component flashSaleItem class
           flashSaleItem(
             image: "assets/imgItem/mackbook.jpg",
-            title: AppLocalizations.of(context).tr('fTitle1'),
+            title: 'fTitle1',
             normalprice: "\$ 2,020",
             discountprice: "\$ 1,300",
             ratingvalue: "(56)",
-            place: AppLocalizations.of(context).tr('fPlace1'),
-            stock: AppLocalizations.of(context).tr('fAvailable1'),
+            place: 'fPlace1',
+            stock: 'fAvailable1',
             colorLine: 0xFFFFA500,
             widthLine: 50.0,
           ),
           Padding(padding: EdgeInsets.only(left: 10.0)),
           flashSaleItem(
             image: "assets/imgItem/flashsale2.jpg",
-            title: AppLocalizations.of(context).tr('fTitle2'),
+            title: 'fTitle2',
             normalprice: "\$ 14",
             discountprice: "\$ 10",
             ratingvalue: "(16)",
-            place: AppLocalizations.of(context).tr('fPlace2'),
-            stock: AppLocalizations.of(context).tr('fAvailable2'),
+            place: 'fPlace2',
+            stock: 'fAvailable2',
             colorLine: 0xFF52B640,
             widthLine: 100.0,
           ),
           Padding(padding: EdgeInsets.only(left: 10.0)),
           flashSaleItem(
             image: "assets/imgItem/flashsale3.jpg",
-            title: AppLocalizations.of(context).tr('fTitle3'),
+            title: 'fTitle3',
             normalprice: "\$ 1,000",
             discountprice: "\$ 950",
             ratingvalue: "(20)",
-            place: AppLocalizations.of(context).tr('fPlace3'),
-            stock: AppLocalizations.of(context).tr('fAvailable3'),
+            place: 'fPlace3',
+            stock: 'fAvailable3',
             colorLine: 0xFF52B640,
             widthLine: 90.0,
           ),
           Padding(padding: EdgeInsets.only(left: 10.0)),
           flashSaleItem(
             image: "assets/imgItem/flashsale4.jpg",
-            title: AppLocalizations.of(context).tr('fTitle4'),
+            title: 'fTitle4',
             normalprice: "\$ 25",
             discountprice: "\$ 20",
             ratingvalue: "(22)",
-            place: AppLocalizations.of(context).tr('fPlace4'),
-            stock: AppLocalizations.of(context).tr('fAvailable4'),
+            place: 'fPlace4',
+            stock: 'fAvailable4',
             colorLine: 0xFFFFA500,
             widthLine: 30.0,
           ),
           Padding(padding: EdgeInsets.only(left: 10.0)),
           flashSaleItem(
             image: "assets/imgItem/flashsale5.jpg",
-            title: AppLocalizations.of(context).tr('fTitle5'),
+            title: 'fTitle5',
             normalprice: "\$ 50",
             discountprice: "\$ 30",
             ratingvalue: "(10)",
-            place: AppLocalizations.of(context).tr('fPlace5'),
-            stock: AppLocalizations.of(context).tr('fAvailable5'),
+            place: 'fPlace5',
+            stock: 'fAvailable5',
             colorLine: 0xFF52B640,
             widthLine: 100.0,
           ),
           Padding(padding: EdgeInsets.only(left: 10.0)),
         ],
       ),
-    );
+    );*/
 
     /// Category Component in bottom of flash sale
-    var categoryImageBottom = Container(
+    /*var categoryImageBottom = Container(
       height: 310.0,
       color: Colors.white,
       child: Column(
@@ -388,7 +387,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
             child: Text(
-              AppLocalizations.of(context).tr('category'),
+              'category',
               style: TextStyle(
                   fontSize: 17.0,
                   fontWeight: FontWeight.w700,
@@ -411,7 +410,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                         Padding(padding: EdgeInsets.only(top: 15.0)),
                         CategoryItemValue(
                           image: "assets/imgItem/category2.png",
-                          title: AppLocalizations.of(context).tr('fashionMan'),
+                          title: 'fashionMan',
                           tap: onClickCategory,
                         ),
                         Padding(
@@ -419,7 +418,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                         ),
                         CategoryItemValue(
                           image: "assets/imgItem/category1.png",
-                          title: AppLocalizations.of(context).tr('fashionGirl'),
+                          title: 'fashionGirl',
                           tap: onClickCategory,
                         ),
                       ],
@@ -432,7 +431,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                       Padding(padding: EdgeInsets.only(top: 15.0)),
                       CategoryItemValue(
                         image: "assets/imgItem/category3.png",
-                        title: AppLocalizations.of(context).tr('smartphone'),
+                        title: 'smartphone',
                         tap: onClickCategory,
                       ),
                       Padding(
@@ -440,7 +439,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                       ),
                       CategoryItemValue(
                         image: "assets/imgItem/category4.png",
-                        title: AppLocalizations.of(context).tr('computer'),
+                        title: 'computer',
                         tap: onClickCategory,
                       ),
                     ],
@@ -452,7 +451,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                       Padding(padding: EdgeInsets.only(top: 15.0)),
                       CategoryItemValue(
                         image: "assets/imgItem/category5.png",
-                        title: AppLocalizations.of(context).tr('sport'),
+                        title: 'sport',
                         tap: onClickCategory,
                       ),
                       Padding(
@@ -460,7 +459,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                       ),
                       CategoryItemValue(
                         image: "assets/imgItem/category6.png",
-                        title: AppLocalizations.of(context).tr('fashionKids'),
+                        title: 'fashionKids',
                         tap: onClickCategory,
                       ),
                     ],
@@ -472,7 +471,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                       Padding(padding: EdgeInsets.only(top: 15.0)),
                       CategoryItemValue(
                         image: "assets/imgItem/category7.png",
-                        title: AppLocalizations.of(context).tr('health'),
+                        title: 'health',
                         tap: onClickCategory,
                       ),
                       Padding(
@@ -480,7 +479,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                       ),
                       CategoryItemValue(
                         image: "assets/imgItem/category8.png",
-                        title: AppLocalizations.of(context).tr('makeup'),
+                        title: 'makeup',
                         tap: onClickCategory,
                       ),
                     ],
@@ -491,7 +490,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           )
         ],
       ),
-    );
+    );*/
 
     ///  Grid item in bottom of Category
     gridItemArray = new List<GridItem>();
@@ -518,7 +517,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
               padding:
                   const EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
               child: Text(
-                AppLocalizations.of(context).tr('recomended'),
+                'recomended',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 17.0,
@@ -544,33 +543,31 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
       ),
     );
 
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        /// Use Stack to costume a appbar
-        body: Stack(
-          children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.only(
-                          top: mediaQueryData.padding.top + 58.5)),
+    return Scaffold(
+      /// Use Stack to costume a appbar
+      body: Stack(
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(
+                        top: mediaQueryData.padding.top + 58.5)),
 
-                  /// Call var imageSlider
-                  imageSlider,
+                /// Call var imageSlider
+                new ImageSlider(),
 
-                  /// Call var categoryIcon
-                  /*categoryIcon,
+                /// Call var categoryIcon
+                /*categoryIcon,
                   Padding(
                     padding: EdgeInsets.only(top: 10.0),
                   ),
                   */
-                  /// Call var PromoHorizontalList
-                  //PromoHorizontalList,
+                /// Call var PromoHorizontalList
+                //PromoHorizontalList,
 
-                  /// Call var a FlashSell, i am sorry Typo :v
-                  /*FlashSell,
+                /// Call var a FlashSell, i am sorry Typo :v
+                /*FlashSell,
                   Padding(
                     padding: EdgeInsets.only(top: 10.0),
                   ),
@@ -579,518 +576,17 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                     padding: EdgeInsets.only(bottom: 10.0),
                   ),
                   */
-                  /// Call a Grid variable, this is item list in Recomended item
-                  Grid,
-                ],
-              ),
-            ),
-
-            /// Get a class AppbarGradient
-            /// This is a Appbar in home activity
-            AppbarGradient(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// ItemGrid in bottom item "Recomended" item
-class ItemGrid extends StatelessWidget {
-  /// Get data from HomeGridItem.....dart class
-  GridItem gridItem;
-  ItemGrid(this.gridItem);
-
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    return InkWell(
-      onTap: () {
-        Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (_, __, ___) => new detailProduk(gridItem),
-            transitionDuration: Duration(milliseconds: 900),
-
-            /// Set animation Opacity in route to detailProduk layout
-            transitionsBuilder:
-                (_, Animation<double> animation, __, Widget child) {
-              return Opacity(
-                opacity: animation.value,
-                child: child,
-              );
-            }));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFF656565).withOpacity(0.15),
-                blurRadius: 4.0,
-                spreadRadius: 1.0,
-//           offset: Offset(4.0, 10.0)
-              )
-            ]),
-        child: Wrap(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                /// Set Animation image to detailProduk layout
-                Hero(
-                  tag: "hero-grid-${gridItem.id}",
-                  child: Material(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            opaque: false,
-                            pageBuilder: (BuildContext context, _, __) {
-                              return new Material(
-                                color: Colors.black54,
-                                child: Container(
-                                  padding: EdgeInsets.all(30.0),
-                                  child: InkWell(
-                                    child: Hero(
-                                        tag: "hero-grid-${gridItem.id}",
-                                        child: Image.asset(
-                                          gridItem.img,
-                                          width: 300.0,
-                                          height: 300.0,
-                                          alignment: Alignment.center,
-                                          fit: BoxFit.contain,
-                                        )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ),
-                              );
-                            },
-                            transitionDuration: Duration(milliseconds: 500)));
-                      },
-                      child: Container(
-                        height: mediaQueryData.size.height / 3.3,
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(7.0),
-                                topRight: Radius.circular(7.0)),
-                            image: DecorationImage(
-                                image: AssetImage(gridItem.img),
-                                fit: BoxFit.cover)),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 7.0)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Text(
-                    gridItem.title,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        letterSpacing: 0.5,
-                        color: Colors.black54,
-                        fontFamily: "Sans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.0),
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 1.0)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Text(
-                    gridItem.price,
-                    style: TextStyle(
-                        fontFamily: "Sans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            gridItem.rattingValue,
-                            style: TextStyle(
-                                fontFamily: "Sans",
-                                color: Colors.black26,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.0),
-                          ),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                            size: 14.0,
-                          )
-                        ],
-                      ) /*,
-                      Text(
-                        gridItem.itemSale,
-                        style: TextStyle(
-                            fontFamily: "Sans",
-                            color: Colors.black26,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12.0),
-                      )*/
-                    ],
-                  ),
-                ),
+                /// Call a Grid variable, this is item list in Recomended item
+                Grid,
               ],
             ),
-          ],
-        ),
+          ),
+
+          /// Get a class AppbarGradient
+          /// This is a Appbar in home activity
+          AppbarGradient(),
+        ],
       ),
-    );
-  }
-}
-
-/// Component FlashSaleItem
-class flashSaleItem extends StatelessWidget {
-  final String image;
-  final String title;
-  final String normalprice;
-  final String discountprice;
-  final String ratingvalue;
-  final String place;
-  final String stock;
-  final int colorLine;
-  final double widthLine;
-
-  flashSaleItem(
-      {this.image,
-      this.title,
-      this.normalprice,
-      this.discountprice,
-      this.ratingvalue,
-      this.place,
-      this.stock,
-      this.colorLine,
-      this.widthLine});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => new flashSale(),
-                    transitionsBuilder:
-                        (_, Animation<double> animation, __, Widget child) {
-                      return Opacity(
-                        opacity: animation.value,
-                        child: child,
-                      );
-                    },
-                    transitionDuration: Duration(milliseconds: 850)));
-              },
-              child: Container(
-                height: 310.0,
-                width: 145.0,
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 140.0,
-                      width: 145.0,
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: 8.0, right: 8.0, top: 15.0),
-                      child: Text(title,
-                          style: TextStyle(
-                              fontSize: 10.5,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: "Sans")),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: 10.0, top: 5.0, right: 10.0),
-                      child: Text(normalprice,
-                          style: TextStyle(
-                              fontSize: 10.5,
-                              decoration: TextDecoration.lineThrough,
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Sans")),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: 10.0, top: 5.0, right: 10.0),
-                      child: Text(discountprice,
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              color: Color(0xFF7F7FD5),
-                              fontWeight: FontWeight.w800,
-                              fontFamily: "Sans")),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10.0, top: 5.0, right: 10.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.star,
-                            size: 11.0,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 11.0,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 11.0,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 11.0,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star_half,
-                            size: 11.0,
-                            color: Colors.yellow,
-                          ),
-                          Text(
-                            ratingvalue,
-                            style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Sans",
-                                color: Colors.black38),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10.0, top: 5.0, right: 10.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.location_on,
-                            size: 11.0,
-                            color: Colors.black38,
-                          ),
-                          Text(
-                            place,
-                            style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Sans",
-                                color: Colors.black38),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10.0, left: 10.0, right: 10.0),
-                      child: Text(
-                        stock,
-                        style: TextStyle(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Sans",
-                            color: Colors.black),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 4.0, left: 10.0, right: 10.0),
-                      child: Container(
-                        height: 5.0,
-                        width: widthLine,
-                        decoration: BoxDecoration(
-                            color: Color(colorLine),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0)),
-                            shape: BoxShape.rectangle),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        )
-      ],
-    );
-  }
-}
-
-/// Component category item bellow FlashSale
-class CategoryItemValue extends StatelessWidget {
-  String image, title;
-  GestureTapCallback tap;
-
-  CategoryItemValue({
-    this.image,
-    this.title,
-    this.tap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: tap,
-      child: Container(
-        height: 105.0,
-        width: 160.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(3.0)),
-          image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(3.0)),
-            color: Colors.black.withOpacity(0.25),
-          ),
-          child: Center(
-              child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: "Berlin",
-              fontSize: 18.5,
-              letterSpacing: 0.7,
-              fontWeight: FontWeight.w800,
-            ),
-          )),
-        ),
-      ),
-    );
-  }
-}
-
-/// Component item Menu icon bellow a ImageSlider
-class CategoryIconValue extends StatelessWidget {
-  String icon1, icon2, icon3, icon4, title1, title2, title3, title4;
-  GestureTapCallback tap1, tap2, tap3, tap4;
-
-  CategoryIconValue(
-      {this.icon1,
-      this.tap1,
-      this.icon2,
-      this.tap2,
-      this.icon3,
-      this.tap3,
-      this.icon4,
-      this.tap4,
-      this.title1,
-      this.title2,
-      this.title3,
-      this.title4});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        InkWell(
-          onTap: tap1,
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                icon1,
-                height: 19.2,
-              ),
-              Padding(padding: EdgeInsets.only(top: 7.0)),
-              Text(
-                title1,
-                style: TextStyle(
-                  fontFamily: "Sans",
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: tap2,
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                icon2,
-                height: 26.2,
-              ),
-              Padding(padding: EdgeInsets.only(top: 0.0)),
-              Text(
-                title2,
-                style: TextStyle(
-                  fontFamily: "Sans",
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: tap3,
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                icon3,
-                height: 22.2,
-              ),
-              Padding(padding: EdgeInsets.only(top: 4.0)),
-              Text(
-                title3,
-                style: TextStyle(
-                  fontFamily: "Sans",
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: tap4,
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                icon4,
-                height: 19.2,
-              ),
-              Padding(padding: EdgeInsets.only(top: 7.0)),
-              Text(
-                title4,
-                style: TextStyle(
-                  fontFamily: "Sans",
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

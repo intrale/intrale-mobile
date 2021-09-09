@@ -1,1 +1,1 @@
-jsonCompile.bat & flutter build apk
+jsonCompile.bat & build.bat

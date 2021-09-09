@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/BrandDataList.dart';
@@ -26,45 +24,40 @@ class _privatemessageState extends State<privatemessage>
   @override
   Widget build(BuildContext ctx) {
     /// Declare default User Name
-    String defaultUserName = AppLocalizations.of(context).tr('name');
-    var data = EasyLocalizationProvider.of(context).data;
-
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.4,
-          title: Text(
-            brand.name,
-            style: TextStyle(
-                fontFamily: "Gotik", fontSize: 18.0, color: Colors.black54),
-          ),
-          iconTheme: IconThemeData(color: Color(0xFF6991C7)),
-          centerTitle: true,
-          backgroundColor: Colors.white,
+    String defaultUserName = 'name';
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.4,
+        title: Text(
+          brand.name,
+          style: TextStyle(
+              fontFamily: "Gotik", fontSize: 18.0, color: Colors.black54),
         ),
-        body: new Column(children: <Widget>[
-          new Flexible(
-            child: _messages.length > 0
-                ? Container(
-                    child: new ListView.builder(
-                      itemBuilder: (_, int index) => _messages[index],
-                      itemCount: _messages.length,
-                      reverse: true,
-                      padding: new EdgeInsets.all(10.0),
-                    ),
-                  )
-                : NoMessage(),
-          ),
-          new Divider(height: 1.5),
-          new Container(
-            child: _buildComposer(),
-            decoration: new BoxDecoration(
-                color: Theme.of(ctx).cardColor,
-                boxShadow: [BoxShadow(blurRadius: 1.0, color: Colors.black12)]),
-          ),
-        ]),
+        iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
+      body: new Column(children: <Widget>[
+        new Flexible(
+          child: _messages.length > 0
+              ? Container(
+                  child: new ListView.builder(
+                    itemBuilder: (_, int index) => _messages[index],
+                    itemCount: _messages.length,
+                    reverse: true,
+                    padding: new EdgeInsets.all(10.0),
+                  ),
+                )
+              : NoMessage(),
+        ),
+        new Divider(height: 1.5),
+        new Container(
+          child: _buildComposer(),
+          decoration: new BoxDecoration(
+              color: Theme.of(ctx).cardColor,
+              boxShadow: [BoxShadow(blurRadius: 1.0, color: Colors.black12)]),
+        ),
+      ]),
     );
   }
 
@@ -88,8 +81,7 @@ class _privatemessageState extends State<privatemessage>
                     },
                     onSubmitted: _submitMsg,
                     decoration: new InputDecoration.collapsed(
-                        hintText:
-                            AppLocalizations.of(context).tr('hintMessage'),
+                        hintText: 'hintMessage',
                         hintStyle: TextStyle(
                             fontFamily: "Sans",
                             fontSize: 16.0,
@@ -101,8 +93,7 @@ class _privatemessageState extends State<privatemessage>
                   margin: new EdgeInsets.symmetric(horizontal: 3.0),
                   child: Theme.of(context).platform == TargetPlatform.iOS
                       ? new CupertinoButton(
-                          child: new Text(
-                              AppLocalizations.of(context).tr('submit')),
+                          child: new Text('submit'),
                           onPressed: _isWriting
                               ? () => _submitMsg(_textController.text)
                               : null)
@@ -154,7 +145,7 @@ class Msg extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    String defaultUserName = AppLocalizations.of(ctx).tr('name');
+    String defaultUserName = 'name';
     return new SizeTransition(
       sizeFactor: new CurvedAnimation(
           parent: animationController, curve: Curves.fastOutSlowIn),
@@ -207,7 +198,7 @@ class NoMessage extends StatelessWidget {
                 height: 220.0,
               )),
           Text(
-            AppLocalizations.of(context).tr('notHaveMessage'),
+            'notHaveMessage',
             style: TextStyle(
                 fontWeight: FontWeight.w300,
                 color: Colors.black12,

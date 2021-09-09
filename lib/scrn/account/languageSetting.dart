@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 
 class languageSetting extends StatefulWidget {
@@ -12,203 +10,189 @@ class languageSetting extends StatefulWidget {
 class _languageSettingState extends State<languageSetting> {
   @override
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            AppLocalizations.of(context).tr('languageSetting'),
-            style: TextStyle(
-                fontFamily: "Gotik",
-                fontWeight: FontWeight.w600,
-                fontSize: 18.5,
-                letterSpacing: 1.2,
-                color: Colors.black87),
-          ),
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Color(0xFF6991C7)),
-          elevation: 0.0,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          'languageSetting',
+          style: TextStyle(
+              fontFamily: "Gotik",
+              fontWeight: FontWeight.w600,
+              fontSize: 18.5,
+              letterSpacing: 1.2,
+              color: Colors.black87),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => NetworkGiffyDialog(
-                              image: Image.asset(
-                                "assets/gif/earth.gif",
-                                fit: BoxFit.cover,
-                              ),
-                              title: Text(
-                                  AppLocalizations.of(context).tr('titleCard'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: "Gotik",
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600)),
-                              description: Text(
-                                AppLocalizations.of(context).tr('descCard'),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+        elevation: 0.0,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => NetworkGiffyDialog(
+                            image: Image.asset(
+                              "assets/gif/earth.gif",
+                              fit: BoxFit.cover,
+                            ),
+                            title: Text('titleCard',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontFamily: "Popins",
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.black26),
-                              ),
-                              onOkButtonPressed: () {
-                                data.changeLocale(Locale('en', 'US'));
-                                Navigator.pop(context);
-                              },
-                            ));
-                  },
-                  child: cardName(
-                    flag: "assets/img/us.png",
-                    title: AppLocalizations.of(context).tr('english'),
-                  )),
-              InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => NetworkGiffyDialog(
-                              image: Image.asset(
-                                "assets/gif/earth.gif",
-                                fit: BoxFit.cover,
-                              ),
-                              title: Text(
-                                  AppLocalizations.of(context).tr('titleCard'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: "Gotik",
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600)),
-                              description: Text(
-                                AppLocalizations.of(context).tr('descCard'),
+                                    fontFamily: "Gotik",
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600)),
+                            description: Text(
+                              'descCard',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Popins",
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black26),
+                            ),
+                            onOkButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ));
+                },
+                child: cardName(
+                  flag: "assets/img/us.png",
+                  title: 'english',
+                )),
+            InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => NetworkGiffyDialog(
+                            image: Image.asset(
+                              "assets/gif/earth.gif",
+                              fit: BoxFit.cover,
+                            ),
+                            title: Text('titleCard',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontFamily: "Popins",
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.black26),
-                              ),
-                              onOkButtonPressed: () {
-                                data.changeLocale(Locale('ar', 'DZ'));
-                                Navigator.pop(context);
-                              },
-                            ));
-                  },
-                  child: cardName(
-                    flag: "assets/img/arab.png",
-                    title: AppLocalizations.of(context).tr('arabic'),
-                  )),
-              InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => NetworkGiffyDialog(
-                              image: Image.asset(
-                                "assets/gif/earth.gif",
-                                fit: BoxFit.cover,
-                              ),
-                              title: Text(
-                                  AppLocalizations.of(context).tr('titleCard'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: "Gotik",
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600)),
-                              description: Text(
-                                AppLocalizations.of(context).tr('descCard'),
+                                    fontFamily: "Gotik",
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600)),
+                            description: Text(
+                              'descCard',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Popins",
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black26),
+                            ),
+                            onOkButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ));
+                },
+                child: cardName(
+                  flag: "assets/img/arab.png",
+                  title: 'arabic',
+                )),
+            InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => NetworkGiffyDialog(
+                            image: Image.asset(
+                              "assets/gif/earth.gif",
+                              fit: BoxFit.cover,
+                            ),
+                            title: Text('titleCard',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontFamily: "Popins",
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.black26),
-                              ),
-                              onOkButtonPressed: () {
-                                data.changeLocale(Locale('zh', 'HK'));
-                                Navigator.pop(context);
-                              },
-                            ));
-                  },
-                  child: cardName(
-                    flag: "assets/img/china.png",
-                    title: AppLocalizations.of(context).tr('chinese'),
-                  )),
-              InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => NetworkGiffyDialog(
-                              image: Image.asset(
-                                "assets/gif/earth.gif",
-                                fit: BoxFit.cover,
-                              ),
-                              title: Text(
-                                  AppLocalizations.of(context).tr('titleCard'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: "Gotik",
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600)),
-                              description: Text(
-                                AppLocalizations.of(context).tr('descCard'),
+                                    fontFamily: "Gotik",
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600)),
+                            description: Text(
+                              'descCard',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Popins",
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black26),
+                            ),
+                            onOkButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ));
+                },
+                child: cardName(
+                  flag: "assets/img/china.png",
+                  title: 'chinese',
+                )),
+            InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => NetworkGiffyDialog(
+                            image: Image.asset(
+                              "assets/gif/earth.gif",
+                              fit: BoxFit.cover,
+                            ),
+                            title: Text('titleCard',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontFamily: "Popins",
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.black26),
-                              ),
-                              onOkButtonPressed: () {
-                                data.changeLocale(Locale('hi', 'IN'));
-                                Navigator.pop(context);
-                              },
-                            ));
-                  },
-                  child: cardName(
-                    flag: "assets/img/india.png",
-                    title: AppLocalizations.of(context).tr('hindi'),
-                  )),
-              InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => NetworkGiffyDialog(
-                              image: Image.asset(
-                                "assets/gif/earth.gif",
-                                fit: BoxFit.cover,
-                              ),
-                              title: Text(
-                                  AppLocalizations.of(context).tr('titleCard'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: "Gotik",
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600)),
-                              description: Text(
-                                AppLocalizations.of(context).tr('descCard'),
+                                    fontFamily: "Gotik",
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600)),
+                            description: Text(
+                              'descCard',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Popins",
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black26),
+                            ),
+                            onOkButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ));
+                },
+                child: cardName(
+                  flag: "assets/img/india.png",
+                  title: 'hindi',
+                )),
+            InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => NetworkGiffyDialog(
+                            image: Image.asset(
+                              "assets/gif/earth.gif",
+                              fit: BoxFit.cover,
+                            ),
+                            title: Text('titleCard',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontFamily: "Popins",
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.black26),
-                              ),
-                              onOkButtonPressed: () {
-                                data.changeLocale(Locale('id', 'ID'));
-                                Navigator.pop(context);
-                              },
-                            ));
-                  },
-                  child: cardName(
-                    flag: "assets/img/indonesia.png",
-                    title: AppLocalizations.of(context).tr('indonesia'),
-                  )),
-              SizedBox(
-                height: 70.0,
-              )
-            ],
-          ),
+                                    fontFamily: "Gotik",
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600)),
+                            description: Text(
+                              'descCard',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Popins",
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black26),
+                            ),
+                            onOkButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ));
+                },
+                child: cardName(
+                  flag: "assets/img/indonesia.png",
+                  title: 'indonesia',
+                )),
+            SizedBox(
+              height: 70.0,
+            )
+          ],
         ),
       ),
     );

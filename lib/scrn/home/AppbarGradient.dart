@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/scrn/account/Notification.dart';
 import 'package:intrale/scrn/home/Search.dart';
@@ -20,33 +18,29 @@ class _AppbarGradientState extends State<AppbarGradient> {
     final MediaQueryData media = MediaQuery.of(context);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
-    var data = EasyLocalizationProvider.of(context).data;
-
     /// Create component in appbar
-    return EasyLocalizationProvider(
-      data: data,
-      child: Container(
-        padding: EdgeInsets.only(top: statusBarHeight),
-        height: 58.0 + statusBarHeight,
-        decoration: BoxDecoration(
+    return Container(
+      padding: EdgeInsets.only(top: statusBarHeight),
+      height: 58.0 + statusBarHeight,
+      decoration: BoxDecoration(
 
-            /// gradient in appbar
-            gradient: LinearGradient(
-                colors: [
-                  const Color(0xFFA3BDED),
-                  const Color(0xFF6991C7),
-                ],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            /// if user click shape white in appbar navigate to search layout
-            InkWell(
-              /*onTap: () {
+          /// gradient in appbar
+          gradient: LinearGradient(
+              colors: [
+                const Color(0xFFA3BDED),
+                const Color(0xFF6991C7),
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          /// if user click shape white in appbar navigate to search layout
+          InkWell(
+            /*onTap: () {
                 Navigator.of(context).push(PageRouteBuilder(
                     pageBuilder: (_, __, ___) => searchAppbar(),
 
@@ -63,83 +57,82 @@ class _AppbarGradientState extends State<AppbarGradient> {
                     }));
               },*/
 
-              /// Create shape background white in appbar (background treva shop text)
-              child: Container(
-                margin: EdgeInsets.only(left: media.padding.left + 15),
-                height: 37.0,
-                width: 222.0,
-                /*decoration: BoxDecoration(
+            /// Create shape background white in appbar (background treva shop text)
+            child: Container(
+              margin: EdgeInsets.only(left: media.padding.left + 15),
+              height: 37.0,
+              width: 222.0,
+              /*decoration: BoxDecoration(
                     color: Colors.cyanAccent,
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     shape: BoxShape.rectangle),*/
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    /**/
-                    Padding(padding: EdgeInsets.only(left: 17.0)),
-                    Image.asset(
-                      "assets/img/Logo.png",
-                      height: 22.0,
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                      left: 17.0,
-                    )),
-                    Padding(
-                      padding: EdgeInsets.only(top: 3.0),
-                      child: Text(
-                        AppLocalizations.of(context).tr('title'),
-                        style: TextStyle(
-                            fontFamily: "Popins",
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 0.0,
-                            fontSize: 16.4),
-                      ),
-                    ),
-                    /**/
-                  ],
-                ),
-              ),
-            ),
-
-            /// Icon chat (if user click navigate to chat layout)
-            InkWell(
-                onTap: () {
-                  Navigator.of(context).push(PageRouteBuilder(
-                      pageBuilder: (_, __, ___) => new chat()));
-                },
-                child: Image.asset(
-                  "assets/img/chat.png",
-                  height: media.devicePixelRatio + 20.0,
-                )),
-
-            /// Icon notification (if user click navigate to notification layout)
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => new notification()));
-              },
-              child: Stack(
-                alignment: AlignmentDirectional(-3.0, -3.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  /**/
+                  Padding(padding: EdgeInsets.only(left: 17.0)),
                   Image.asset(
-                    "assets/img/notifications-button.png",
-                    height: 24.0,
+                    "assets/img/Logo.png",
+                    height: 22.0,
                   ),
-                  CircleAvatar(
-                    radius: 8.6,
-                    backgroundColor: Colors.redAccent,
+                  Padding(
+                      padding: EdgeInsets.only(
+                    left: 17.0,
+                  )),
+                  Padding(
+                    padding: EdgeInsets.only(top: 3.0),
                     child: Text(
-                      CountNotice,
-                      style: TextStyle(fontSize: 13.0, color: Colors.white),
+                      'title',
+                      style: TextStyle(
+                          fontFamily: "Popins",
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0.0,
+                          fontSize: 16.4),
                     ),
-                  )
+                  ),
+                  /**/
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+
+          /// Icon chat (if user click navigate to chat layout)
+          InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => new chat()));
+              },
+              child: Image.asset(
+                "assets/img/chat.png",
+                height: media.devicePixelRatio + 20.0,
+              )),
+
+          /// Icon notification (if user click navigate to notification layout)
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => new notification()));
+            },
+            child: Stack(
+              alignment: AlignmentDirectional(-3.0, -3.0),
+              children: <Widget>[
+                Image.asset(
+                  "assets/img/notifications-button.png",
+                  height: 24.0,
+                ),
+                CircleAvatar(
+                  radius: 8.6,
+                  backgroundColor: Colors.redAccent,
+                  child: Text(
+                    CountNotice,
+                    style: TextStyle(fontSize: 13.0, color: Colors.white),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

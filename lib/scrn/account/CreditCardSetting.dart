@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 
 /// Custom Text Header
@@ -27,120 +25,115 @@ class _creditCardSettingState extends State<creditCardSetting> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
-    var data = EasyLocalizationProvider.of(context).data;
 
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        appBar: AppBar(
-          leading: InkWell(
-              onTap: () {
-                Navigator.of(context).pop(false);
-              },
-              child: Icon(Icons.arrow_back)),
-          elevation: 0.0,
-          title: Text(
-            AppLocalizations.of(context).tr('payment'),
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 18.0,
-                color: Colors.black54,
-                fontFamily: "Gotik"),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+    return Scaffold(
+      appBar: AppBar(
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop(false);
+            },
+            child: Icon(Icons.arrow_back)),
+        elevation: 0.0,
+        title: Text(
+          'payment',
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 18.0,
+              color: Colors.black54,
+              fontFamily: "Gotik"),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                  child: Stack(
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/img/creditCardVisa.png",
-                        height: 220.0,
-                        fit: BoxFit.fill,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: mediaQuery.padding.top + 75.0),
-                            child: Text(
-                              AppLocalizations.of(context).tr('numberCC'),
-                              style: _txtCustomHead.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  letterSpacing: 3.5),
-                            ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                child: Stack(
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/img/creditCardVisa.png",
+                      height: 220.0,
+                      fit: BoxFit.fill,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: mediaQuery.padding.top + 75.0),
+                          child: Text(
+                            'numberCC',
+                            style: _txtCustomHead.copyWith(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                letterSpacing: 3.5),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: mediaQuery.padding.top + 10.0,
-                                left: 20.0,
-                                right: 20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  AppLocalizations.of(context).tr('cardName'),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: mediaQuery.padding.top + 10.0,
+                              left: 20.0,
+                              right: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                'cardName',
+                                style:
+                                    _txtCustomSub.copyWith(color: Colors.white),
+                              ),
+                              Text('cvv',
                                   style: _txtCustomSub.copyWith(
-                                      color: Colors.white),
-                                ),
-                                Text(AppLocalizations.of(context).tr('cvv'),
-                                    style: _txtCustomSub.copyWith(
-                                        color: Colors.white)),
-                              ],
-                            ),
+                                      color: Colors.white)),
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0, right: 40.0, top: 2.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                    AppLocalizations.of(context).tr('numberCC'),
-                                    style: _txtCustomSub.copyWith(
-                                        color: Colors.white)),
-                                Text(AppLocalizations.of(context).tr('cvCC'),
-                                    style: _txtCustomSub.copyWith(
-                                        color: Colors.white)),
-                              ],
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 40.0, top: 2.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('numberCC',
+                                  style: _txtCustomSub.copyWith(
+                                      color: Colors.white)),
+                              Text('cvCC',
+                                  style: _txtCustomSub.copyWith(
+                                      color: Colors.white)),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 30.0, left: 15.0, right: 20.0),
-                  child: Text(
-                    AppLocalizations.of(context).tr('cardInformation'),
-                    style: _txtCustomHead,
-                  ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 30.0, left: 15.0, right: 20.0),
+                child: Text(
+                  'cardInformation',
+                  style: _txtCustomHead,
                 ),
-                creditCard(),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 30.0, left: 15.0, bottom: 10.0, right: 20.0),
-                  child: Text(
-                    AppLocalizations.of(context).tr('transactionDetail'),
-                    style: _txtCustomHead.copyWith(fontSize: 16.0),
-                  ),
+              ),
+              creditCard(),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 30.0, left: 15.0, bottom: 10.0, right: 20.0),
+                child: Text(
+                  'transactionDetail',
+                  style: _txtCustomHead.copyWith(fontSize: 16.0),
                 ),
-                transactionsDetail()
-              ],
-            ),
+              ),
+              transactionsDetail()
+            ],
           ),
         ),
       ),
@@ -174,7 +167,7 @@ class creditCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).tr('myPersonal'),
+                    'myPersonal',
                     style: _txtCustomHead.copyWith(
                         fontSize: 15.0, fontWeight: FontWeight.w600),
                   ),
@@ -195,13 +188,12 @@ class creditCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context).tr('cardNumber'),
+                        'cardNumber',
                         style: _txtCustomSub,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0),
-                        child:
-                            Text(AppLocalizations.of(context).tr('numberCC')),
+                        child: Text('numberCC'),
                       ),
                     ],
                   ),
@@ -209,7 +201,7 @@ class creditCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context).tr('exp'),
+                        'exp',
                         style: _txtCustomSub,
                       ),
                       Padding(
@@ -235,12 +227,12 @@ class creditCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context).tr('cardName'),
+                        'cardName',
                         style: _txtCustomSub,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(AppLocalizations.of(context).tr('nameCC')),
+                        child: Text('nameCC'),
                       ),
                     ],
                   ),
@@ -248,12 +240,12 @@ class creditCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context).tr('cvv'),
+                        'cvv',
                         style: _txtCustomSub,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(AppLocalizations.of(context).tr('cvCC')),
+                        child: Text('cvCC'),
                       ),
                     ],
                   ),
@@ -265,7 +257,7 @@ class creditCard extends StatelessWidget {
                 width: 1000.0,
                 color: Colors.blueGrey.withOpacity(0.1),
                 child: Center(
-                    child: Text(AppLocalizations.of(context).tr('editDetail'),
+                    child: Text('editDetail',
                         style: _txtCustomHead.copyWith(
                             fontSize: 15.0, color: Colors.blueGrey))))
           ],
@@ -298,28 +290,28 @@ class transactionsDetail extends StatelessWidget {
         child: Column(
           children: <Widget>[
             dataTransaction(
-              date: AppLocalizations.of(context).tr('datePayment1'),
-              item: AppLocalizations.of(context).tr('itemPayment1'),
+              date: 'datePayment1',
+              item: 'itemPayment1',
               price: "\$ 50",
             ),
             dataTransaction(
-              date: AppLocalizations.of(context).tr('datePayment2'),
-              item: AppLocalizations.of(context).tr('itemPayment2'),
+              date: 'datePayment2',
+              item: 'itemPayment2',
               price: "\$ 1000",
             ),
             dataTransaction(
-              date: AppLocalizations.of(context).tr('datePayment3'),
-              item: AppLocalizations.of(context).tr('itemPayment3'),
+              date: 'datePayment3',
+              item: 'itemPayment3',
               price: "\$ 2500",
             ),
             dataTransaction(
-              date: AppLocalizations.of(context).tr('datePayment4'),
-              item: AppLocalizations.of(context).tr('itemPayment4'),
+              date: 'datePayment4',
+              item: 'itemPayment4',
               price: "\$ 50",
             ),
             dataTransaction(
-              date: AppLocalizations.of(context).tr('datePayment5'),
-              item: AppLocalizations.of(context).tr('itemPayment5'),
+              date: 'datePayment5',
+              item: 'itemPayment5',
               price: "\$ 50",
             ),
           ],

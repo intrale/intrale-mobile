@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
 
 class GoogleButton extends StatelessWidget {
   @override
@@ -24,7 +23,7 @@ class GoogleButton extends StatelessWidget {
             ),
             Padding(padding: EdgeInsets.symmetric(horizontal: 7.0)),
             Text(
-              AppLocalizations.of(context).tr('loginGoogle'),
+              'loginGoogle',
               style: TextStyle(
                   color: Colors.black26,
                   fontSize: 15.0,

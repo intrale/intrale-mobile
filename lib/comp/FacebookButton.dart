@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
 
 class FacebookButton extends StatelessWidget {
   @override
@@ -24,7 +23,7 @@ class FacebookButton extends StatelessWidget {
             ),
             Padding(padding: EdgeInsets.symmetric(horizontal: 7.0)),
             Text(
-              AppLocalizations.of(context).tr('loginFacebook'),
+              'loginFacebook',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15.0,

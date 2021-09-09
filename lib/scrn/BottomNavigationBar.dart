@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/brand/BrandLayout.dart';
@@ -59,71 +57,62 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   /// Build BottomNavigationBar Widget
   @override
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        body: callPage(currentIndex),
-        bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-                canvasColor: Colors.white,
-                textTheme: Theme.of(context).textTheme.copyWith(
-                    caption:
-                        TextStyle(color: Colors.black26.withOpacity(0.15)))),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: currentIndex,
-              fixedColor: Color(0xFF6991C7),
-              onTap: (value) {
-                debugPrint('BottomNavigationBar onTap:' + value.toString());
-                currentIndex = value;
-                setState(() {});
-              },
-              items: [
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                      size: 23.0,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context).tr('home'),
-                      style:
-                          TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-                /*BottomNavigationBarItem(
+    return Scaffold(
+      body: callPage(currentIndex),
+      bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+              canvasColor: Colors.white,
+              textTheme: Theme.of(context).textTheme.copyWith(
+                  caption: TextStyle(color: Colors.black26.withOpacity(0.15)))),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: currentIndex,
+            fixedColor: Color(0xFF6991C7),
+            onTap: (value) {
+              debugPrint('BottomNavigationBar onTap:' + value.toString());
+              currentIndex = value;
+              setState(() {});
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    size: 23.0,
+                  ),
+                  title: Text(
+                    'home',
+                    style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
+                  )),
+              /*BottomNavigationBarItem(
                     icon: Icon(Icons.shop),
                     title: Text(
                       AppLocalizations.of(context).tr('brand'),
                       style:
                           TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
                     )), */
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart),
-                    title: Text(
-                      AppLocalizations.of(context).tr('cart'),
-                      style:
-                          TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.person,
-                      size: 24.0,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context).tr('account'),
-                      style:
-                          TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.exit_to_app),
-                    title: Text(
-                      AppLocalizations.of(context).tr('exit'),
-                      style:
-                          TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-              ],
-            )),
-      ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart),
+                  title: Text(
+                    'cart',
+                    style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.person,
+                    size: 24.0,
+                  ),
+                  title: Text(
+                    'account',
+                    style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.exit_to_app),
+                  title: Text(
+                    'exit',
+                    style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
+                  )),
+            ],
+          )),
     );
   }
 }

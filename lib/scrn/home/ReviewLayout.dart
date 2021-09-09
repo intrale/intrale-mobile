@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:intrale/comp/Expanded/ExpandedDetailRatting.dart';
@@ -27,359 +25,292 @@ class _ReviewsAllState extends State<ReviewsAll> {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final MediaQueryData media = MediaQuery.of(context);
 
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context).tr('reviewsAppBar')),
-          centerTitle: true,
-          leading: InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black87,
-              )),
-          elevation: 0.0,
-        ),
-        body: Stack(
-          children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, left: 20.0),
-                    child: Text(
-                      AppLocalizations.of(context).tr('reviewsAppBar'),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.0,
-                          fontFamily: "Popins",
-                          fontWeight: FontWeight.w700),
-                    ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('reviewsAppBar'),
+        centerTitle: true,
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.black87,
+            )),
+        elevation: 0.0,
+      ),
+      body: Stack(
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0, left: 20.0),
+                  child: Text(
+                    'reviewsAppBar',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                        fontFamily: "Popins",
+                        fontWeight: FontWeight.w700),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, left: 20.0),
-                    child: Row(
-                      children: <Widget>[
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              StarRating(
-                                size: 25.0,
-                                starCount: 5,
-                                rating: rating,
-                                color: Colors.yellow,
-                              ),
-                              SizedBox(width: 5.0),
-                              Text('8 Reviews')
-                            ]),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                    child: _line(),
-                  ),
-                  ListTile(
-                    leading: Container(
-                      height: 45.0,
-                      width: 45.0,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/avatars/avatar-4.jpg"),
-                              fit: BoxFit.cover),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(50.0))),
-                    ),
-                    title: Row(
-                      children: <Widget>[
-                        StarRating(
-                          size: 20.0,
-                          rating: rating,
-                          starCount: starCount,
-                          color: Colors.yellow,
-                          onRatingChanged: (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          },
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          AppLocalizations.of(context).tr('date'),
-                          style: TextStyle(fontSize: 12.0),
-                        )
-                      ],
-                    ),
-                    subtitle: ExpansionTileReview(
-                      title: Text(
-                        AppLocalizations.of(context).tr('ratingReview'),
-                        style: _detailText,
-                      ),
-                      children: [
-                        SizedBox(height: 10.0),
-                        Text(
-                          AppLocalizations.of(context).tr('ratingReview2'),
-                          style: _detailText,
-                        ),
-                        SizedBox(height: 10.0),
-                        Text(
-                          AppLocalizations.of(context).tr('ratingReview'),
-                          style: _detailText,
-                        ),
-                      ],
-//                              child: Text("Read More",style: _subHeaderCustomStyle.copyWith(fontSize: 13.0,color: Colors.blueAccent),
-//                              textAlign: TextAlign.end,
-//                              ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                    child: _line(),
-                  ),
-                  _buildRating(AppLocalizations.of(context).tr('date'),
-                      AppLocalizations.of(context).tr('ratingReview'),
-                      (rating) {
-                    setState(() {
-                      this.rating = rating;
-                    });
-                  }, "assets/avatars/avatar-1.jpg"),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                    child: _line(),
-                  ),
-                  _buildRating(AppLocalizations.of(context).tr('date'),
-                      AppLocalizations.of(context).tr('ratingReview'),
-                      (rating) {
-                    setState(() {
-                      this.rating = rating;
-                    });
-                  }, "assets/avatars/avatar-4.jpg"),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                    child: _line(),
-                  ),
-                  _buildRating(AppLocalizations.of(context).tr('date'),
-                      AppLocalizations.of(context).tr('ratingReview'),
-                      (rating) {
-                    setState(() {
-                      this.rating = rating;
-                    });
-                  }, "assets/avatars/avatar-2.jpg"),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                    child: _line(),
-                  ),
-                  _buildRating(AppLocalizations.of(context).tr('date'),
-                      AppLocalizations.of(context).tr('ratingReview'),
-                      (rating) {
-                    setState(() {
-                      this.rating = rating;
-                    });
-                  }, "assets/avatars/avatar-3.jpg"),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                    child: _line(),
-                  ),
-                  _buildRating(AppLocalizations.of(context).tr('date'),
-                      AppLocalizations.of(context).tr('ratingReview'),
-                      (rating) {
-                    setState(() {
-                      this.rating = rating;
-                    });
-                  }, "assets/avatars/avatar-5.jpg"),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  _line(),
-                  Column(
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5.0, left: 20.0),
+                  child: Row(
                     children: <Widget>[
-                      ExpansionTileCustomRatting(
-                        title: _buildRating(
-                            AppLocalizations.of(context).tr('date'),
-                            AppLocalizations.of(context).tr('ratingReview'),
-                            (rating) {
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            StarRating(
+                              size: 25.0,
+                              starCount: 5,
+                              rating: rating,
+                              color: Colors.yellow,
+                            ),
+                            SizedBox(width: 5.0),
+                            Text('8 Reviews')
+                          ]),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                  child: _line(),
+                ),
+                ListTile(
+                  leading: Container(
+                    height: 45.0,
+                    width: 45.0,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/avatars/avatar-4.jpg"),
+                            fit: BoxFit.cover),
+                        borderRadius: BorderRadius.all(Radius.circular(50.0))),
+                  ),
+                  title: Row(
+                    children: <Widget>[
+                      StarRating(
+                        size: 20.0,
+                        rating: rating,
+                        starCount: starCount,
+                        color: Colors.yellow,
+                        onRatingChanged: (rating) {
                           setState(() {
                             this.rating = rating;
                           });
-                        }, "assets/avatars/avatar-6.jpg"),
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-1.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-3.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-2.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-1.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-5.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-5.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-5.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-5.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-5.jpg"),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 15.0,
-                                bottom: 7.0),
-                            child: _line(),
-                          ),
-                          _buildRating(AppLocalizations.of(context).tr('date'),
-                              AppLocalizations.of(context).tr('ratingReview'),
-                              (rating) {
-                            setState(() {
-                              this.rating = rating;
-                            });
-                          }, "assets/avatars/avatar-5.jpg"),
-                        ],
+                        },
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        'date',
+                        style: TextStyle(fontSize: 12.0),
+                      )
+                    ],
+                  ),
+                  subtitle: ExpansionTileReview(
+                    title: Text(
+                      'ratingReview',
+                      style: _detailText,
+                    ),
+                    children: [
+                      SizedBox(height: 10.0),
+                      Text(
+                        'ratingReview2',
+                        style: _detailText,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(
+                        'ratingReview',
+                        style: _detailText,
+                      ),
+                    ],
 //                              child: Text("Read More",style: _subHeaderCustomStyle.copyWith(fontSize: 13.0,color: Colors.blueAccent),
 //                              textAlign: TextAlign.end,
 //                              ),
-                      ),
-                    ],
                   ),
-                  Padding(padding: EdgeInsets.only(bottom: 40.0)),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                  child: _line(),
+                ),
+                _buildRating('date', 'ratingReview', (rating) {
+                  setState(() {
+                    this.rating = rating;
+                  });
+                }, "assets/avatars/avatar-1.jpg"),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                  child: _line(),
+                ),
+                _buildRating('date', 'ratingReview', (rating) {
+                  setState(() {
+                    this.rating = rating;
+                  });
+                }, "assets/avatars/avatar-4.jpg"),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                  child: _line(),
+                ),
+                _buildRating('date', 'ratingReview', (rating) {
+                  setState(() {
+                    this.rating = rating;
+                  });
+                }, "assets/avatars/avatar-2.jpg"),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                  child: _line(),
+                ),
+                _buildRating('date', 'ratingReview', (rating) {
+                  setState(() {
+                    this.rating = rating;
+                  });
+                }, "assets/avatars/avatar-3.jpg"),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                  child: _line(),
+                ),
+                _buildRating('date', 'ratingReview', (rating) {
+                  setState(() {
+                    this.rating = rating;
+                  });
+                }, "assets/avatars/avatar-5.jpg"),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _line(),
+                Column(
+                  children: <Widget>[
+                    ExpansionTileCustomRatting(
+                      title: _buildRating('date', 'ratingReview', (rating) {
+                        setState(() {
+                          this.rating = rating;
+                        });
+                      }, "assets/avatars/avatar-6.jpg"),
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-1.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-3.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-2.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-1.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-5.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-5.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-5.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-5.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-5.jpg"),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
+                          child: _line(),
+                        ),
+                        _buildRating('date', 'ratingReview', (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        }, "assets/avatars/avatar-5.jpg"),
+                      ],
+//                              child: Text("Read More",style: _subHeaderCustomStyle.copyWith(fontSize: 13.0,color: Colors.blueAccent),
+//                              textAlign: TextAlign.end,
+//                              ),
+                    ),
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(bottom: 40.0)),
+              ],
             ),
+          ),
 
-            /// Get a class AppbarGradient
-            /// This is a Appbar in home activity
+          /// Get a class AppbarGradient
+          /// This is a Appbar in home activity
 //          Container(
 //            height: 200.0,
 //            width: double.infinity,
@@ -407,8 +338,7 @@ class _ReviewsAllState extends State<ReviewsAll> {
 //              ],
 //            ),
 //          ),
-          ],
-        ),
+        ],
       ),
     );
   }

@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/countdown_timer/countDownTimer.dart';
@@ -49,84 +47,81 @@ class _flashSaleState extends State<flashSale> {
 
   /// Component widget in flashSale layout
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
+    //var data = EasyLocalizationProvider.of(context).data;
     MediaQueryData mediaQueryData = MediaQuery.of(context);
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            AppLocalizations.of(context).tr('flashSale'),
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 17.0,
-                color: Colors.black54,
-                fontFamily: "Gotik"),
-          ),
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Color(0xFF6991C7)),
-          elevation: 0.0,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'flashSale',
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 17.0,
+              color: Colors.black54,
+              fontFamily: "Gotik"),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                /// Header banner
-                Image.asset(
-                  "assets/img/flashsalebanner.png",
-                  height: 195.0,
-                  width: 1000.0,
-                  fit: BoxFit.cover,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        AppLocalizations.of(context).tr('endIn'),
-                        style: TextStyle(
-                          fontFamily: "Sans",
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+        elevation: 0.0,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              /// Header banner
+              Image.asset(
+                "assets/img/flashsalebanner.png",
+                height: 195.0,
+                width: 1000.0,
+                fit: BoxFit.cover,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'endIn',
+                      style: TextStyle(
+                        fontFamily: "Sans",
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 20.0)),
+
+                    /// Get a countDown variable
+                    CountDownTimer(
+                        secondsRemaining: 86400,
+                        whenTimeExpires: () {
+                          setState(() {
+                            //hasTimerStopped = true;
+                          });
+                        },
+                        countDownTimerStyle: TextStyle(
+                          fontFamily: "Gotik",
                           fontSize: 15.0,
+                          letterSpacing: 2.0,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.only(left: 20.0)),
-
-                      /// Get a countDown variable
-                      CountDownTimer(
-                          secondsRemaining: 86400,
-                          whenTimeExpires: () {
-                            setState(() {
-                              //hasTimerStopped = true;
-                            });
-                          },
-                          countDownTimerStyle: TextStyle(
-                            fontFamily: "Gotik",
-                            fontSize: 15.0,
-                            letterSpacing: 2.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          )),
-                    ],
-                  ),
+                        )),
+                  ],
                 ),
+              ),
 
-                ///
-                ///
-                /// check the condition if image data from server firebase loaded or no
-                /// if image true (image still downloading from server)
-                /// Card to set card loading animation
-                ///
-                ///
-                /// Create a GridView
-                loadImage
-                    ? _loadingImageAnimation(context)
-                    : _imageLoaded(context)
-              ],
-            ),
+              ///
+              ///
+              /// check the condition if image data from server firebase loaded or no
+              /// if image true (image still downloading from server)
+              /// Card to set card loading animation
+              ///
+              ///
+              /// Create a GridView
+              loadImage
+                  ? _loadingImageAnimation(context)
+                  : _imageLoaded(context)
+            ],
           ),
         ),
       ),

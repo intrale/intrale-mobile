@@ -1,12 +1,8 @@
 import 'dart:async';
 
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'package:intrale/model/CategoryItem.dart';
-import 'package:intrale/model/CategoryItem.dart';
 import 'package:intrale/model/CategoryItem.dart';
 import 'package:intrale/scrn/home/PromotionDetail.dart';
 import 'package:intrale/scrn/home/Search.dart';
@@ -96,7 +92,7 @@ class _categoryDetailState extends State<categoryDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context).tr('subCategory'),
+                  'subCategory',
                   style: _customTextStyleBlack,
                 ),
                 InkWell(
@@ -104,7 +100,7 @@ class _categoryDetailState extends State<categoryDetail> {
                     Navigator.of(context).push(PageRouteBuilder(
                         pageBuilder: (_, __, ___) => new promoDetail()));
                   },
-                  child: Text(AppLocalizations.of(context).tr('seeMore'),
+                  child: Text('seeMore',
                       style:
                           _customTextStyleBlue.copyWith(color: Colors.black26)),
                 ),
@@ -121,23 +117,23 @@ class _categoryDetailState extends State<categoryDetail> {
                 children: <Widget>[
                   Padding(padding: EdgeInsets.only(left: 20.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('categoryTitle1'),
-                    title2: AppLocalizations.of(context).tr('categoryTitle2'),
+                    title: 'categoryTitle1',
+                    title2: 'categoryTitle2',
                   ),
                   Padding(padding: EdgeInsets.only(left: 15.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('categoryTitle3'),
-                    title2: AppLocalizations.of(context).tr('categoryTitle4'),
+                    title: 'categoryTitle3',
+                    title2: 'categoryTitle4',
                   ),
                   Padding(padding: EdgeInsets.only(left: 15.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('categoryTitle5'),
-                    title2: AppLocalizations.of(context).tr('categoryTitle6'),
+                    title: 'categoryTitle5',
+                    title2: 'categoryTitle6',
                   ),
                   Padding(padding: EdgeInsets.only(left: 15.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('categoryTitle7'),
-                    title2: AppLocalizations.of(context).tr('categoryTitle8'),
+                    title: 'categoryTitle7',
+                    title2: 'categoryTitle8',
                   ),
                   Padding(padding: EdgeInsets.only(right: 20.0)),
                 ],
@@ -158,7 +154,7 @@ class _categoryDetailState extends State<categoryDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context).tr('itemDiscount'),
+                  'itemDiscount',
                   style: _customTextStyleBlack,
                 ),
                 InkWell(
@@ -166,8 +162,7 @@ class _categoryDetailState extends State<categoryDetail> {
                     Navigator.of(context).push(PageRouteBuilder(
                         pageBuilder: (_, __, ___) => new promoDetail()));
                   },
-                  child: Text(AppLocalizations.of(context).tr('seeMore'),
-                      style: _customTextStyleBlue),
+                  child: Text('seeMore', style: _customTextStyleBlue),
                 ),
               ],
             ),
@@ -210,13 +205,12 @@ class _categoryDetailState extends State<categoryDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).tr('itemPopular'),
+                    'itemPopular',
                     style: _customTextStyleBlack,
                   ),
                   InkWell(
                     onTap: null,
-                    child: Text(AppLocalizations.of(context).tr('seeMore'),
-                        style: _customTextStyleBlue),
+                    child: Text('seeMore', style: _customTextStyleBlue),
                   ),
                 ],
               ),
@@ -260,13 +254,12 @@ class _categoryDetailState extends State<categoryDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).tr('newItem'),
+                    'newItem',
                     style: _customTextStyleBlack,
                   ),
                   InkWell(
                     onTap: null,
-                    child: Text(AppLocalizations.of(context).tr('seeMore'),
-                        style: _customTextStyleBlue),
+                    child: Text('seeMore', style: _customTextStyleBlue),
                   ),
                 ],
               ),
@@ -298,51 +291,52 @@ class _categoryDetailState extends State<categoryDetail> {
       ),
     );
 
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
+    //var data = EasyLocalizationProvider.of(context).data;
+    return /*EasyLocalizationProvider(
       data: data,
-      child: Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => new searchAppbar()));
-              },
-              icon: Icon(Icons.search, color: Color(0xFF6991C7)),
-            ),
-          ],
-          centerTitle: true,
-          title: Text(
-            AppLocalizations.of(context).tr('man'),
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 16.0,
-                color: Colors.black54,
-                fontFamily: "Gotik"),
+      child: */
+        Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => new searchAppbar()));
+            },
+            icon: Icon(Icons.search, color: Color(0xFF6991C7)),
           ),
-          iconTheme: IconThemeData(
-            color: Color(0xFF6991C7),
-          ),
-          elevation: 0.0,
+        ],
+        centerTitle: true,
+        title: Text(
+          'man',
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16.0,
+              color: Colors.black54,
+              fontFamily: "Gotik"),
         ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF6991C7),
+        ),
+        elevation: 0.0,
+      ),
 
-        /// For call a variable include to body
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                _imageSlider,
-                _subCategory,
-                _itemDiscount,
-                _itemPopular,
-                _itemNew
-              ],
-            ),
+      /// For call a variable include to body
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              _imageSlider,
+              _subCategory,
+              _itemDiscount,
+              _itemPopular,
+              _itemNew
+            ],
           ),
         ),
       ),
+      //),
     );
   }
 }

@@ -23,8 +23,6 @@ const Duration _kExpand = Duration(milliseconds: 200);
 ///  * The "Expand/collapse" section of
 ///    <https://material.io/guidelines/components/lists-controls.html>.
 class ExpansionTileReview extends StatefulWidget {
-
-
   /// Creates a single-line [ListTile] with a trailing button that expands or collapses
   /// the tile to reveal or hide the [children]. The [initiallyExpanded] property must
   /// be non-null.
@@ -37,7 +35,7 @@ class ExpansionTileReview extends StatefulWidget {
     this.children = const <Widget>[],
     this.trailing,
     this.initiallyExpanded = false,
-  }) : assert(initiallyExpanded != null),
+  })  : assert(initiallyExpanded != null),
         super(key: key);
 
   /// A widget to display before the title.
@@ -75,8 +73,8 @@ class ExpansionTileReview extends StatefulWidget {
   _ExpansionTileReviewState createState() => _ExpansionTileReviewState();
 }
 
-class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTickerProviderStateMixin {
-
+class _ExpansionTileReviewState extends State<ExpansionTileReview>
+    with SingleTickerProviderStateMixin {
   static var _detailText = TextStyle(
       fontFamily: "Gotik",
       color: Colors.black54,
@@ -84,9 +82,12 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTi
       letterSpacing: 0.3,
       wordSpacing: 0.5);
 
-  static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
+  static final Animatable<double> _easeOutTween =
+      CurveTween(curve: Curves.easeOut);
+  static final Animatable<double> _easeInTween =
+      CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween =
+      Tween<double>(begin: 0.0, end: 0.5);
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -113,11 +114,12 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTi
     _borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
-    _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
+    _backgroundColor =
+        _controller.drive(_backgroundColorTween.chain(_easeOutTween));
     _gradientExpanded = true;
-    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded)
-      _controller.value = 1.0;
+    _isExpanded =
+        PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    if (_isExpanded) _controller.value = 1.0;
   }
 
   @override
@@ -136,21 +138,20 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTi
         });
       } else {
         _controller.reverse().then<void>((void value) {
-          if (!mounted)
-            return;
+          if (!mounted) return;
           setState(() {
             _gradientExpanded = true;
             // Rebuild without widget.children.
           });
         });
       }
-      if(_readMore=="...read more"){
+      if (_readMore == "...read more") {
         setState(() {
-          _readMore=" ";
+          _readMore = " ";
         });
-      }else if(_readMore==" "){
+      } else if (_readMore == " ") {
         setState(() {
-          _readMore="...read more";
+          _readMore = "...read more";
         });
       }
       PageStorage.of(context)?.writeState(context, _isExpanded);
@@ -171,24 +172,24 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTi
               data: IconThemeData(color: _iconColor.value),
               child: GestureDetector(
                 onTap: _handleTap,
-                child:  Stack(
+                child: Stack(
                   children: <Widget>[
                     widget.title,
-                    _gradientExpanded?
-                    Container(
-                      width: double.infinity,
-                      decoration:BoxDecoration(
-
-                      ),
-                      child:  Padding(
-                        padding: const EdgeInsets.only(top:18.0,left: 166.0),
-                        child: Container(
-                          padding: EdgeInsets.only(left:4.0),
-                            color: Colors.white,
-                            alignment: Alignment.bottomLeft,
-                            child: Text(_readMore,style:_detailText)),
-                      ) ,
-                    ):Container()
+                    _gradientExpanded
+                        ? Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 18.0, left: 166.0),
+                              child: Container(
+                                  padding: EdgeInsets.only(left: 4.0),
+                                  color: Colors.white,
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(_readMore, style: _detailText)),
+                            ),
+                          )
+                        : Container()
                   ],
                 ),
               )
@@ -200,7 +201,7 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTi
 //                turns: _iconTurns,
 //              ),
 //            ),
-          ),
+              ),
           ClipRect(
             child: Align(
               heightFactor: _heightFactor.value,
@@ -215,16 +216,14 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTi
   @override
   void didChangeDependencies() {
     final ThemeData theme = Theme.of(context);
-    _borderColorTween
-      ..end = theme.dividerColor;
+    _borderColorTween..end = theme.dividerColor;
     _headerColorTween
-      ..begin = theme.textTheme.subhead.color
+      //..begin = theme.textTheme.subhead.color
       ..end = theme.accentColor;
     _iconColorTween
       ..begin = theme.unselectedWidgetColor
       ..end = theme.accentColor;
-    _backgroundColorTween
-      ..end = widget.backgroundColor;
+    _backgroundColorTween..end = widget.backgroundColor;
     super.didChangeDependencies();
   }
 
@@ -234,15 +233,14 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview> with SingleTi
     return AnimatedBuilder(
         animation: _controller.view,
         builder: _buildChildren,
-        child: closed ? null :
-        Container(
-          width: double.infinity,
-          child:  Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widget.children),
-        )
-    );
-
+        child: closed
+            ? null
+            : Container(
+                width: double.infinity,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.children),
+              ));
   }
 }

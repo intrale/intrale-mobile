@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/MenuItem.dart';
 import 'package:intrale/scrn/home/PromotionDetail.dart';
@@ -76,8 +74,7 @@ class _menuDetailState extends State<menuDetail> {
           Padding(
               padding: EdgeInsets.only(
                   left: 20.0, top: 10.0, bottom: 3.0, right: 20.0),
-              child: Text(AppLocalizations.of(context).tr('weekPromotion'),
-                  style: _customTextStyleBlack)),
+              child: Text('weekPromotion', style: _customTextStyleBlack)),
           Expanded(
             child: ListView(
               shrinkWrap: true,
@@ -88,17 +85,17 @@ class _menuDetailState extends State<menuDetail> {
                 Padding(padding: EdgeInsets.only(left: 20.0)),
                 itemPopular(
                   image: "assets/imgCamera/CameraDigital.png",
-                  title: AppLocalizations.of(context).tr('cameraDigital'),
+                  title: 'cameraDigital',
                 ),
                 Padding(padding: EdgeInsets.only(left: 10.0)),
                 itemPopular(
                   image: "assets/imgCamera/CompactCamera.png",
-                  title: AppLocalizations.of(context).tr('compacCamera'),
+                  title: 'compacCamera',
                 ),
                 Padding(padding: EdgeInsets.only(left: 10.0)),
                 itemPopular(
                     image: "assets/imgCamera/ActionCamera.png",
-                    title: AppLocalizations.of(context).tr('actionCamera')),
+                    title: 'actionCamera'),
                 Padding(padding: EdgeInsets.only(left: 5.0)),
               ],
             ),
@@ -117,13 +114,12 @@ class _menuDetailState extends State<menuDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context).tr('subCategory'),
+                  'subCategory',
                   style: _customTextStyleBlack,
                 ),
                 InkWell(
                   onTap: null,
-                  child: Text(AppLocalizations.of(context).tr('seeMore'),
-                      style: _customTextStyleBlue),
+                  child: Text('seeMore', style: _customTextStyleBlue),
                 ),
               ],
             ),
@@ -139,23 +135,23 @@ class _menuDetailState extends State<menuDetail> {
                   /// Get keyword item class in Search.dart
                   Padding(padding: EdgeInsets.only(left: 20.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('action'),
-                    title2: AppLocalizations.of(context).tr('drone'),
+                    title: 'action',
+                    title2: 'drone',
                   ),
                   Padding(padding: EdgeInsets.only(left: 15.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('digital'),
-                    title2: AppLocalizations.of(context).tr('handyCam'),
+                    title: 'digital',
+                    title2: 'handyCam',
                   ),
                   Padding(padding: EdgeInsets.only(left: 15.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('analog'),
-                    title2: AppLocalizations.of(context).tr('cctv'),
+                    title: 'analog',
+                    title2: 'cctv',
                   ),
                   Padding(padding: EdgeInsets.only(left: 15.0)),
                   KeywordItem(
-                    title: AppLocalizations.of(context).tr('spyCam'),
-                    title2: AppLocalizations.of(context).tr('accesoris'),
+                    title: 'spyCam',
+                    title2: 'accesoris',
                   ),
                   Padding(padding: EdgeInsets.only(right: 20.0)),
                 ],
@@ -176,7 +172,7 @@ class _menuDetailState extends State<menuDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context).tr('itemDiscount'),
+                  'itemDiscount',
                   style: _customTextStyleBlack,
                 ),
                 InkWell(
@@ -184,8 +180,7 @@ class _menuDetailState extends State<menuDetail> {
                     Navigator.of(context).push(PageRouteBuilder(
                         pageBuilder: (_, __, ___) => new promoDetail()));
                   },
-                  child: Text(AppLocalizations.of(context).tr('seeMore'),
-                      style: _customTextStyleBlue),
+                  child: Text('seeMore', style: _customTextStyleBlue),
                 ),
               ],
             ),
@@ -228,13 +223,12 @@ class _menuDetailState extends State<menuDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).tr('itemPopular'),
+                    'itemPopular',
                     style: _customTextStyleBlack,
                   ),
                   InkWell(
                     onTap: null,
-                    child: Text(AppLocalizations.of(context).tr('seeMore'),
-                        style: _customTextStyleBlue),
+                    child: Text('seeMore', style: _customTextStyleBlue),
                   ),
                 ],
               ),
@@ -270,13 +264,12 @@ class _menuDetailState extends State<menuDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).tr('newItem'),
+                    'newItem',
                     style: _customTextStyleBlack,
                   ),
                   InkWell(
                     onTap: null,
-                    child: Text(AppLocalizations.of(context).tr('seeMore'),
-                        style: _customTextStyleBlue),
+                    child: Text('seeMore', style: _customTextStyleBlue),
                   ),
                 ],
               ),
@@ -308,50 +301,46 @@ class _menuDetailState extends State<menuDetail> {
       ),
     );
 
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
-      data: data,
-      child: Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => new searchAppbar()));
-              },
-              child: IconButton(
-                onPressed: null,
-                icon: Icon(Icons.search, color: Color(0xFF6991C7)),
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => new searchAppbar()));
+            },
+            child: IconButton(
+              onPressed: null,
+              icon: Icon(Icons.search, color: Color(0xFF6991C7)),
             ),
-          ],
-          centerTitle: true,
-          title: Text(
-            AppLocalizations.of(context).tr('camera'),
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 16.0,
-                color: Colors.black54,
-                fontFamily: "Gotik"),
           ),
-          iconTheme: IconThemeData(
-            color: Color(0xFF6991C7),
-          ),
-          elevation: 0.0,
+        ],
+        centerTitle: true,
+        title: Text(
+          'camera',
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16.0,
+              color: Colors.black54,
+              fontFamily: "Gotik"),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                /// Get a variable
-                _promoHorizontalList,
-                _subCategory,
-                _itemDiscount,
-                _itemPopular,
-                _itemNew
-              ],
-            ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF6991C7),
+        ),
+        elevation: 0.0,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              /// Get a variable
+              _promoHorizontalList,
+              _subCategory,
+              _itemDiscount,
+              _itemPopular,
+              _itemNew
+            ],
           ),
         ),
       ),

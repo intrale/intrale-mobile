@@ -1,5 +1,3 @@
-import 'package:intrale/comp/Language_Library/lib/easy_localization_delegate.dart';
-import 'package:intrale/comp/Language_Library/lib/easy_localization_provider.dart';
 import 'package:flutter/material.dart';
 
 class searchAppbar extends StatefulWidget {
@@ -14,7 +12,7 @@ class _searchAppbarState extends State<searchAppbar> {
     var _textHello = Padding(
       padding: const EdgeInsets.only(right: 50.0, left: 20.0),
       child: Text(
-        AppLocalizations.of(context).tr('searchHello'),
+        'searchHello',
         style: TextStyle(
             letterSpacing: 0.1,
             fontWeight: FontWeight.w600,
@@ -51,7 +49,7 @@ class _searchAppbarState extends State<searchAppbar> {
                       color: Color(0xFF6991C7),
                       size: 28.0,
                     ),
-                    hintText: AppLocalizations.of(context).tr('findYouWant'),
+                    hintText: 'findYouWant',
                     hintStyle: TextStyle(
                         color: Colors.black54,
                         fontFamily: "Gotik",
@@ -74,7 +72,7 @@ class _searchAppbarState extends State<searchAppbar> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: Text(
-                AppLocalizations.of(context).tr('favorite'),
+                'favorite',
                 style: TextStyle(fontFamily: "Gotik", color: Colors.black26),
               ),
             ),
@@ -87,26 +85,26 @@ class _searchAppbarState extends State<searchAppbar> {
                   Padding(padding: EdgeInsets.only(left: 20.0)),
                   FavoriteItem(
                     image: "assets/imgItem/shoes1.jpg",
-                    title: AppLocalizations.of(context).tr('productTitle1'),
+                    title: 'productTitle1',
                     Salary: "\$ 10",
                     Rating: "4.8",
-                    sale: AppLocalizations.of(context).tr('productSale1'),
+                    sale: 'productSale1',
                   ),
                   Padding(padding: EdgeInsets.only(left: 20.0)),
                   FavoriteItem(
                     image: "assets/imgItem/acesoris1.jpg",
-                    title: AppLocalizations.of(context).tr('productTitle2'),
+                    title: 'productTitle2',
                     Salary: "\$ 200",
                     Rating: "4.2",
-                    sale: AppLocalizations.of(context).tr('productSale2'),
+                    sale: 'productSale2',
                   ),
                   Padding(padding: EdgeInsets.only(left: 20.0)),
                   FavoriteItem(
                     image: "assets/imgItem/kids1.jpg",
-                    title: AppLocalizations.of(context).tr('productTitle3'),
+                    title: 'productTitle3',
                     Salary: "\$ 3",
                     Rating: "4.8",
-                    sale: AppLocalizations.of(context).tr('productSale3'),
+                    sale: 'productSale3',
                   ),
                   Padding(padding: EdgeInsets.only(right: 10.0)),
                 ],
@@ -126,7 +124,7 @@ class _searchAppbarState extends State<searchAppbar> {
           Padding(
             padding: const EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
             child: Text(
-              AppLocalizations.of(context).tr('popularity'),
+              'popularity',
               style: TextStyle(fontFamily: "Gotik", color: Colors.black26),
             ),
           ),
@@ -137,20 +135,20 @@ class _searchAppbarState extends State<searchAppbar> {
             children: <Widget>[
               Padding(padding: EdgeInsets.only(left: 20.0)),
               KeywordItem(
-                title: AppLocalizations.of(context).tr('searchTitle1'),
-                title2: AppLocalizations.of(context).tr('searchTitle2'),
+                title: 'searchTitle1',
+                title2: 'searchTitle2',
               ),
               KeywordItem(
-                title: AppLocalizations.of(context).tr('searchTitle3'),
-                title2: AppLocalizations.of(context).tr('searchTitle4'),
+                title: 'searchTitle3',
+                title2: 'searchTitle4',
               ),
               KeywordItem(
-                title: AppLocalizations.of(context).tr('searchTitle5'),
-                title2: AppLocalizations.of(context).tr('searchTitle6'),
+                title: 'searchTitle5',
+                title2: 'searchTitle6',
               ),
               KeywordItem(
-                title: AppLocalizations.of(context).tr('searchTitle7'),
-                title2: AppLocalizations.of(context).tr('searchTitle8'),
+                title: 'searchTitle7',
+                title2: 'searchTitle8',
               ),
             ],
           ))
@@ -158,27 +156,27 @@ class _searchAppbarState extends State<searchAppbar> {
       ),
     );
 
-    var data = EasyLocalizationProvider.of(context).data;
-    return EasyLocalizationProvider(
+    //var data = EasyLocalizationProvider.of(context).data;
+    return /*EasyLocalizationProvider(
       data: data,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: EdgeInsets.only(top: 15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  /// Caliing a variable
-                  _textHello,
-                  _search,
-                  _sugestedText,
-                  _favorite,
-                  Padding(padding: EdgeInsets.only(bottom: 30.0, top: 2.0))
-                ],
-              ),
+      child: */
+        Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.only(top: 15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                /// Caliing a variable
+                _textHello,
+                _search,
+                _sugestedText,
+                _favorite,
+                Padding(padding: EdgeInsets.only(bottom: 30.0, top: 2.0))
+              ],
             ),
           ),
         ),

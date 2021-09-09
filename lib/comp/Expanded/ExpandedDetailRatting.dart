@@ -35,7 +35,7 @@ class ExpansionTileCustomRatting extends StatefulWidget {
     this.children = const <Widget>[],
     this.trailing,
     this.initiallyExpanded = false,
-  }) : assert(initiallyExpanded != null),
+  })  : assert(initiallyExpanded != null),
         super(key: key);
 
   /// A widget to display before the title.
@@ -70,13 +70,18 @@ class ExpansionTileCustomRatting extends StatefulWidget {
   final bool initiallyExpanded;
 
   @override
-  _ExpansionTileCustomRattingState createState() => _ExpansionTileCustomRattingState();
+  _ExpansionTileCustomRattingState createState() =>
+      _ExpansionTileCustomRattingState();
 }
 
-class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting> with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
+class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
+    with SingleTickerProviderStateMixin {
+  static final Animatable<double> _easeOutTween =
+      CurveTween(curve: Curves.easeOut);
+  static final Animatable<double> _easeInTween =
+      CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween =
+      Tween<double>(begin: 0.0, end: 0.5);
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -103,11 +108,12 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
     _borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
-    _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
+    _backgroundColor =
+        _controller.drive(_backgroundColorTween.chain(_easeOutTween));
     _gradientExpanded = true;
-    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded)
-      _controller.value = 1.0;
+    _isExpanded =
+        PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    if (_isExpanded) _controller.value = 1.0;
   }
 
   @override
@@ -126,21 +132,20 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
         });
       } else {
         _controller.reverse().then<void>((void value) {
-          if (!mounted)
-            return;
+          if (!mounted) return;
           setState(() {
             _gradientExpanded = true;
             // Rebuild without widget.children.
           });
         });
       }
-      if(_readMore=="See More"){
+      if (_readMore == "See More") {
         setState(() {
-          _readMore=" ";
+          _readMore = " ";
         });
-      }else if(_readMore==" "){
+      } else if (_readMore == " ") {
         setState(() {
-          _readMore="See More";
+          _readMore = "See More";
         });
       }
       PageStorage.of(context)?.writeState(context, _isExpanded);
@@ -161,30 +166,38 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
               data: IconThemeData(color: _iconColor.value),
               child: GestureDetector(
                 onTap: _handleTap,
-                child:  Stack(
+                child: Stack(
                   children: <Widget>[
                     widget.title,
-                    _gradientExpanded?
-                    Container(
-                      width: double.infinity,
-                      decoration:BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: <Color>[
-                              new Color(0x00FFFFFF),
-                              new Color(0xFFFFFFFF),
-                            ],
-                            stops: [
-                              0.0,
-                              1.0
-                            ],
-                            begin: FractionalOffset(0.0, 0.0),
-                            end: FractionalOffset(0.0, 1.0)),
-                      ),
-                      child:  Padding(
-                        padding: const EdgeInsets.only(top:70.0),
-                        child: Center(child: Text(_readMore,style: TextStyle(color: Colors.black54,fontSize: 15.0,fontWeight: FontWeight.w600),)),
-                      ) ,
-                    ):Container()
+                    _gradientExpanded
+                        ? Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: <Color>[
+                                    new Color(0x00FFFFFF),
+                                    new Color(0xFFFFFFFF),
+                                  ],
+                                  stops: [
+                                    0.0,
+                                    1.0
+                                  ],
+                                  begin: FractionalOffset(0.0, 0.0),
+                                  end: FractionalOffset(0.0, 1.0)),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 70.0),
+                              child: Center(
+                                  child: Text(
+                                _readMore,
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w600),
+                              )),
+                            ),
+                          )
+                        : Container()
                   ],
                 ),
               )
@@ -196,7 +209,7 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
 //                turns: _iconTurns,
 //              ),
 //            ),
-          ),
+              ),
           ClipRect(
             child: Align(
               heightFactor: _heightFactor.value,
@@ -211,16 +224,14 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
   @override
   void didChangeDependencies() {
     final ThemeData theme = Theme.of(context);
-    _borderColorTween
-      ..end = theme.dividerColor;
+    _borderColorTween..end = theme.dividerColor;
     _headerColorTween
-      ..begin = theme.textTheme.subhead.color
+      //..begin = theme.textTheme.subhead.color
       ..end = theme.accentColor;
     _iconColorTween
       ..begin = theme.unselectedWidgetColor
       ..end = theme.accentColor;
-    _backgroundColorTween
-      ..end = widget.backgroundColor;
+    _backgroundColorTween..end = widget.backgroundColor;
     super.didChangeDependencies();
   }
 
@@ -230,15 +241,14 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
     return AnimatedBuilder(
         animation: _controller.view,
         builder: _buildChildren,
-        child: closed ? null :
-        Container(
-          width: double.infinity,
-          child:  Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widget.children),
-        )
-    );
-
+        child: closed
+            ? null
+            : Container(
+                width: double.infinity,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.children),
+              ));
   }
 }
