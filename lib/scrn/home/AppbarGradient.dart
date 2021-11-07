@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/scrn/account/Notification.dart';
 import 'package:intrale/scrn/home/Search.dart';
 import 'package:intrale/scrn/account/Message.dart';
@@ -82,7 +83,7 @@ class _AppbarGradientState extends State<AppbarGradient> {
                   Padding(
                     padding: EdgeInsets.only(top: 3.0),
                     child: Text(
-                      'title',
+                      FlutterI18n.translate(context, "businessName"),
                       style: TextStyle(
                           fontFamily: "Popins",
                           color: Colors.white,

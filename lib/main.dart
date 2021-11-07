@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 import 'package:intrale/splashScreen.dart';
 
 /// Run first apps open
-void main() => runApp(MaterialApp(home: intraleApp()));
+void main() => runApp(MaterialApp(home: IntraleApp()));
 
 /// Set orienttation
-class intraleApp extends StatelessWidget {
+class IntraleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// To set orientation always portrait
@@ -24,6 +24,15 @@ class intraleApp extends StatelessWidget {
     ));
 
     return MaterialApp(localizationsDelegates: [
+      FlutterI18nDelegate(
+        translationLoader: FileTranslationLoader(
+            basePath: 'assets/flutter_i18n',
+            fallbackFile: 'es',
+            useCountryCode: false),
+        missingTranslationHandler: (key, locale) {
+          print("--- Missing Key: $key, languageCode: ${locale.languageCode}");
+        },
+      ),
       AppLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,

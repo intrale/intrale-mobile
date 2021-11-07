@@ -1,13 +1,13 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/const/TextStyleConst.dart';
+import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/LoginOrSignup/RedirectButton.dart';
 import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
 import 'package:intrale/util/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
-import 'package:intrale/scrn/BottomNavigationBar.dart';
 
 //TODO: Falta completar refactor
 class ChoseLogin extends StatefulWidget {
@@ -17,23 +17,13 @@ class ChoseLogin extends StatefulWidget {
 
 /// Component Widget this layout UI
 class ChoseLoginState extends IntraleState<ChoseLogin> {
-  String login;
+  /*String login;
   String signup;
 
-  // Texts declarations
   Text hintChoseLogin;
   Text orSkip;
   Text title;
 
-  // Fields declarations
-
-  // Services declarations
-
-  // Buttons declarations
-
-  // Images declarations
-
-  // Other Components declarations
   Container carousel;
   BoxDecoration gradientBlack;
   Container whiteLine;
@@ -107,7 +97,7 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
 
     login = AppLocalizations.of(context).choseLogin_login;
     signup = AppLocalizations.of(context).choseLogin_signup;
-  }
+  }*/
 
   /// Component Widget layout UI
   @override
@@ -122,7 +112,25 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
       body: Stack(
         children: <Widget>[
           /// Set background image slider
-          carousel,
+          Container(
+            color: Colors.white,
+            child: new Carousel(
+              boxFit: BoxFit.cover,
+              autoplay: true,
+              animationDuration: Duration(milliseconds: 300),
+              dotSize: 0.0,
+              dotSpacing: 16.0,
+              dotBgColor: Colors.transparent,
+              showIndicator: false,
+              overlayShadow: false,
+              images: [
+                AssetImage('assets/img/girl.png'),
+                AssetImage("assets/img/SliderLogin2.png"),
+                AssetImage('assets/img/SliderLogin3.png'),
+                AssetImage("assets/img/SliderLogin4.png"),
+              ],
+            ),
+          ),
           Container(
             /// Set Background image in layout (Click to open code)
             decoration: BoxDecoration(
@@ -131,7 +139,14 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                 ),
             child: Container(
               /// Set gradient color in image (Click to open code)
-              decoration: gradientBlack,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [
+                    Color.fromRGBO(0, 0, 0, 0.3),
+                    Color.fromRGBO(0, 0, 0, 0.4)
+                  ],
+                      begin: FractionalOffset.topCenter,
+                      end: FractionalOffset.bottomCenter)),
 
               /// Set component layout
               child: ListView(
@@ -168,7 +183,11 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                                     )),
 
                                 /// to set Text "get best product...." (Click to open code)
-                                hintChoseLogin,
+                                Text(
+                                  AppLocalizations.of(context).choseLogin_hint,
+                                  textDirection: TextDirection.ltr,
+                                  style: CHOSE_LOGIN_OR_SIGNUP_SCREEN_HINT,
+                                ),
                                 Padding(padding: EdgeInsets.only(top: 250.0)),
                               ],
                             ),
@@ -177,14 +196,21 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
-                              RedirectButton(txt: login, redirect: new Login()),
+                              RedirectButton(
+                                  txt: AppLocalizations.of(context)
+                                      .choseLogin_login,
+                                  redirect: new Login()),
                               Padding(padding: EdgeInsets.only(top: 15.0)),
                               Center(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     /// To set white line (Click to open code)
-                                    whiteLine,
+                                    Container(
+                                      color: Colors.white,
+                                      height: 0.2,
+                                      width: 80.0,
+                                    ),
                                     Padding(
                                       padding: EdgeInsets.only(
                                           left: 10.0, right: 10.0),
@@ -192,15 +218,24 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                                       /// navigation to home screen if user click "OR SKIP" (Click to open code)
                                       child: InkWell(
                                         onTap: () {
-                                          redirectTo(context,
-                                              new bottomNavigationBar());
+                                          redirectTo(context, Dashboard());
                                         },
-                                        child: orSkip,
+                                        child: Text(
+                                          AppLocalizations.of(context)
+                                              .choseLogin_orSkip,
+                                          textDirection: TextDirection.ltr,
+                                          style:
+                                              CHOSE_LOGIN_OR_SIGNUP_SCREEN_OR_SKIP,
+                                        ),
                                       ),
                                     ),
 
                                     /// To set white line (Click to open code)
-                                    whiteLine
+                                    Container(
+                                      color: Colors.white,
+                                      height: 0.2,
+                                      width: 80.0,
+                                    )
                                   ],
                                 ),
                               ),
@@ -209,7 +244,10 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                           ),
 
                           /// To create animation if user tap == animation play (Click to open code)
-                          RedirectButton(txt: signup, redirect: new Signup())
+                          RedirectButton(
+                              txt: AppLocalizations.of(context)
+                                  .choseLogin_signup,
+                              redirect: new Signup())
                         ],
                       ),
                     ],

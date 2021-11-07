@@ -2,9 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:intrale/model/HomeGridItemRecomended.dart';
 import 'package:intrale/scrn/home/DetailProduct.dart';
 
-/// ItemGrid in bottom item "Recomended" item
+const TextStyle RATING_ITEM_TEXT_STYLE = TextStyle(
+    fontFamily: "Sans",
+    color: Colors.black26,
+    fontWeight: FontWeight.w500,
+    fontSize: 12.0);
+
+const TextStyle TITLE_TEXT_STYLE = TextStyle(
+    letterSpacing: 0.5,
+    color: Colors.black54,
+    fontFamily: "Sans",
+    fontWeight: FontWeight.w500,
+    fontSize: 13.0);
+
+const TextStyle PRICE_TEXT_STYLE =
+    TextStyle(fontFamily: "Sans", fontWeight: FontWeight.w500, fontSize: 14.0);
+
 class ItemGrid extends StatelessWidget {
-  /// Get data from HomeGridItem.....dart class
   GridItem gridItem;
   ItemGrid(this.gridItem);
 
@@ -14,7 +28,7 @@ class ItemGrid extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (_, __, ___) => new detailProduk(gridItem),
+            pageBuilder: (_, __, ___) => new DetailProduct(gridItem),
             transitionDuration: Duration(milliseconds: 900),
 
             /// Set animation Opacity in route to detailProduk layout
@@ -97,12 +111,7 @@ class ItemGrid extends StatelessWidget {
                   child: Text(
                     gridItem.title,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        letterSpacing: 0.5,
-                        color: Colors.black54,
-                        fontFamily: "Sans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.0),
+                    style: TITLE_TEXT_STYLE,
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(top: 1.0)),
@@ -110,10 +119,7 @@ class ItemGrid extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
                     gridItem.price,
-                    style: TextStyle(
-                        fontFamily: "Sans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0),
+                    style: PRICE_TEXT_STYLE,
                   ),
                 ),
                 Padding(
@@ -127,11 +133,7 @@ class ItemGrid extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             gridItem.rattingValue,
-                            style: TextStyle(
-                                fontFamily: "Sans",
-                                color: Colors.black26,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.0),
+                            style: RATING_ITEM_TEXT_STYLE,
                           ),
                           Icon(
                             Icons.star,

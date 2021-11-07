@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/util/validation/Validator.dart';
 
 class FormatValidation implements Validator {
@@ -10,9 +11,10 @@ class FormatValidation implements Validator {
       '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&=])(?=\\S+\$).{8,}\$';
 
   String regexp;
+  String messageKey;
   String message;
 
-  FormatValidation({this.regexp, this.message}) {}
+  FormatValidation({this.regexp, this.messageKey}) {}
 
   String validate(value) {
     if (value.isNotEmpty) {
@@ -22,5 +24,10 @@ class FormatValidation implements Validator {
       }
     }
     return null;
+  }
+
+  @override
+  void sharingContext(BuildContext context) {
+    message = FlutterI18n.translate(context, messageKey);
   }
 }

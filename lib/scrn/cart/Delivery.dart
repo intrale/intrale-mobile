@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/scrn/BottomNavigationBar.dart';
 import 'package:intrale/scrn/cart/Payment.dart';
 
 class delivery extends StatefulWidget {

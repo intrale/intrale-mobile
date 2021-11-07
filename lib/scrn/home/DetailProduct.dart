@@ -1,3 +1,4 @@
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/HomeGridItemRecomended.dart';
@@ -8,23 +9,23 @@ import 'package:intrale/scrn/cart/Delivery.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:intrale/scrn/home/ReviewLayout.dart';
 
-class detailProduk extends StatefulWidget {
+class DetailProduct extends StatefulWidget {
   GridItem gridItem;
 
-  detailProduk(this.gridItem);
+  DetailProduct(this.gridItem);
 
   @override
-  _detailProdukState createState() => _detailProdukState(gridItem);
+  DetailProductState createState() => DetailProductState(gridItem);
 }
 
 /// Detail Product for Recomended Grid in home screen
-class _detailProdukState extends State<detailProduk> {
+class DetailProductState extends State<DetailProduct> {
   double rating = 3.5;
   int starCount = 5;
 
   /// Declaration List item HomeGridItemRe....dart Class
   final GridItem gridItem;
-  _detailProdukState(this.gridItem);
+  DetailProductState(this.gridItem);
 
   @override
   static BuildContext ctx;
@@ -476,7 +477,7 @@ class _detailProdukState extends State<detailProduk> {
                   ),
 
                   /// Background white for Ratting
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Container(
                       width: 600.0,
@@ -604,9 +605,9 @@ class _detailProdukState extends State<detailProduk> {
                         ),
                       ),
                     ),
-                  ),
+                  ),*/
 
-                  _suggestedItem
+                  //_suggestedItem
                 ],
               ),
             ),
@@ -619,7 +620,7 @@ class _detailProdukState extends State<detailProduk> {
             onTap: () {
               var snackbar = SnackBar(
                 content: Text(
-                  'itemAdded',
+                  FlutterI18n.translate(context, 'itemAdded'),
                 ),
               );
               setState(() {

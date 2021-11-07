@@ -1,140 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intrale/const/TextStyleConst.dart';
-import 'package:intrale/scrn/LoginOrSignup/Confirm.dart';
-import 'package:intrale/scrn/LoginOrSignup/Login.dart';
-import 'package:intrale/scrn/LoginOrSignup/Recovery.dart';
-import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
-import 'package:intrale/util/tools.dart';
+import 'package:intrale/comp/ItlConfirmRedirectButton.dart';
+import 'package:intrale/comp/ItlHeader.dart';
+import 'package:intrale/comp/ItlLoginRedirectButton.dart';
+import 'package:intrale/comp/ItlLogo.dart';
+import 'package:intrale/comp/ItlRecoveryRedirectButton.dart';
+import 'package:intrale/comp/ItlSignupRedirectButton.dart';
+import 'package:intrale/util/services/Handler.dart';
+import 'package:intrale/util/services/Response.dart';
+import 'package:intrale/util/services/StatusCodes.dart';
 
 abstract class IntraleState<T extends StatefulWidget> extends State<T>
     with TickerProviderStateMixin {
   final formKey = GlobalKey<FormState>();
 
-  // Texts declarations
-  Text title;
-  Text notHave;
-  Text missing;
-  Text haveCode;
-  Text haveUser;
+  static const Padding DEFAULT_PADDING = Padding(padding: EdgeInsets.all(10));
 
   // Buttons declarations
-  TextButton notHaveButton;
-  TextButton missingButton;
-  TextButton haveCodeButton;
-  TextButton haveUserButton;
+  ItlSignupRedirectButton notHaveButton = ItlSignupRedirectButton();
+  ItlRecoveryRedirectButton missingButton = ItlRecoveryRedirectButton();
+  ItlConfirmRedirectButton haveCodeButton = ItlConfirmRedirectButton();
+  ItlLoginRedirectButton haveUserButton = ItlLoginRedirectButton();
 
   // Images declarations
-  Image logo;
+  ItlLogo logo = ItlLogo();
 
   // Other Components declarations
-  Hero hero;
-  Row header;
-  MediaQueryData mediaQueryData;
+  ItlHeader header = ItlHeader();
+  MediaQueryData mediaQueryData = new MediaQueryData();
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  Handler okHandler;
+  Handler errorHandler;
 
-    // Texts, Fields & Services initializations
-    title = Text(
-      AppLocalizations.of(context).businessName,
-      textDirection: TextDirection.ltr,
-      style: LOGIN_TITLE_TEXT,
-    );
+  IntraleState() {
+    okHandler = Handler(
+        statusCode: STATUS_CODE_OK, function: (response) => onOk(response));
 
-    notHave = Text(
-      AppLocalizations.of(context).notHave,
-      textDirection: TextDirection.ltr,
-      style: LOGIN_ALTERNATIVE_BUTTONS,
-    );
-
-    missing = Text(
-      AppLocalizations.of(context).missing,
-      textDirection: TextDirection.ltr,
-      style: LOGIN_ALTERNATIVE_BUTTONS,
-    );
-
-    haveCode = Text(
-      AppLocalizations.of(context).haveCode,
-      textDirection: TextDirection.ltr,
-      style: LOGIN_ALTERNATIVE_BUTTONS,
-    );
-
-    haveUser = Text(
-      AppLocalizations.of(context).haveUser,
-      textDirection: TextDirection.ltr,
-      style: LOGIN_ALTERNATIVE_BUTTONS,
-    );
-
-    notHaveButton = TextButton(
-        onPressed: () {
-          redirectTo(context, new Signup());
-        },
-        child: notHave);
-
-    missingButton = TextButton(
-        onPressed: () {
-          redirectTo(context, new Recovery());
-        },
-        child: missing);
-
-    haveCodeButton = TextButton(
-        onPressed: () {
-          redirectTo(context, new Confirm());
-        },
-        child: haveCode);
-
-    haveUserButton = TextButton(
-        onPressed: () {
-          redirectTo(context, new Login());
-        },
-        child: haveUser);
-
-    logo = Image(
-      image: AssetImage("assets/img/Logo.png"),
-      height: 70.0,
-    );
-
-    hero = Hero(
-      tag: "Intrale",
-      child: title,
-    );
-
-    header = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        logo,
-        Padding(padding: EdgeInsets.all(10)),
-        hero,
-      ],
-    );
-
-    mediaQueryData = new MediaQueryData();
-
-    // Texts initializations
-    textsInitializations();
-
-    // Fields initializations
-    fieldsInitializations();
-
-    // Services initializations
-    servicesInitializations();
-
-    // Buttons initializations
-    buttonsInitializations();
-
-    // Images initializations
-    imagesInitializations();
-
-    // Other Components initializations
-    othersInitializations();
+    errorHandler =
+        Handler(statusCode: 0, function: (response) => onError(response));
   }
 
-  void textsInitializations();
-  void fieldsInitializations();
-  void servicesInitializations();
-  void buttonsInitializations();
-  void imagesInitializations();
-  void othersInitializations();
+  void onOk(Response response) {}
+  void onError(Response response) {}
+
+  onSubmit() {
+    if (formKey.currentState.validate()) {
+      formKey.currentState.save();
+      onValidSubmit();
+    }
+  }
+
+  onValidSubmit() {}
 }

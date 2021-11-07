@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intrale/comp/IntraleState.dart';
+import 'package:intrale/comp/ItlText.dart';
 import 'package:intrale/const/TextStyleConst.dart';
-import 'package:intrale/scrn/BottomNavigationBar.dart';
+import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/util/services/Request.dart';
 import 'package:intrale/util/services/Response.dart';
@@ -24,17 +24,12 @@ class SplashScreen extends StatefulWidget {
 /// Component UI
 class SplashScreenState extends IntraleState<SplashScreen> {
   // Texts declarations
-  Text welcome;
-  Text businessName;
-
-  // Fields declarations
+  //Text welcome;
+  //Text businessName;
 
   // Services declarations
   ValidateTokenService validateTokenService;
 
-  // Buttons declarations
-
-  // Images declarations
   AssetImage man;
 
   // Other Components declarations
@@ -42,7 +37,11 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   BoxDecoration backgroundImage;
   BoxDecoration gradientBlack;
 
-  @override
+  SplashScreenState() : super() {
+    validateTokenService = ValidateTokenService();
+  }
+
+  /*@override
   void buttonsInitializations() {}
 
   @override
@@ -57,8 +56,9 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   void othersInitializations() {
     hero = Hero(tag: "Intrale", child: businessName);
 
-    backgroundImage =
-        BoxDecoration(image: DecorationImage(image: man, fit: BoxFit.cover));
+    backgroundImage = BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/img/man.png'), fit: BoxFit.cover));
 
     gradientBlack = BoxDecoration(
         gradient: LinearGradient(colors: [
@@ -85,7 +85,7 @@ class SplashScreenState extends IntraleState<SplashScreen> {
       textDirection: TextDirection.ltr,
       style: SPLASH_SCREEN_BUSINESS_NAME,
     );
-  }
+  }*/
 
   /// Declare startTime to InitState
   @override
@@ -111,10 +111,19 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       /// Set Background image in splash screen layout (Click to open code)
-      decoration: backgroundImage,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/img/man.png'), fit: BoxFit.cover)),
       child: Container(
         /// Set gradient black in image splash screen (Click to open code)
-        decoration: gradientBlack,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+              Color.fromRGBO(0, 0, 0, 0.3),
+              Color.fromRGBO(0, 0, 0, 0.4)
+            ],
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter)),
         child: Center(
           child: SingleChildScrollView(
             child: Container(
@@ -126,10 +135,15 @@ class SplashScreenState extends IntraleState<SplashScreen> {
                   ),
 
                   /// Text header "Welcome To" (Click to open code)
-                  welcome,
+                  ItlText(
+                      textKey: "welcomeTo", style: SPLASH_SCREEN_WELCOME_TO),
 
                   /// Animation text Treva Shop to choose Login with Hero Animation (Click to open code)
-                  hero
+                  Hero(
+                      tag: "Intrale",
+                      child: ItlText(
+                          textKey: "businessName",
+                          style: SPLASH_SCREEN_BUSINESS_NAME))
                 ],
               ),
             ),
@@ -147,7 +161,7 @@ class SplashScreenState extends IntraleState<SplashScreen> {
             {
               // Validar que el token sea valido
               validateTokenService
-                  .post(new Request())
+                  .post(request: Request())
                   .then((response) => tokenOk(response, context))
                   .onError((error, stackTrace) => forwardToLogin(context))
             }
@@ -161,7 +175,7 @@ class SplashScreenState extends IntraleState<SplashScreen> {
 
   void tokenOk(Response response, BuildContext context) async {
     if (response.statusCode == 200) {
-      redirectTo(context, new bottomNavigationBar());
+      redirectTo(context, Dashboard());
     } else {
       forwardToLogin(context);
     }

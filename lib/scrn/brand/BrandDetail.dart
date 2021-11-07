@@ -62,7 +62,7 @@ class _brandDetailState extends State<brandDetail> {
                   InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => new Menu()));
+                            builder: (BuildContext context) => new Home()));
                       },
                       child: Text(
                         'popularity',
@@ -120,7 +120,7 @@ class _brandDetailState extends State<brandDetail> {
                   InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => new Menu()));
+                            builder: (BuildContext context) => new Home()));
                       },
                       child: Text(
                         'popularity',

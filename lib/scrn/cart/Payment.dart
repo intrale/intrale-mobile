@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intrale/scrn/BottomNavigationBar.dart';
+import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/cart/CartLayout.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
 import 'package:intrale/scrn/home/Home.dart';
@@ -20,7 +20,7 @@ class _paymentState extends State<payment> {
   /// Navigation to route after user succes payment
   void navigator() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => bottomNavigationBar()),
+        MaterialPageRoute(builder: (context) => Dashboard()),
         (Route<dynamic> route) => false);
   }
 

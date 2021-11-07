@@ -17,4 +17,11 @@ class MultipleValidations implements Validator {
     }
     return null;
   }
+
+  @override
+  void sharingContext(BuildContext context) {
+    validations.forEach((element) {
+      element.sharingContext(context);
+    });
+  }
 }

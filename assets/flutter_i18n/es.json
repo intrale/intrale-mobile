@@ -1,0 +1,53 @@
+{
+    "welcomeTo": "Bienvenido a",
+    "businessName":"Intrale",
+
+    "recomended":"Productos recomendados",
+
+    "home":"Inicio",
+    "cart":"Carrito",
+    "account":"Perfil",
+    "exit":"Salir",
+ 
+    "notHave": "¿No tiene usuario?, Registrese",
+    "missing": "¿No recuerda su contraseña?, Recuperela",
+    "haveCode": "¿Posee un codigo de recuperacion?, Ingreselo",
+    "haveUser":"¿Se encuentra registrado?, Ingrese",
+
+    "emailFormat":"Debe tener formato de email",
+    "review":"Por favor, revise su correo",
+    "required": "El campo es obligatorio",
+    "maxLength": "Puede contener hasta {count} caracteres",
+    "minLength": "Debe contener al menos{count} caracteres",
+    "passwordFormat":"Debe tener formato de contraseña",
+
+    "itemAdded":"Se agrego al carrito",
+
+    "choseLogin_hint":"Seleccione una opción",
+    "choseLogin_orSkip":"O",
+    "choseLogin_login":"Ingresar",
+    "choseLogin_signup":"Registrarse",
+
+    "login_submit": "Ingresar",
+    "login_email": "Email",
+    "login_password":"Contraseña",
+    "login_ok":"Aceptar",
+    "login_badCredentials":"Usuario o contraseña incorrectos",
+
+    "signup_submit":"Registrar", 
+    "signup_email":"Email",
+    "signup_ok":"Aceptar",
+
+    "changePassword_name":"Nombres",
+    "changePassword_familyName":"Apellidos",
+    "changePassword_newPassword":"Nueva Contraseña",
+    "changePassword_submit":"Confirmar",
+
+    "recovery_submit":"Recuperar",
+    "recovery_email":"Email",
+
+    "confirm_code":"Código de confirmación",
+    "confirm_email":"Email",
+    "confirm_password":"Nueva Contraseña",
+    "confirm_submit":"Confirmar"
+}

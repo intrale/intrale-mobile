@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as HTTP;
+import 'package:intrale/util/services/Handler.dart';
+import 'package:intrale/util/services/Response.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class Service<Response> {
+abstract class Service<RES extends Response> {
   bool initialized = false;
 
+  Map<int, Handler> handlers;
   Map<String, String> headers;
 
   String endpoint;
@@ -42,11 +45,17 @@ abstract class Service<Response> {
     return;
   }
 
-  Service({this.endpoint, this.function}) {}
+  Service({this.endpoint, this.function, List<Handler> handlers}) {
+    if (handlers != null) {
+      debugPrint('handlers:' + handlers.toString());
+      this.handlers = Map.fromIterable(handlers,
+          key: (handler) => handler.statusCode, value: (handler) => handler);
+    }
+  }
 
-  Response mapToResponse(Map responseMap);
+  RES mapToResponse(Map responseMap);
 
-  Future<Response> post(Object request) async {
+  Future<RES> post({Object request}) async {
     await initializeHeaders();
 
     String body = jsonEncode(request);
@@ -55,14 +64,25 @@ abstract class Service<Response> {
     debugPrint("INTRALE: headers:" + this.headers.toString());
     debugPrint("INTRALE: body => \n" + body);
 
-    HTTP.Response response =
+    HTTP.Response httpResponse =
         await HTTP.post(endpoint, headers: this.headers, body: body);
 
-    debugPrint(
-        "INTRALE: response statusCode => \n" + response.statusCode.toString());
-    debugPrint("INTRALE: response body => \n" + response.body);
-    Map responseMap = jsonDecode(response.body);
+    debugPrint("INTRALE: response statusCode => \n" +
+        httpResponse.statusCode.toString());
+    debugPrint("INTRALE: response body => \n" + httpResponse.body);
+    Map responseMap = jsonDecode(httpResponse.body);
 
-    return mapToResponse(responseMap);
+    RES response = mapToResponse(responseMap);
+
+    //Tratar resultado con handlers
+    if (handlers != null) {
+      Handler handler = handlers[response.statusCode];
+      if (handler == null) {
+        handler = handlers[0];
+      }
+      handler.execute(response);
+    }
+
+    return response;
   }
 }

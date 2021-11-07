@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 
+const TextStyle DEFAULT_TEXT = TextStyle(
+    color: Colors.white,
+    fontSize: 13.0,
+    fontWeight: FontWeight.w600,
+    fontFamily: "Sans");
+
+const TextStyle ALTERNATIVE_BUTTONS = TextStyle(
+    color: Colors.white,
+    fontSize: 13.0,
+    fontWeight: FontWeight.w600,
+    fontFamily: "Sans");
+
+const TextStyle TITLE = TextStyle(
+    color: Colors.white,
+    fontSize: 20.0,
+    fontWeight: FontWeight.w900,
+    fontFamily: "Sans",
+    letterSpacing: 0.6);
+
+// ###########################################################
+
 const TextStyle INTRALE_BUTTON = TextStyle(
     color: Colors.white,
     letterSpacing: 0.2,

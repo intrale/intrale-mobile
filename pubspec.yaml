@@ -28,6 +28,7 @@ dependencies:
   provider: ^4.0.4
   shared_preferences: ^2.0.5
   intl: ^0.17.0
+  flutter_i18n: ^0.30.0
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ flutter:
           weight : 600
 
   assets:
+    - assets/flutter_i18n/
     - assets/logo/intrale.png
     - assets/logo/intraleOnlyLogo.png
     - assets/img/google.png
