@@ -5,15 +5,15 @@ part 'ReadProductsRequest.g.dart';
 
 @JsonSerializable()
 class ReadProductsRequest extends Request {
-  String productId;
-  String category;
-  String name;
-  String description;
-  int fromStock;
-  int toStock;
-  String currencyAcronym;
-  double fromPrice;
-  double toPrice;
+  String? productId;
+  String? category;
+  String? name;
+  String? description;
+  int? fromStock;
+  int? toStock;
+  String? currencyAcronym;
+  double? fromPrice;
+  double? toPrice;
 
   ReadProductsRequest() : super();
 

@@ -24,8 +24,7 @@ class _flashSaleState extends State<flashSale> {
   ///
   bool loadImage = true;
 
-  @override
-  SaleItem itemSale;
+  late SaleItem itemSale;
 
   ///
   /// SetState after imageNetwork loaded to change list card

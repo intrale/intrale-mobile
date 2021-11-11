@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intrale/splashScreen.dart';
 
 /// Run first apps open
@@ -30,10 +29,9 @@ class IntraleApp extends StatelessWidget {
             fallbackFile: 'es',
             useCountryCode: false),
         missingTranslationHandler: (key, locale) {
-          print("--- Missing Key: $key, languageCode: ${locale.languageCode}");
+          print("--- Missing Key: $key, languageCode: ${locale?.languageCode}");
         },
       ),
-      AppLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,

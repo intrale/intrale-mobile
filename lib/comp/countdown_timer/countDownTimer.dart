@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+
 class CountDownTimer extends StatefulWidget {
   const CountDownTimer({
-    Key key,
-    int secondsRemaining,
-    this.countDownTimerStyle,
-    this.whenTimeExpires,
-    this.countDownFormatter,
+    required int secondsRemaining,
+    required this.countDownTimerStyle,
+    required this.whenTimeExpires,
+    /*this.countDownFormatter,*/
   })  : secondsRemaining = secondsRemaining,
-        super(key: key);
+        super();
 
   final int secondsRemaining;
   final Function whenTimeExpires;
-  final Function countDownFormatter;
+  //final Function countDownFormatter;
   final TextStyle countDownTimerStyle;
 
   State createState() => new _CountDownTimerState();
@@ -19,16 +19,17 @@ class CountDownTimer extends StatefulWidget {
 
 class _CountDownTimerState extends State<CountDownTimer>
     with TickerProviderStateMixin {
-  AnimationController _controller;
-  Duration duration;
+  late AnimationController _controller;
+  late Duration duration;
 
   String get timerDisplayString {
-    Duration duration = _controller.duration * _controller.value;
-    return widget.countDownFormatter != null
+    Duration duration = _controller.duration! * _controller.value;
+    return /*widget.countDownFormatter != null
         ? widget.countDownFormatter(duration.inSeconds)
-        : formatHHMMSS(duration.inSeconds);
-      // In case user doesn't provide formatter use the default one
-     // for that create a method which will be called formatHHMMSS or whatever you like
+        : */
+        formatHHMMSS(duration.inSeconds);
+    // In case user doesn't provide formatter use the default one
+    // for that create a method which will be called formatHHMMSS or whatever you like
   }
 
   @override
@@ -41,7 +42,8 @@ class _CountDownTimerState extends State<CountDownTimer>
     );
     _controller.reverse(from: widget.secondsRemaining.toDouble());
     _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed || status == AnimationStatus.dismissed) {
+      if (status == AnimationStatus.completed ||
+          status == AnimationStatus.dismissed) {
         widget.whenTimeExpires();
       }
     });
@@ -80,7 +82,7 @@ class _CountDownTimerState extends State<CountDownTimer>
     return new Center(
         child: AnimatedBuilder(
             animation: _controller,
-            builder: (_, Widget child) {
+            builder: (_, Widget? child) {
               return Text(
                 timerDisplayString,
                 style: widget.countDownTimerStyle,

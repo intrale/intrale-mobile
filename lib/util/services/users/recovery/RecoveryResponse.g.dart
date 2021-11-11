@@ -6,16 +6,14 @@ part of 'RecoveryResponse.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RecoveryResponse _$RecoveryResponseFromJson(Map<String, dynamic> json) {
-  return RecoveryResponse(
-    email: json['email'] as String,
-  )
-    ..statusCode = json['statusCode'] as int
-    ..errors = (json['errors'] as List)
-        ?.map(
-            (e) => e == null ? null : Error.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
+RecoveryResponse _$RecoveryResponseFromJson(Map<String, dynamic> json) =>
+    RecoveryResponse(
+      email: json['email'] as String?,
+    )
+      ..statusCode = json['statusCode'] as int
+      ..errors = (json['errors'] as List<dynamic>?)
+          ?.map((e) => Error.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$RecoveryResponseToJson(RecoveryResponse instance) =>
     <String, dynamic>{

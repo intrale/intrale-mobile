@@ -8,7 +8,10 @@ class LoginResponse {
   String userStatus;
   bool enabled;
 
-  LoginResponse({this.username, this.userStatus, this.enabled}) {}
+  LoginResponse(
+      {required this.username,
+      required this.userStatus,
+      required this.enabled}) {}
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);

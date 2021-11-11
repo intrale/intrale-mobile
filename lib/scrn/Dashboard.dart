@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/account/Profile.dart';
-import 'package:intrale/scrn/cart/CartLayout.dart';
+import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,7 +15,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class DashboardState extends State<Dashboard> {
-  Map<int, Widget> screens = {0: Home(), 1: cart(), 2: profil()};
+  Map<int, Widget> screens = {0: Home(), 1: CartScreen(), 2: profil()};
   int currentIndex = 0;
 
   void removeTokens(SharedPreferences sharedPreferences) {
@@ -35,7 +35,7 @@ class DashboardState extends State<Dashboard> {
     sharedPreferences.then((preference) => forward(preference));
   }
 
-  Widget getScreen() {
+  Widget? getScreen() {
     debugPrint("getScreen");
     if (currentIndex < 3) {
       return screens[currentIndex];

@@ -7,7 +7,7 @@ class Price {
   String currencyAcronym;
   double unitPrice;
 
-  Price({this.currencyAcronym, this.unitPrice}) {}
+  Price({required this.currencyAcronym, required this.unitPrice}) {}
 
   factory Price.fromJson(Map<String, dynamic> json) => _$PriceFromJson(json);
 

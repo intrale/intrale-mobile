@@ -1,14 +1,12 @@
 class promotionData {
   String image, title, salary, rating, sale;
 
-  promotionData({
-    this.image,
-    this.title,
-    this.salary,
-    this.rating,
-    this.sale
-});
-
+  promotionData(
+      {required this.image,
+      required this.title,
+      required this.salary,
+      required this.rating,
+      required this.sale});
 }
 
 List<promotionData> promotionItem = [
@@ -24,7 +22,7 @@ List<promotionData> promotionItem = [
     title: "Samsung Galaxy S8",
     salary: "\$ 700",
     rating: "4.2",
-    sale: "892 Sale", 
+    sale: "892 Sale",
   ),
   promotionData(
     image: "assets/imgPromo/imgPromo3.jpg",

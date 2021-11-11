@@ -14,15 +14,15 @@ class flashSaleItem extends StatelessWidget {
   final double widthLine;
 
   flashSaleItem(
-      {this.image,
-      this.title,
-      this.normalprice,
-      this.discountprice,
-      this.ratingvalue,
-      this.place,
-      this.stock,
-      this.colorLine,
-      this.widthLine});
+      {required this.image,
+      required this.title,
+      required this.normalprice,
+      required this.discountprice,
+      required this.ratingvalue,
+      required this.place,
+      required this.stock,
+      required this.colorLine,
+      required this.widthLine});
 
   @override
   Widget build(BuildContext context) {

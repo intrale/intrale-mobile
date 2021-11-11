@@ -6,7 +6,7 @@ class ItlButton extends StatelessWidget {
   final String descriptionKey;
   void Function() onTap;
 
-  ItlButton({this.descriptionKey, this.onTap});
+  ItlButton({required this.descriptionKey, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

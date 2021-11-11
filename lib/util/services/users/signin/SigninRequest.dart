@@ -13,12 +13,12 @@ class SigninRequest extends Request {
   String newPassword;
 
   SigninRequest(
-      {this.name,
-      this.familyName,
-      this.username,
-      this.password,
-      this.newPassword,
-      this.email})
+      {this.name = '',
+      this.familyName = '',
+      required this.username,
+      required this.password,
+      this.newPassword = '',
+      required this.email})
       : super();
 
   factory SigninRequest.fromJson(Map<String, dynamic> json) =>

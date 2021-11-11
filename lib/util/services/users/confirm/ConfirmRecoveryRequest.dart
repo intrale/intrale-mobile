@@ -9,7 +9,9 @@ class ConfirmRecoveryRequest extends Request {
   String password;
   String code;
 
-  ConfirmRecoveryRequest({this.email, this.password, this.code}) : super();
+  ConfirmRecoveryRequest(
+      {required this.email, required this.password, required this.code})
+      : super();
 
   factory ConfirmRecoveryRequest.fromJson(Map<String, dynamic> json) =>
       _$ConfirmRecoveryRequestFromJson(json);

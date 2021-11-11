@@ -7,7 +7,7 @@ class notification extends StatefulWidget {
 }
 
 class _notificationState extends State<notification> {
-  final List<Post> items = new List();
+  final List<Post> items = [];
   @override
   void initState() {
     super.initState();

@@ -343,8 +343,8 @@ class _ReviewsAllState extends State<ReviewsAll> {
     );
   }
 
-  Widget _buildRating(
-      String date, String details, Function changeRating, String image) {
+  Widget _buildRating(String date, String details,
+      void Function(double) changeRating, String image) {
     return ListTile(
       leading: Container(
         height: 45.0,

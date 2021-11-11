@@ -22,7 +22,7 @@ class ChangePassword extends StatefulWidget {
   String email;
   String password;
 
-  ChangePassword({this.email, this.password}) {}
+  ChangePassword({required this.email, required this.password}) {}
 
   @override
   ChangePasswordState createState() =>
@@ -53,9 +53,9 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
             regexp: FormatValidation.PASSWORD_PATTERN)
       ]));
 
-  SigninService signinService;
+  late SigninService signinService;
 
-  ChangePasswordState({this.email, this.password}) : super() {
+  ChangePasswordState({required this.email, required this.password}) : super() {
     signinService = new SigninService(handlers: [okHandler, errorHandler]);
   }
 
@@ -103,13 +103,13 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
   }
 
   void onError(Response response) {
-    Error error = response.errors.first;
+    Error error = response.errors!.first;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Ocurrio un error:" + error.code),
-              content: Text(error.description));
+              title: Text("Ocurrio un error:" + (error.code ?? '')),
+              content: Text(error.description ?? ''));
         });
   }
 }

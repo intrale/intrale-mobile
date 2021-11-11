@@ -5,7 +5,7 @@ class IntraleButton extends StatelessWidget {
   final String description;
   Function() onTap;
 
-  IntraleButton({this.description, this.onTap});
+  IntraleButton({required this.description, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

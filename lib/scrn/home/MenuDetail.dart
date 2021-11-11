@@ -352,7 +352,7 @@ class _menuDetailState extends State<menuDetail> {
 class itemPopular extends StatelessWidget {
   String image, title;
 
-  itemPopular({this.image, this.title});
+  itemPopular({required this.image, required this.title});
 
   @override
   Widget build(BuildContext context) {

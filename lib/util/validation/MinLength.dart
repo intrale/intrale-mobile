@@ -4,11 +4,11 @@ import 'package:intrale/util/validation/Validator.dart';
 
 class MinLength implements Validator {
   int length;
-  String message;
+  late String message;
 
-  MinLength({this.length}) {}
+  MinLength({required this.length}) {}
 
-  String validate(value) {
+  String? validate(value) {
     if (value.isNotEmpty && value.toString().length >= length) {
       return null;
     }

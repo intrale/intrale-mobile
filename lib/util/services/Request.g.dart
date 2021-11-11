@@ -6,9 +6,8 @@ part of 'Request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Request _$RequestFromJson(Map<String, dynamic> json) {
-  return Request()..requestId = json['requestId'] as String;
-}
+Request _$RequestFromJson(Map<String, dynamic> json) =>
+    Request()..requestId = json['requestId'] as String;
 
 Map<String, dynamic> _$RequestToJson(Request instance) => <String, dynamic>{
       'requestId': instance.requestId,

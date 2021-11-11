@@ -138,7 +138,7 @@ class _privatemessageState extends State<privatemessage>
 }
 
 class Msg extends StatelessWidget {
-  Msg({this.txt, this.animationController});
+  Msg({required this.txt, required this.animationController});
 
   final String txt;
   final AnimationController animationController;

@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:intrale/model/Cart.dart';
+import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/model/HomeGridItemRecomended.dart';
-import 'package:intrale/scrn/cart/CartLayout.dart';
+import 'package:intrale/model/Price.dart';
+import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/ChatItem.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
-
-import 'package:flutter_rating/flutter_rating.dart';
-import 'package:intrale/scrn/home/ReviewLayout.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailProduct extends StatefulWidget {
   GridItem gridItem;
@@ -27,8 +30,6 @@ class DetailProductState extends State<DetailProduct> {
   final GridItem gridItem;
   DetailProductState(this.gridItem);
 
-  @override
-  static BuildContext ctx;
   int valueItemChart = 0;
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
@@ -197,8 +198,8 @@ class DetailProductState extends State<DetailProduct> {
         actions: <Widget>[
           InkWell(
             onTap: () {
-              Navigator.of(context).push(
-                  PageRouteBuilder(pageBuilder: (_, __, ___) => new cart()));
+              Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => new CartScreen()));
             },
             child: Stack(
               alignment: AlignmentDirectional(-1.0, -0.8),
@@ -623,10 +624,34 @@ class DetailProductState extends State<DetailProduct> {
                   FlutterI18n.translate(context, 'itemAdded'),
                 ),
               );
+
+              String? cartString;
+              Map<String, dynamic> jsonMap;
+              Cart cart = Cart();
+
+              SharedPreferences.getInstance().then((preferences) => {
+                    cartString = preferences.getString("cart"),
+                    if (cartString != null)
+                      {
+                        jsonMap = jsonDecode(cartString!),
+                        cart = Cart.fromJson(jsonMap)
+                      },
+                    cart.items.add(CartItem(
+                        id: gridItem.id,
+                        name: gridItem.title,
+                        description: gridItem.description,
+                        price: Price(
+                            currencyAcronym: "\$",
+                            unitPrice: 1 /*gridItem.price*/),
+                        count: 1)),
+                    cartString = jsonEncode(cart),
+                    preferences.setString("cart", cartString!)
+                  });
+
               setState(() {
                 valueItemChart++;
               });
-              _key.currentState.showSnackBar(snackbar);
+              _key.currentState?.showSnackBar(snackbar);
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 5.0),
@@ -701,8 +726,8 @@ class DetailProductState extends State<DetailProduct> {
     );
   }
 
-  Widget _buildRating(
-      String date, String details, Function changeRating, String image) {
+  Widget _buildRating(String date, String details,
+      void Function(double) changeRating, String image) {
     return ListTile(
       leading: Container(
         height: 45.0,
@@ -713,12 +738,12 @@ class DetailProductState extends State<DetailProduct> {
       ),
       title: Row(
         children: <Widget>[
-          StarRating(
+          /*StarRating(
               size: 20.0,
               rating: 3.5,
               starCount: 5,
               color: Colors.yellow,
-              onRatingChanged: changeRating),
+              onRatingChanged: changeRating),*/
           SizedBox(width: 8.0),
           Text(
             date,
@@ -738,7 +763,7 @@ class DetailProductState extends State<DetailProduct> {
 class RadioButtonCustom extends StatefulWidget {
   String txt;
 
-  RadioButtonCustom({this.txt});
+  RadioButtonCustom({required this.txt});
 
   @override
   _RadioButtonCustomState createState() => _RadioButtonCustomState(this.txt);
@@ -840,7 +865,12 @@ class _RadioButtonColorState extends State<RadioButtonColor> {
 class FavoriteItem extends StatelessWidget {
   String image, Rating, Salary, title, sale;
 
-  FavoriteItem({this.image, this.Rating, this.Salary, this.title, this.sale});
+  FavoriteItem(
+      {required this.image,
+      required this.Rating,
+      required this.Salary,
+      required this.title,
+      required this.sale});
 
   @override
   Widget build(BuildContext context) {

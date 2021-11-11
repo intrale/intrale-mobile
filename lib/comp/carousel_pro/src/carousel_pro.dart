@@ -68,34 +68,34 @@ class Carousel extends StatefulWidget {
   final Duration autoplayDuration;
 
   //On image tap event, passes current image index as an argument
-  final void Function(int) onImageTap;
+  //void Function(int) onImageTap;
 
   //On image change event, passes previous image index and current image index as arguments
-  final void Function(int, int) onImageChange;
+  //void Function(int, int) onImageChange;
 
   Carousel({
-    this.images,
+    required this.images,
     this.animationCurve = Curves.ease,
     this.animationDuration = const Duration(milliseconds: 300),
     this.dotSize = 8.0,
     this.dotSpacing = 25.0,
     this.dotIncreaseSize = 2.0,
     this.dotColor = Colors.white,
-    this.dotBgColor,
+    required this.dotBgColor,
     this.showIndicator = true,
     this.indicatorBgPadding = 20.0,
     this.boxFit = BoxFit.cover,
     this.borderRadius = false,
-    this.radius,
+    this.radius = Radius.zero,
     this.moveIndicatorFromBottom = 0.0,
     this.noRadiusForIndicator = false,
     this.overlayShadow = false,
-    this.overlayShadowColors,
+    this.overlayShadowColors = Colors.transparent,
     this.overlayShadowSize = 0.5,
     this.autoplay = true,
     this.autoplayDuration = const Duration(seconds: 3),
-    this.onImageTap,
-    this.onImageChange,
+    /*this.onImageTap,
+    this.onImageChange,*/
     this.defaultImage,
   })  : assert(images != null || (images == null && defaultImage != null)),
         assert(animationCurve != null),
@@ -110,7 +110,7 @@ class Carousel extends StatefulWidget {
 }
 
 class CarouselState extends State<Carousel> {
-  Timer timer;
+  late Timer timer;
   int _currentImageIndex = 0;
   PageController _controller = new PageController();
 
@@ -122,7 +122,7 @@ class CarouselState extends State<Carousel> {
       if (widget.autoplay) {
         timer = new Timer.periodic(widget.autoplayDuration, (_) {
           if (_controller.hasClients) {
-            if (_controller.page.round() == widget.images.length - 1) {
+            if (_controller.page!.round() == widget.images.length - 1) {
               _controller.animateToPage(
                 0,
                 duration: widget.animationDuration,
@@ -142,96 +142,96 @@ class CarouselState extends State<Carousel> {
   @override
   void dispose() {
     _controller.dispose();
-    _controller = null;
-    timer?.cancel();
-    timer = null;
+    //_controller = null;
+    //timer?.cancel();
+    //timer = null;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> listImages =
-        (widget.images != null && widget.images.isNotEmpty)
-            ? widget.images
-                .map<Widget>(
-                  (netImage) => netImage is ImageProvider
-                      ? new Container(
-                          decoration: new BoxDecoration(
-                            borderRadius: widget.borderRadius
-                                ? new BorderRadius.all(widget.radius != null
-                                    ? widget.radius
-                                    : new Radius.circular(8.0))
-                                : null,
-                            image: new DecorationImage(
-                              //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                              image: netImage,
-                              fit: widget.boxFit,
-                            ),
-                          ),
-                          child: widget.overlayShadow
-                              ? new Container(
-                                  decoration: new BoxDecoration(
-                                    gradient: new LinearGradient(
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.center,
-                                      stops: [0.0, widget.overlayShadowSize],
-                                      colors: [
-                                        widget.overlayShadowColors != null
-                                            ? widget.overlayShadowColors
-                                                .withOpacity(1.0)
-                                            : Colors.grey[800].withOpacity(1.0),
-                                        widget.overlayShadowColors != null
-                                            ? widget.overlayShadowColors
-                                                .withOpacity(0.0)
-                                            : Colors.grey[800].withOpacity(0.0)
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              : new Container(),
-                        )
-                      : netImage,
-                )
-                .toList()
-            : [
-                widget.defaultImage is ImageProvider
-                    ? new Container(
-                        decoration: new BoxDecoration(
-                          borderRadius: widget.borderRadius
-                              ? new BorderRadius.all(widget.radius != null
-                                  ? widget.radius
-                                  : new Radius.circular(8.0))
-                              : null,
-                          image: new DecorationImage(
-                            //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                            image: widget.defaultImage,
-                            fit: widget.boxFit,
-                          ),
+    final List<Widget> listImages = (widget.images != null &&
+            widget.images.isNotEmpty)
+        ? widget.images
+            .map<Widget>(
+              (netImage) => netImage is ImageProvider
+                  ? new Container(
+                      decoration: new BoxDecoration(
+                        borderRadius: widget.borderRadius
+                            ? new BorderRadius.all(widget.radius != null
+                                ? widget.radius
+                                : new Radius.circular(8.0))
+                            : null,
+                        image: new DecorationImage(
+                          //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                          image: netImage,
+                          fit: widget.boxFit,
                         ),
-                        child: widget.overlayShadow
-                            ? new Container(
-                                decoration: new BoxDecoration(
-                                  gradient: new LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.center,
-                                    stops: [0.0, widget.overlayShadowSize],
-                                    colors: [
-                                      widget.overlayShadowColors != null
-                                          ? widget.overlayShadowColors
-                                              .withOpacity(1.0)
-                                          : Colors.grey[800].withOpacity(1.0),
-                                      widget.overlayShadowColors != null
-                                          ? widget.overlayShadowColors
-                                              .withOpacity(0.0)
-                                          : Colors.grey[800].withOpacity(0.0)
-                                    ],
-                                  ),
+                      ),
+                      child: widget.overlayShadow
+                          ? new Container(
+                              decoration: new BoxDecoration(
+                                gradient: new LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.center,
+                                  stops: [0.0, widget.overlayShadowSize],
+                                  colors: [
+                                    widget.overlayShadowColors != null
+                                        ? widget.overlayShadowColors
+                                            .withOpacity(1.0)
+                                        : Colors.grey[800]!.withOpacity(1.0),
+                                    widget.overlayShadowColors != null
+                                        ? widget.overlayShadowColors
+                                            .withOpacity(0.0)
+                                        : Colors.grey[800]!.withOpacity(0.0)
+                                  ],
                                 ),
-                              )
-                            : new Container(),
-                      )
-                    : widget.defaultImage,
-              ];
+                              ),
+                            )
+                          : new Container(),
+                    )
+                  : netImage,
+            )
+            .toList()
+        : [
+            widget.defaultImage is ImageProvider
+                ? new Container(
+                    decoration: new BoxDecoration(
+                      borderRadius: widget.borderRadius
+                          ? new BorderRadius.all(widget.radius != null
+                              ? widget.radius
+                              : new Radius.circular(8.0))
+                          : null,
+                      image: new DecorationImage(
+                        //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                        image: widget.defaultImage,
+                        fit: widget.boxFit,
+                      ),
+                    ),
+                    child: widget.overlayShadow
+                        ? new Container(
+                            decoration: new BoxDecoration(
+                              gradient: new LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.center,
+                                stops: [0.0, widget.overlayShadowSize],
+                                colors: [
+                                  widget.overlayShadowColors != null
+                                      ? widget.overlayShadowColors
+                                          .withOpacity(1.0)
+                                      : Colors.grey[800]!.withOpacity(1.0),
+                                  widget.overlayShadowColors != null
+                                      ? widget.overlayShadowColors
+                                          .withOpacity(0.0)
+                                      : Colors.grey[800]!.withOpacity(0.0)
+                                ],
+                              ),
+                            ),
+                          )
+                        : new Container(),
+                  )
+                : widget.defaultImage,
+          ];
 
     return new Stack(
       children: <Widget>[
@@ -243,21 +243,21 @@ class CarouselState extends State<Carousel> {
                 controller: _controller,
                 children: listImages,
                 onPageChanged: (currentPage) {
-                  if (widget.onImageChange != null) {
+                  /*if (widget.onImageChange != null) {
                     widget.onImageChange(_currentImageIndex, currentPage);
-                  }
+                  }*/
 
                   _currentImageIndex = currentPage;
                 },
               );
 
-              if (widget.onImageTap == null) {
+              /*if (widget.onImageTap == null) {
                 return pageView;
-              }
+              }*/
 
               return new GestureDetector(
                 child: pageView,
-                onTap: () => widget.onImageTap(_currentImageIndex),
+                onTap: () => {} /*widget.onImageTap(_currentImageIndex)*/,
               );
             },
           ),
@@ -270,7 +270,7 @@ class CarouselState extends State<Carousel> {
                 child: new Container(
                   decoration: new BoxDecoration(
                     color: widget.dotBgColor == null
-                        ? Colors.grey[800].withOpacity(0.5)
+                        ? Colors.grey[800]!.withOpacity(0.5)
                         : widget.dotBgColor,
                     borderRadius: widget.borderRadius
                         ? (widget.noRadiusForIndicator
@@ -313,13 +313,13 @@ class CarouselState extends State<Carousel> {
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
   DotsIndicator(
-      {this.controller,
-      this.itemCount,
-      this.onPageSelected,
-      this.color,
-      this.dotSize,
-      this.dotIncreaseSize,
-      this.dotSpacing})
+      {required this.controller,
+      required this.itemCount,
+      required this.onPageSelected,
+      required this.color,
+      required this.dotSize,
+      required this.dotIncreaseSize,
+      required this.dotSpacing})
       : super(listenable: controller);
 
   // The PageController that this DotsIndicator is representing.

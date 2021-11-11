@@ -23,69 +23,19 @@ class SplashScreen extends StatefulWidget {
 
 /// Component UI
 class SplashScreenState extends IntraleState<SplashScreen> {
-  // Texts declarations
-  //Text welcome;
-  //Text businessName;
-
   // Services declarations
-  ValidateTokenService validateTokenService;
+  late ValidateTokenService validateTokenService;
 
-  AssetImage man;
+  //AssetImage man;
 
   // Other Components declarations
-  Hero hero;
+  /*Hero hero;
   BoxDecoration backgroundImage;
-  BoxDecoration gradientBlack;
+  BoxDecoration gradientBlack;*/
 
   SplashScreenState() : super() {
     validateTokenService = ValidateTokenService();
   }
-
-  /*@override
-  void buttonsInitializations() {}
-
-  @override
-  void fieldsInitializations() {}
-
-  @override
-  void imagesInitializations() {
-    man = AssetImage('assets/img/man.png');
-  }
-
-  @override
-  void othersInitializations() {
-    hero = Hero(tag: "Intrale", child: businessName);
-
-    backgroundImage = BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/img/man.png'), fit: BoxFit.cover));
-
-    gradientBlack = BoxDecoration(
-        gradient: LinearGradient(colors: [
-      Color.fromRGBO(0, 0, 0, 0.3),
-      Color.fromRGBO(0, 0, 0, 0.4)
-    ], begin: FractionalOffset.topCenter, end: FractionalOffset.bottomCenter));
-  }
-
-  @override
-  void servicesInitializations() {
-    validateTokenService = new ValidateTokenService();
-  }
-
-  @override
-  void textsInitializations() {
-    welcome = Text(
-      AppLocalizations.of(context).welcomeTo,
-      textDirection: TextDirection.ltr,
-      style: SPLASH_SCREEN_WELCOME_TO,
-    );
-
-    businessName = Text(
-      AppLocalizations.of(context).businessName,
-      textDirection: TextDirection.ltr,
-      style: SPLASH_SCREEN_BUSINESS_NAME,
-    );
-  }*/
 
   /// Declare startTime to InitState
   @override

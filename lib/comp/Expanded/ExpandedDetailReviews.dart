@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
@@ -27,16 +27,14 @@ class ExpansionTileReview extends StatefulWidget {
   /// the tile to reveal or hide the [children]. The [initiallyExpanded] property must
   /// be non-null.
   const ExpansionTileReview({
-    Key key,
-    this.leading,
-    @required this.title,
-    this.backgroundColor,
-    this.onExpansionChanged,
+    this.leading = const Text(''),
+    required this.title,
+    this.backgroundColor = Colors.transparent,
     this.children = const <Widget>[],
-    this.trailing,
+    this.trailing = const Text(''),
     this.initiallyExpanded = false,
   })  : assert(initiallyExpanded != null),
-        super(key: key);
+        super();
 
   /// A widget to display before the title.
   ///
@@ -53,7 +51,7 @@ class ExpansionTileReview extends StatefulWidget {
   /// When the tile starts expanding, this function is called with the value
   /// true. When the tile starts collapsing, this function is called with
   /// the value false.
-  final ValueChanged<bool> onExpansionChanged;
+  //final ValueChanged<bool> onExpansionChanged;
 
   /// The widgets that are displayed when the tile expands.
   ///
@@ -94,13 +92,13 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview>
   final ColorTween _iconColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
-  AnimationController _controller;
-  Animation<double> _iconTurns;
-  Animation<double> _heightFactor;
-  Animation<Color> _borderColor;
-  Animation<Color> _headerColor;
-  Animation<Color> _iconColor;
-  Animation<Color> _backgroundColor;
+  late AnimationController _controller;
+  late Animation<double> _iconTurns;
+  late Animation<double> _heightFactor;
+  late Animation<Color> _borderColor;
+  late Animation<Color> _headerColor;
+  late Animation<Color> _iconColor;
+  late Animation<Color> _backgroundColor;
 
   bool _isExpanded = false;
   bool _gradientExpanded = true;
@@ -111,11 +109,11 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview>
     _controller = AnimationController(duration: _kExpand, vsync: this);
     _heightFactor = _controller.drive(_easeInTween);
     _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
-    _borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
+    /*_borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
     _backgroundColor =
-        _controller.drive(_backgroundColorTween.chain(_easeOutTween));
+        _controller.drive(_backgroundColorTween.chain(_easeOutTween));*/
     _gradientExpanded = true;
     _isExpanded =
         PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
@@ -156,11 +154,11 @@ class _ExpansionTileReviewState extends State<ExpansionTileReview>
       }
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
-    if (widget.onExpansionChanged != null)
-      widget.onExpansionChanged(_isExpanded);
+    /*if (widget.onExpansionChanged != null)
+      widget.onExpansionChanged(_isExpanded);*/
   }
 
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChildren(BuildContext context, Widget? child) {
     final Color borderSideColor = _borderColor.value ?? Colors.transparent;
     final Color titleColor = _headerColor.value;
 

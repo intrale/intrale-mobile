@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 class Validator {
-  String validate(value) {}
+  const Validator();
+
+  String? validate(value) {
+    return null;
+  }
+
   void sharingContext(BuildContext context) {}
 }

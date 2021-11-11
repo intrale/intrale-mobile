@@ -4,18 +4,18 @@ class IntraleForm extends StatefulWidget {
   final formKey = GlobalKey<FormState>();
   Widget child;
 
-  IntraleForm({this.child}) {}
+  IntraleForm({required this.child}) {}
 
   @override
   State<StatefulWidget> createState() => IntraleFormState(formKey, child);
 
   void save() {
-    formKey.currentState.save();
+    formKey.currentState?.save();
   }
 
   bool validate() {
     debugPrint('IntraleFormState onSubmit');
-    bool value = formKey.currentState.validate();
+    bool value = formKey.currentState?.validate() ?? false;
     if (value) {
       save();
     }

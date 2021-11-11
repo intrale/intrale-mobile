@@ -6,19 +6,17 @@ part of 'ReadProductsResponse.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReadProductsResponse _$ReadProductsResponseFromJson(Map<String, dynamic> json) {
-  return ReadProductsResponse(
-    products: (json['products'] as List)
-        ?.map((e) =>
-            e == null ? null : Product.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  )
-    ..statusCode = json['statusCode'] as int
-    ..errors = (json['errors'] as List)
-        ?.map(
-            (e) => e == null ? null : Error.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
+ReadProductsResponse _$ReadProductsResponseFromJson(
+        Map<String, dynamic> json) =>
+    ReadProductsResponse(
+      products: (json['products'] as List<dynamic>?)
+          ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..statusCode = json['statusCode'] as int
+      ..errors = (json['errors'] as List<dynamic>?)
+          ?.map((e) => Error.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$ReadProductsResponseToJson(
         ReadProductsResponse instance) =>

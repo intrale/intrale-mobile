@@ -4,13 +4,12 @@ part 'Error.g.dart';
 
 @JsonSerializable()
 class Error {
-  String code;
-  String description;
+  String? code;
+  String? description;
 
-  Error({this.code, this.description}){}
+  Error({required this.code, required this.description}) {}
 
-  factory Error.fromJson(Map<String, dynamic> json) =>
-      _$ErrorFromJson(json);
+  factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
 
   Map<String, dynamic> toJson() => _$ErrorToJson(this);
 }

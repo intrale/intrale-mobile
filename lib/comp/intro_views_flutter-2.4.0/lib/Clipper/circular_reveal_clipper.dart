@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class CircularRevealClipper extends CustomClipper<Rect> {
   final double revealPercent;
 
-  CircularRevealClipper({this.revealPercent});
+  CircularRevealClipper({required this.revealPercent});
 
   @override
   Rect getClip(Size size) {

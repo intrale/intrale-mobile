@@ -5,7 +5,7 @@ class RedirectButton extends StatelessWidget {
   final String txt;
   final Widget redirect;
 
-  RedirectButton({this.txt, this.redirect});
+  RedirectButton({required this.txt, required this.redirect});
 
   Widget build(BuildContext context) {
     return Material(

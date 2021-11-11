@@ -7,7 +7,7 @@ part 'RecoveryRequest.g.dart';
 class RecoveryRequest extends Request {
   String email;
 
-  RecoveryRequest({this.email}) : super();
+  RecoveryRequest({required this.email}) : super();
 
   factory RecoveryRequest.fromJson(Map<String, dynamic> json) =>
       _$RecoveryRequestFromJson(json);

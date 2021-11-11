@@ -6,11 +6,10 @@ part of 'RecoveryRequest.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RecoveryRequest _$RecoveryRequestFromJson(Map<String, dynamic> json) {
-  return RecoveryRequest(
-    email: json['email'] as String,
-  )..requestId = json['requestId'] as String;
-}
+RecoveryRequest _$RecoveryRequestFromJson(Map<String, dynamic> json) =>
+    RecoveryRequest(
+      email: json['email'] as String,
+    )..requestId = json['requestId'] as String;
 
 Map<String, dynamic> _$RecoveryRequestToJson(RecoveryRequest instance) =>
     <String, dynamic>{

@@ -6,7 +6,7 @@ class ItlRedirectButton extends StatelessWidget {
   String textKey;
   Widget widget;
 
-  ItlRedirectButton({@required this.textKey, @required this.widget}) {}
+  ItlRedirectButton({required this.textKey, required this.widget}) {}
 
   @override
   Widget build(BuildContext context) {

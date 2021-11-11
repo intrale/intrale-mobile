@@ -16,9 +16,9 @@ class PageDragger extends StatefulWidget {
 
   //Constructor
   PageDragger({
-    this.canDragLeftToRight,
-    this.canDragRightToLeft,
-    this.slideUpdateStream,
+    required this.canDragLeftToRight,
+    required this.canDragRightToLeft,
+    required this.slideUpdateStream,
     this.fullTransitionPX = FULL_TARNSITION_PX,
   }) : assert(fullTransitionPX != null);
 
@@ -28,8 +28,8 @@ class PageDragger extends StatefulWidget {
 
 class _PageDraggerState extends State<PageDragger> {
   //Variables
-  Offset dragStart;
-  SlideDirection slideDirection;
+  late Offset dragStart;
+  late SlideDirection slideDirection;
   double slidePercent = 0.0;
 
   // This methods executes when user starts dragging.
@@ -75,7 +75,7 @@ class _PageDraggerState extends State<PageDragger> {
         SlideDirection.none, slidePercent, UpdateType.doneDragging));
 
     //Making dragStart to null for the reallocation
-    dragStart = null;
+    //dragStart = null;
   }
 
   @override

@@ -49,5 +49,8 @@
     "confirm_code":"Código de confirmación",
     "confirm_email":"Email",
     "confirm_password":"Nueva Contraseña",
-    "confirm_submit":"Confirmar"
+    "confirm_submit":"Confirmar",
+
+    "cart_pay":"Pagar",
+    "cart_total":"Total "
 }

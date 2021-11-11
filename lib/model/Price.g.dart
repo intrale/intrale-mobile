@@ -6,12 +6,10 @@ part of 'Price.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Price _$PriceFromJson(Map<String, dynamic> json) {
-  return Price(
-    currencyAcronym: json['currencyAcronym'] as String,
-    unitPrice: (json['unitPrice'] as num)?.toDouble(),
-  );
-}
+Price _$PriceFromJson(Map<String, dynamic> json) => Price(
+      currencyAcronym: json['currencyAcronym'] as String,
+      unitPrice: (json['unitPrice'] as num).toDouble(),
+    );
 
 Map<String, dynamic> _$PriceToJson(Price instance) => <String, dynamic>{
       'currencyAcronym': instance.currencyAcronym,

@@ -28,8 +28,8 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   ItlHeader header = ItlHeader();
   MediaQueryData mediaQueryData = new MediaQueryData();
 
-  Handler okHandler;
-  Handler errorHandler;
+  late Handler okHandler;
+  late Handler errorHandler;
 
   IntraleState() {
     okHandler = Handler(
@@ -43,8 +43,9 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   void onError(Response response) {}
 
   onSubmit() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    bool valid = formKey.currentState?.validate() ?? false;
+    if (valid) {
+      formKey.currentState?.save();
       onValidSubmit();
     }
   }

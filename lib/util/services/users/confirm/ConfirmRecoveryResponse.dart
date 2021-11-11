@@ -7,9 +7,9 @@ part 'ConfirmRecoveryResponse.g.dart';
 
 @JsonSerializable()
 class ConfirmRecoveryResponse extends Response {
-  String email;
+  String? email;
 
-  ConfirmRecoveryResponse({this.email}) {}
+  ConfirmRecoveryResponse({required this.email}) {}
 
   factory ConfirmRecoveryResponse.fromJson(Map<String, dynamic> json) =>
       _$ConfirmRecoveryResponseFromJson(json);

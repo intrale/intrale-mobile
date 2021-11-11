@@ -7,18 +7,18 @@ class CategoryIconValue extends StatelessWidget {
   GestureTapCallback tap1, tap2, tap3, tap4;
 
   CategoryIconValue(
-      {this.icon1,
-      this.tap1,
-      this.icon2,
-      this.tap2,
-      this.icon3,
-      this.tap3,
-      this.icon4,
-      this.tap4,
-      this.title1,
-      this.title2,
-      this.title3,
-      this.title4});
+      {required this.icon1,
+      required this.tap1,
+      required this.icon2,
+      required this.tap2,
+      required this.icon3,
+      required this.tap3,
+      required this.icon4,
+      required this.tap4,
+      required this.title1,
+      required this.title2,
+      required this.title3,
+      required this.title4});
 
   @override
   Widget build(BuildContext context) {

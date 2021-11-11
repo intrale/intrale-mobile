@@ -33,7 +33,7 @@ class LoginScreenState extends IntraleState<Login> {
   ItlPassword password =
       ItlPassword(descriptionKey: "login_password", validator: Required());
 
-  SigninService signinService;
+  late SigninService signinService;
 
   LoginScreenState() : super() {
     signinService = new SigninService(handlers: [
@@ -84,10 +84,10 @@ class LoginScreenState extends IntraleState<Login> {
   }
 
   void onOk(Response response) {
-    SigninResponse signinResponse = response;
+    SigninResponse? signinResponse = response as SigninResponse?;
     SharedPreferences.getInstance().then((pref) {
-      pref.setString('accessToken', signinResponse.accessToken);
-      pref.setString('idToken', signinResponse.idToken);
+      pref.setString('accessToken', signinResponse?.accessToken ?? '');
+      pref.setString('idToken', signinResponse?.idToken ?? '');
       // Ingresa normalmente a la aplicacion
       //redirectTo(context, ItlNavigationBarDeprecated());
       redirectTo(context, Dashboard());
@@ -95,8 +95,7 @@ class LoginScreenState extends IntraleState<Login> {
   }
 
   void onError(Response response) {
-    SigninResponse signinResponse = response;
-    Error error = signinResponse.errors.first;
+    Error error = response.errors!.first;
     showDialog(
       context: context,
       builder: (BuildContext buildContext) {

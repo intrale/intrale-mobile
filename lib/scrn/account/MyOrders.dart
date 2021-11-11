@@ -242,7 +242,11 @@ class qeueuItem extends StatelessWidget {
   double paddingValue;
 
   qeueuItem(
-      {this.icon, this.txtHeader, this.txtInfo, this.time, this.paddingValue});
+      {required this.icon,
+      required this.txtHeader,
+      required this.txtInfo,
+      required this.time,
+      required this.paddingValue});
 
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);

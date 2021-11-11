@@ -15,11 +15,11 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
   bool isStarted = false;
-  ReadProductsService readProductsServices;
-  List<GridItem> gridItemArray = new List<GridItem>();
+  late ReadProductsService readProductsServices;
+  List<GridItem> gridItemArray = [];
 
   HomeState() : super() {
-    readProductsServices = new ReadProductsService();
+    readProductsServices = ReadProductsService();
   }
 
   @override
@@ -27,17 +27,18 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     super.initState();
     readProductsServices.post(request: ReadProductsRequest()).then((value) => {
           setState(() {
-            value.products.forEach((element) {
-              debugPrint('Agregando:' + element.name);
-              gridItemArray.add(GridItem(
-                  id: element.id,
-                  img: "assets/imgItem/fashion1.jpg",
-                  title: element.name,
-                  price: element.price.unitPrice.toString(),
-                  itemSale: "932 Sale",
-                  rattingValue: "4.8",
-                  description: element.description));
-            });
+              if (value.products!=null){
+              value.products?.forEach((element) {
+                gridItemArray.add(GridItem(
+                    id: element.id ?? '',
+                    img: "assets/imgItem/fashion1.jpg",
+                    title: element.name ?? '',
+                    price: element.price?.unitPrice?.toString() ?? '',
+                    itemSale: "932 Sale", 
+                    rattingValue: "4.8",
+                    description: element.description ?? ''));
+              });
+            }
           })
         });
   }

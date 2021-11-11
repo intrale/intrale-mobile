@@ -93,7 +93,11 @@ class setting extends StatelessWidget {
 
   String head, sub1, sub2, sub3;
 
-  setting({this.head, this.sub1, this.sub2, this.sub3});
+  setting(
+      {required this.head,
+      required this.sub1,
+      required this.sub2,
+      required this.sub3});
 
   @override
   Widget build(BuildContext context) {

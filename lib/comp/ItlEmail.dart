@@ -6,7 +6,7 @@ class ItlEmail extends ItlInput {
   final String descriptionKey;
   final Validator validator;
 
-  ItlEmail({this.descriptionKey, this.validator})
+  ItlEmail({required this.descriptionKey, this.validator = const Validator()})
       : super(
             descriptionKey: descriptionKey,
             password: false,

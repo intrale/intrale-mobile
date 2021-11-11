@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
+//import 'package:giffy_dialog/giffy_dialog.dart';
 
 class languageSetting extends StatefulWidget {
-  languageSetting({Key key}) : super(key: key);
+  languageSetting(/*{required Key key}*/) : super();
 
   _languageSettingState createState() => _languageSettingState();
 }
@@ -201,7 +201,7 @@ class _languageSettingState extends State<languageSetting> {
 
 class cardName extends StatelessWidget {
   String title, flag;
-  cardName({this.title, this.flag});
+  cardName({required this.title, required this.flag});
 
   @override
   Widget build(BuildContext context) {

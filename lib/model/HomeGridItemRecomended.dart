@@ -8,13 +8,13 @@ class GridItem {
   final String description;
 
   GridItem(
-      {this.id,
-        this.img,
-        this.title,
-        this.price,
-        this.rattingValue,
-        this.itemSale,
-        this.description});
+      {required this.id,
+      required this.img,
+      required this.title,
+      required this.price,
+      required this.rattingValue,
+      required this.itemSale,
+      required this.description});
 }
 
 List<GridItem> gridItemArray = [
@@ -26,7 +26,7 @@ List<GridItem> gridItemArray = [
     itemSale: "932 Sale",
     rattingValue: "4.8",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
   GridItem(
     id: "2",
@@ -36,7 +36,7 @@ List<GridItem> gridItemArray = [
     itemSale: "892 Sale",
     rattingValue: "4.2",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
   GridItem(
     id: "3",
@@ -46,7 +46,7 @@ List<GridItem> gridItemArray = [
     itemSale: "1422 Sale",
     rattingValue: "4.7",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
   GridItem(
     id: "4",
@@ -56,7 +56,7 @@ List<GridItem> gridItemArray = [
     itemSale: "523 Sale",
     rattingValue: "4.4",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
   GridItem(
     id: "5",
@@ -66,7 +66,7 @@ List<GridItem> gridItemArray = [
     itemSale: "130 Sale",
     rattingValue: "4.5",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
   GridItem(
     id: "6",
@@ -76,7 +76,7 @@ List<GridItem> gridItemArray = [
     itemSale: "110 Sale",
     rattingValue: "4.8",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
   GridItem(
     id: "7",
@@ -86,7 +86,7 @@ List<GridItem> gridItemArray = [
     itemSale: "654 Sale",
     rattingValue: "4.1",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
   GridItem(
     id: "8",
@@ -96,6 +96,6 @@ List<GridItem> gridItemArray = [
     itemSale: "1542 Sale",
     rattingValue: "4.1",
     description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.....",
   ),
 ];

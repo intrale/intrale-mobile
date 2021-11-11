@@ -7,10 +7,10 @@ part 'SignupResponse.g.dart';
 
 @JsonSerializable()
 class SignupResponse extends Response {
-  String businessName;
-  String email;
+  String? businessName;
+  String? email;
 
-  SignupResponse({this.businessName, this.email}) {}
+  SignupResponse({required this.businessName, required this.email}) {}
 
   factory SignupResponse.fromJson(Map<String, dynamic> json) =>
       _$SignupResponseFromJson(json);

@@ -1,16 +1,15 @@
-class categoryItem{
+class categoryItem {
   final String image, title, Salary, Rating, sale;
 
-  categoryItem({
-    this.image,
-    this.title,
-    this.Salary,
-    this.Rating,
-    this.sale
-  });
+  categoryItem(
+      {required this.image,
+      required this.title,
+      required this.Salary,
+      required this.Rating,
+      required this.sale});
 }
 
-List<categoryItem> itemDiscount =[
+List<categoryItem> itemDiscount = [
   categoryItem(
     image: "assets/imgCategoryMan/Man1.jpg",
     title: "Firrona Skirt!",

@@ -13,9 +13,9 @@ class SkipButton extends StatelessWidget {
   final Widget child;
   //Constructor
   SkipButton({
-    this.onTap,
-    this.pageButtonViewModel,
-    this.child,
+    required this.onTap,
+    required this.pageButtonViewModel,
+    required this.child,
   });
 
   @override
@@ -56,9 +56,9 @@ class DoneButton extends StatelessWidget {
   final Widget child;
   //Constructor
   DoneButton({
-    this.onTap,
-    this.pageButtonViewModel,
-    this.child,
+    required this.onTap,
+    required this.pageButtonViewModel,
+    required this.child,
   });
 
   @override
@@ -103,17 +103,17 @@ class PageIndicatorButtons extends StatelessWidget {
 
   //Constructor
   PageIndicatorButtons({
-    @required this.acitvePageIndex,
-    @required this.totalPages,
-    this.onPressedDoneButton,
-    this.slideDirection,
-    this.slidePercent,
-    this.onPressedSkipButton,
+    required this.acitvePageIndex,
+    required this.totalPages,
+    required this.onPressedDoneButton,
+    required this.slideDirection,
+    required this.slidePercent,
+    required this.onPressedSkipButton,
     this.showSkipButton = true,
-    this.skipText,
-    this.doneText,
-    this.textStyle,
-    this.doneButtonPersist,
+    required this.skipText,
+    required this.doneText,
+    required this.textStyle,
+    required this.doneButtonPersist,
   });
 
   @override

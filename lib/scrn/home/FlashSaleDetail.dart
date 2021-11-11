@@ -1,7 +1,7 @@
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/FlashSaleItem.dart';
-import 'package:intrale/scrn/cart/CartLayout.dart';
+import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/ChatItem.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
 
@@ -17,8 +17,6 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
   final SaleItem itemSale;
   _flashSaleDetailState(this.itemSale);
 
-  @override
-  static BuildContext ctx;
   int valueItemChart = 0;
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
@@ -168,8 +166,8 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
         actions: <Widget>[
           InkWell(
             onTap: () {
-              Navigator.of(context).push(
-                  PageRouteBuilder(pageBuilder: (_, __, ___) => new cart()));
+              Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => new CartScreen()));
             },
             child: Stack(
               alignment: AlignmentDirectional(-1.0, -0.8),
@@ -481,7 +479,7 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
               setState(() {
                 valueItemChart++;
               });
-              _key.currentState.showSnackBar(snackbar);
+              _key.currentState?.showSnackBar(snackbar);
             },
 
             /// Shopping Cart in bottom layout
@@ -562,7 +560,12 @@ class _flashSaleDetailState extends State<flashSaleDetail> {
 /// class Item for card in "top rated products"
 class FavoriteItem extends StatelessWidget {
   String image, Rating, Salary, title, sale;
-  FavoriteItem({this.image, this.Rating, this.Salary, this.title, this.sale});
+  FavoriteItem(
+      {required this.image,
+      required this.Rating,
+      required this.Salary,
+      required this.title,
+      required this.sale});
 
   @override
   Widget build(BuildContext context) {

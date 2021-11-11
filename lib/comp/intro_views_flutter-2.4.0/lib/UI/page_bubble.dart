@@ -10,7 +10,7 @@ class PageBubble extends StatelessWidget {
 
   //Constructor
   PageBubble({
-    this.viewModel,
+    required this.viewModel,
   });
 
   @override

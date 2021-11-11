@@ -7,7 +7,7 @@ class ValidateTokenService extends Service {
       : super(endpoint: Endpoints.USERS, function: 'validateToken');
 
   @override
-  Response mapToResponse(Map responseMap) {
+  Response mapToResponse(Map<String, dynamic> responseMap) {
     return Response.fromJson(responseMap);
   }
 }

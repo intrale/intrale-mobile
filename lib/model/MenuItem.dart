@@ -1,16 +1,15 @@
-class menuItem{
-final String image, title, salary, rating, sale;
+class menuItem {
+  final String image, title, salary, rating, sale;
 
-menuItem({
-  this.image,
-  this.title,
-  this.salary,
-  this.rating,
-  this.sale
-});
+  menuItem(
+      {required this.image,
+      required this.title,
+      required this.salary,
+      required this.rating,
+      required this.sale});
 }
 
-List<menuItem> itemDiscount =[
+List<menuItem> itemDiscount = [
   menuItem(
     image: "assets/imgCamera/cameraItem1.png",
     title: "Action Camera",

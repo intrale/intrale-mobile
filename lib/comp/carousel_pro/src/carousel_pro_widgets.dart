@@ -64,23 +64,23 @@ class WidgetCarousel extends StatefulWidget {
   final Duration autoplayDuration;
 
   WidgetCarousel(
-      {this.pages,
+      {required this.pages,
       this.animationCurve = Curves.ease,
       this.animationDuration = const Duration(milliseconds: 300),
       this.dotSize = 8.0,
       this.dotSpacing = 25.0,
       this.dotIncreaseSize = 2.0,
       this.dotColor = Colors.white,
-      this.dotBgColor,
+      this.dotBgColor = Colors.transparent,
       this.showIndicator = true,
       this.indicatorBgPadding = 20.0,
       this.boxFit = BoxFit.cover,
       this.borderRadius = false,
-      this.radius,
+      required this.radius,
       this.moveIndicatorFromBottom = 0.0,
       this.noRadiusForIndicator = false,
       this.overlayShadow = false,
-      this.overlayShadowColors,
+      required this.overlayShadowColors,
       this.overlayShadowSize = 0.5,
       this.autoplay = true,
       this.autoplayDuration = const Duration(seconds: 3)})
@@ -150,7 +150,7 @@ class WidgetCarouselState extends State<WidgetCarousel> {
                   child: new Container(
                     decoration: new BoxDecoration(
                       color: widget.dotBgColor == null
-                          ? Colors.grey[800].withOpacity(0.5)
+                          ? Colors.grey[800]!.withOpacity(0.5)
                           : widget.dotBgColor,
                       borderRadius: widget.borderRadius
                           ? (widget.noRadiusForIndicator
@@ -194,13 +194,13 @@ class WidgetCarouselState extends State<WidgetCarousel> {
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
   DotsIndicator(
-      {this.controller,
-      this.itemCount,
-      this.onPageSelected,
-      this.color,
-      this.dotSize,
-      this.dotIncreaseSize,
-      this.dotSpacing})
+      {required this.controller,
+      required this.itemCount,
+      required this.onPageSelected,
+      required this.color,
+      required this.dotSize,
+      required this.dotIncreaseSize,
+      required this.dotSpacing})
       : super(listenable: controller);
 
   // The PageController that this DotsIndicator is representing.

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intrale/scrn/Dashboard.dart';
-import 'package:intrale/scrn/cart/CartLayout.dart';
+import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
 import 'package:intrale/scrn/home/Home.dart';
 

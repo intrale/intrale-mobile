@@ -6,7 +6,7 @@ class ItlPassword extends ItlInput {
   final String descriptionKey;
   final Validator validator;
 
-  ItlPassword({this.descriptionKey, this.validator})
+  ItlPassword({required this.descriptionKey, required this.validator})
       : super(
             descriptionKey: descriptionKey,
             password: true,

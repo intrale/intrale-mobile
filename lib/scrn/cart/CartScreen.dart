@@ -1,35 +1,56 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:intrale/model/CartItemData.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:intrale/model/Cart.dart';
+import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intrale/scrn/cart/NoItemCart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class cart extends StatefulWidget {
+const TextStyle TITLE_TEXT_STYLE = TextStyle(
+    fontFamily: "Gotik",
+    fontSize: 18.0,
+    color: Colors.black54,
+    fontWeight: FontWeight.w700);
+
+const TextStyle CART_PAY_TEXT_STYLE = TextStyle(
+    color: Colors.white, fontFamily: "Sans", fontWeight: FontWeight.w600);
+
+const TextStyle TOTAL_TEXT_STYLE = TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.w500,
+    fontSize: 15.5,
+    fontFamily: "Sans");
+
+class CartScreen extends StatefulWidget {
   @override
-  _cartState createState() => _cartState();
+  CartScreenState createState() => CartScreenState();
 }
 
-class _cartState extends State<cart> {
-  final List<cartItem> items = new List();
+class CartScreenState extends State<CartScreen> {
+  List<CartItem> items = [];
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      items.add(
-        cartItem(
-          img: "assets/imgItem/flashsale3.jpg",
-          id: 1,
-          title: "Samsung Galaxy Note 9 8GB RAM",
-          desc: "Internal 1 TB",
-          price: "\$ 950",
-        ),
-      );
-    });
+    String? cartString;
+    Map<String, dynamic> jsonMap;
+    Cart cart = Cart();
+    SharedPreferences.getInstance().then((preferences) => {
+          cartString = preferences.getString("cart"),
+          if (cartString != null)
+            {jsonMap = jsonDecode(cartString!), cart = Cart.fromJson(jsonMap)},
+          setState(() {
+            items = cart.items;
+          })
+        });
   }
 
   /// Declare price and value for chart
-  int value = 1;
-  int pay = 950;
+  //int value = 1;
+  //int pay = 950;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +60,8 @@ class _cartState extends State<cart> {
           centerTitle: true,
           backgroundColor: Colors.white,
           title: Text(
-            'cart',
-            style: TextStyle(
-                fontFamily: "Gotik",
-                fontSize: 18.0,
-                color: Colors.black54,
-                fontWeight: FontWeight.w700),
+            FlutterI18n.translate(context, 'cart'),
+            style: TITLE_TEXT_STYLE,
           ),
           elevation: 0.0,
         ),
@@ -144,7 +161,8 @@ class _cartState extends State<cart> {
                                                   spreadRadius: 0.1)
                                             ]),
                                         child: Image.asset(
-                                          '${items[position].img}',
+                                          //'${items[position].id}', //deberia ir la imagen del producto
+                                          'assets/imgItem/fashion1.jpg',
                                           height: 130.0,
                                           width: 120.0,
                                           fit: BoxFit.cover,
@@ -161,7 +179,7 @@ class _cartState extends State<cart> {
                                           MainAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          '${items[position].title}',
+                                          '${items[position].name}',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w700,
                                             fontFamily: "Sans",
@@ -173,7 +191,7 @@ class _cartState extends State<cart> {
                                             padding:
                                                 EdgeInsets.only(top: 10.0)),
                                         Text(
-                                          '${items[position].desc}',
+                                          '${items[position].description}',
                                           style: TextStyle(
                                             color: Colors.black54,
                                             fontWeight: FontWeight.w500,
@@ -183,7 +201,8 @@ class _cartState extends State<cart> {
                                         Padding(
                                             padding:
                                                 EdgeInsets.only(top: 10.0)),
-                                        Text('${items[position].price}'),
+                                        Text(
+                                            '${items[position].price.unitPrice}'),
                                         Padding(
                                           padding: const EdgeInsets.only(
                                               top: 18.0, left: 0.0),
@@ -202,8 +221,15 @@ class _cartState extends State<cart> {
                                                 InkWell(
                                                   onTap: () {
                                                     setState(() {
-                                                      value = value - 1;
-                                                      pay = 950 * value;
+                                                      if (items[position]
+                                                              .count >
+                                                          1) {
+                                                        items[position].count =
+                                                            (items[position]
+                                                                    .count -
+                                                                1);
+                                                      }
+                                                      //pay = 950 * value;
                                                     });
                                                   },
                                                   child: Container(
@@ -224,15 +250,20 @@ class _cartState extends State<cart> {
                                                   padding: const EdgeInsets
                                                           .symmetric(
                                                       horizontal: 18.0),
-                                                  child: Text(value.toString()),
+                                                  child: Text(items[position]
+                                                      .count
+                                                      .toString()),
                                                 ),
 
                                                 /// Increasing value of item
                                                 InkWell(
                                                   onTap: () {
                                                     setState(() {
-                                                      value = value + 1;
-                                                      pay = 950 * value;
+                                                      items[position].count =
+                                                          (items[position]
+                                                                  .count +
+                                                              1);
+                                                      //pay = 950 * value;
                                                     });
                                                   },
                                                   child: Container(
@@ -276,12 +307,15 @@ class _cartState extends State<cart> {
 
                                     /// Total price of item buy
                                     child: Text(
-                                      'cartTotal' + "\$" + pay.toString(),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15.5,
-                                          fontFamily: "Sans"),
+                                      FlutterI18n.translate(
+                                              context, 'cart_total') +
+                                          items[position]
+                                              .price
+                                              .currencyAcronym +
+                                          (items[position].price.unitPrice *
+                                                  items[position].count)
+                                              .toString(),
+                                      style: TOTAL_TEXT_STYLE,
                                     ),
                                   ),
                                   InkWell(
@@ -302,11 +336,9 @@ class _cartState extends State<cart> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            'cartPay',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: "Sans",
-                                                fontWeight: FontWeight.w600),
+                                            FlutterI18n.translate(
+                                                context, 'cart_pay'),
+                                            style: CART_PAY_TEXT_STYLE,
                                           ),
                                         ),
                                       ),
@@ -323,45 +355,6 @@ class _cartState extends State<cart> {
                 },
                 scrollDirection: Axis.vertical,
               )
-            : noItemCart());
-  }
-}
-
-///
-///
-/// If no item cart this class showing
-///
-class noItemCart extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    return Container(
-      width: 500.0,
-      color: Colors.white,
-      height: double.infinity,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-                padding:
-                    EdgeInsets.only(top: mediaQueryData.padding.top + 50.0)),
-            Image.asset(
-              "assets/imgIllustration/IlustrasiCart.png",
-              height: 300.0,
-            ),
-            Padding(padding: EdgeInsets.only(bottom: 10.0)),
-            Text(
-              'cartNoItem',
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 18.5,
-                  color: Colors.black26.withOpacity(0.2),
-                  fontFamily: "Popins"),
-            ),
-          ],
-        ),
-      ),
-    );
+            : NoItemCart());
   }
 }

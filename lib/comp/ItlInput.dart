@@ -12,16 +12,16 @@ class ItlInput extends StatefulWidget {
   final IconData icon;
   final TextInputType inputType;
   final Validator validator;
-  final TapEvent tapEvent;
+  //final TapEvent tapEvent;
   var value;
 
   ItlInput(
-      {this.descriptionKey,
-      this.icon,
-      this.inputType,
-      this.password,
-      this.validator,
-      this.tapEvent,
+      {required this.descriptionKey,
+      this.icon = Icons.drafts,
+      this.inputType = TextInputType.text,
+      this.password = false,
+      this.validator = const Validator(),
+      /*this.tapEvent,*/
       this.value});
 
   onSaved(var value) {
@@ -51,12 +51,12 @@ class ItlInputState extends State<ItlInput> {
   final ItlInput itlInput;
 
   ItlInputState(
-      {this.descriptionKey,
-      this.icon,
-      this.inputType,
-      this.password,
-      this.validator,
-      this.itlInput});
+      {required this.descriptionKey,
+      this.icon = Icons.drafts,
+      this.inputType = TextInputType.text,
+      this.password = false,
+      this.validator = const Validator(),
+      required this.itlInput});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class ItlInputState extends State<ItlInput> {
                 }
                 return null;
               },
-              obscureText: password ?? false,
+              obscureText: password,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   labelText: FlutterI18n.translate(context, descriptionKey),

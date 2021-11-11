@@ -8,7 +8,7 @@ class ItlText extends StatelessWidget {
   TextStyle style;
 
   ItlText(
-      {@required this.textKey,
+      {required this.textKey,
       this.textDirection = TextDirection.ltr,
       this.style = DEFAULT_TEXT}) {}
 

@@ -243,7 +243,7 @@ class _brandDetailState extends State<brandDetail> {
                                       (notif = "Notifications");
                                     }
                                   });
-                                  _key.currentState.showSnackBar(snackBar);
+                                  _key.currentState?.showSnackBar(snackBar);
                                 },
                               )
                             ],
@@ -442,7 +442,7 @@ class buttonCustom extends StatelessWidget {
   Color color;
   GestureTapCallback ontap;
 
-  buttonCustom({this.txt, this.color, this.ontap});
+  buttonCustom({required this.txt, required this.color, required this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -470,7 +470,10 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   String img, title, id;
 
   MySliverAppBar(
-      {@required this.expandedHeight, this.img, this.title, this.id});
+      {required this.expandedHeight,
+      required this.img,
+      required this.title,
+      required this.id});
 
   @override
   Widget build(

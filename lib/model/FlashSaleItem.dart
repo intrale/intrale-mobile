@@ -14,19 +14,19 @@ class SaleItem {
   final String description;
 
   const SaleItem(
-      {this.id,
-      this.image,
-      this.title,
-      this.ratingStart,
-      this.normalprice,
-      this.discountprice,
-      this.ratingvalue,
-      this.place,
-      this.stock,
-      this.colorLine,
-      this.widthLine,
-      this.detailProduct,
-      this.description});
+      {required this.id,
+      required this.image,
+      required this.title,
+      required this.ratingStart,
+      required this.normalprice,
+      required this.discountprice,
+      required this.ratingvalue,
+      required this.place,
+      required this.stock,
+      required this.colorLine,
+      required this.widthLine,
+      required this.detailProduct,
+      required this.description});
 }
 
 List<SaleItem> flashData = [
@@ -58,7 +58,8 @@ List<SaleItem> flashData = [
       stock: "24 Available",
       colorLine: 0xFF52B640,
       widthLine: 100.0,
-      detailProduct: "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
+      detailProduct:
+          "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen....."),
   const SaleItem(
@@ -73,7 +74,8 @@ List<SaleItem> flashData = [
       stock: "14 Available",
       colorLine: 0xFF52B640,
       widthLine: 90.0,
-      detailProduct: "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
+      detailProduct:
+          "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen....."),
   const SaleItem(
@@ -88,7 +90,8 @@ List<SaleItem> flashData = [
       stock: "5 Available",
       colorLine: 0xFFFFA500,
       widthLine: 30.0,
-      detailProduct: "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
+      detailProduct:
+          "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen....."),
   const SaleItem(
@@ -103,7 +106,8 @@ List<SaleItem> flashData = [
       stock: "30 Available",
       colorLine: 0xFF52B640,
       widthLine: 100.0,
-      detailProduct: "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
+      detailProduct:
+          "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen....."),
   const SaleItem(
@@ -118,7 +122,8 @@ List<SaleItem> flashData = [
       stock: "10 Available",
       colorLine: 0xFF52B640,
       widthLine: 80.0,
-      detailProduct: "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
+      detailProduct:
+          "1)Lorem Ipsum is simply \n\n2)Lorem Ipsum is simply \n\n3)Lorem Ipsum is simply\n\n ",
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen....."),
 ];

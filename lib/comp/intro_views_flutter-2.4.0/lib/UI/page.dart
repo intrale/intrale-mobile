@@ -14,7 +14,7 @@ class PageIntro extends StatelessWidget {
 
   //Constructor
   PageIntro({
-    this.pageViewModel,
+    required this.pageViewModel,
     this.percentVisible = 1.0,
     this.columnMainAxisAlignment = MainAxisAlignment.spaceAround,
   });
@@ -110,10 +110,9 @@ class _BodyPageTransform extends StatelessWidget {
   final PageViewModel pageViewModel;
 
   const _BodyPageTransform({
-    Key key,
-    @required this.percentVisible,
-    @required this.pageViewModel,
-  }) : super(key: key);
+    required this.percentVisible,
+    required this.pageViewModel,
+  }) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -144,10 +143,9 @@ class _ImagePageTransform extends StatelessWidget {
   final PageViewModel pageViewModel;
 
   const _ImagePageTransform({
-    Key key,
-    @required this.percentVisible,
-    @required this.pageViewModel,
-  }) : super(key: key);
+    required this.percentVisible,
+    required this.pageViewModel,
+  }) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -176,10 +174,9 @@ class _TitlePageTransform extends StatelessWidget {
   final PageViewModel pageViewModel;
 
   const _TitlePageTransform({
-    Key key,
-    @required this.percentVisible,
-    @required this.pageViewModel,
-  }) : super(key: key);
+    required this.percentVisible,
+    required this.pageViewModel,
+  }) : super();
 
   @override
   Widget build(BuildContext context) {

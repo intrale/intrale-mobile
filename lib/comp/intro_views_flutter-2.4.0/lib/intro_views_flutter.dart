@@ -33,10 +33,10 @@ class IntroViewsFlutter extends StatefulWidget {
   /// TextStyles for done, skip Buttons
   ///
   /// overrides [pageButtonFontFamily] [pageButtonsColor] [pageButtonTextSize]
-  final TextStyle pageButtonTextStyles;
+  late TextStyle pageButtonTextStyles;
 
   /// run a function after skip Button pressed
-  final VoidCallback onTapSkipButton;
+  late VoidCallback onTapSkipButton;
 
   /// set the Text Size for skip, done buttons
   ///
@@ -46,7 +46,7 @@ class IntroViewsFlutter extends StatefulWidget {
   /// set the Font Family for skip, done buttons
   ///
   /// gets overridden by [pageButtonTextStyles]
-  final String pageButtonFontFamily;
+  late String pageButtonFontFamily;
 
   /// Override 'DONE' Text with Your Own Text,
   /// typicaly a Text Widget
@@ -74,20 +74,20 @@ class IntroViewsFlutter extends StatefulWidget {
 
   IntroViewsFlutter(
     this.pages, {
-    Key key,
-    this.onTapDoneButton,
+    /* Key key,*/
+    required this.onTapDoneButton,
     this.showSkipButton = true,
-    this.pageButtonTextStyles,
+    /* this.pageButtonTextStyles,*/
     this.pageButtonTextSize = 18.0,
-    this.pageButtonFontFamily,
-    this.onTapSkipButton,
-    this.pageButtonsColor,
+    /*this.pageButtonFontFamily,*/
+    /* this.onTapSkipButton, */
+    required this.pageButtonsColor,
     this.doneText = const Text("DONE"),
     this.skipText = const Text("SKIP"),
     this.doneButtonPersist = false,
     this.columnMainAxisAlignment = MainAxisAlignment.spaceAround,
     this.fullTransition = FULL_TARNSITION_PX,
-  }) : super(key: key);
+  }) : super(/*key: key*/);
 
   @override
   _IntroViewsFlutterState createState() => _IntroViewsFlutterState();
@@ -98,18 +98,18 @@ class IntroViewsFlutter extends StatefulWidget {
 
 class _IntroViewsFlutterState extends State<IntroViewsFlutter>
     with TickerProviderStateMixin {
-  StreamController<SlideUpdate>
+  late StreamController<SlideUpdate>
       // ignore: close_sinks
       slideUpdateStream; //Stream controller is used to get all the updates when user slides across screen.
 
-  AnimatedPageDragger
+  late AnimatedPageDragger
       animatedPageDragger; //When user stops dragging then by using this page automatically drags.
 
   int activePageIndex = 0; //active page index
   int nextPageIndex = 0; //next page index
   SlideDirection slideDirection = SlideDirection.none; //slide direction
   double slidePercent = 0.0; //slide percentage (0.0 to 1.0)
-  StreamSubscription<SlideUpdate> slideUpdateStream$;
+  late StreamSubscription<SlideUpdate> slideUpdateStream$;
 
   @override
   void initState() {
@@ -184,9 +184,9 @@ class _IntroViewsFlutterState extends State<IntroViewsFlutter>
 
   @override
   void dispose() {
-    slideUpdateStream$?.cancel();
+    /*slideUpdateStream$?.cancel();
     animatedPageDragger?.dispose();
-    slideUpdateStream?.close();
+    slideUpdateStream?.close();*/
     super.dispose();
   }
 
@@ -195,8 +195,8 @@ class _IntroViewsFlutterState extends State<IntroViewsFlutter>
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = TextStyle(
-            fontSize: widget.pageButtonTextSize ?? 18.0,
-            color: widget.pageButtonsColor ?? const Color(0x88FFFFFF),
+            fontSize: widget.pageButtonTextSize,
+            color: widget.pageButtonsColor,
             fontFamily: widget.pageButtonFontFamily)
         .merge(widget.pageButtonTextStyles);
 

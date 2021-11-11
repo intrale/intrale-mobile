@@ -7,9 +7,9 @@ class CategoryItemValue extends StatelessWidget {
   GestureTapCallback tap;
 
   CategoryItemValue({
-    this.image,
-    this.title,
-    this.tap,
+    required this.image,
+    required this.title,
+    required this.tap,
   });
 
   @override

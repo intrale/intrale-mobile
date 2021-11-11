@@ -1,4 +1,4 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/const/TextStyleConst.dart';
 import 'package:intrale/scrn/Dashboard.dart';
@@ -184,7 +184,8 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
 
                                 /// to set Text "get best product...." (Click to open code)
                                 Text(
-                                  AppLocalizations.of(context).choseLogin_hint,
+                                  FlutterI18n.translate(
+                                      context, "choseLogin_hint"),
                                   textDirection: TextDirection.ltr,
                                   style: CHOSE_LOGIN_OR_SIGNUP_SCREEN_HINT,
                                 ),
@@ -197,8 +198,8 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               RedirectButton(
-                                  txt: AppLocalizations.of(context)
-                                      .choseLogin_login,
+                                  txt: FlutterI18n.translate(
+                                      context, "choseLogin_login"),
                                   redirect: new Login()),
                               Padding(padding: EdgeInsets.only(top: 15.0)),
                               Center(
@@ -221,8 +222,8 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                                           redirectTo(context, Dashboard());
                                         },
                                         child: Text(
-                                          AppLocalizations.of(context)
-                                              .choseLogin_orSkip,
+                                          FlutterI18n.translate(
+                                              context, "choseLogin_orSkip"),
                                           textDirection: TextDirection.ltr,
                                           style:
                                               CHOSE_LOGIN_OR_SIGNUP_SCREEN_OR_SKIP,
@@ -245,8 +246,8 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
 
                           /// To create animation if user tap == animation play (Click to open code)
                           RedirectButton(
-                              txt: AppLocalizations.of(context)
-                                  .choseLogin_signup,
+                              txt: FlutterI18n.translate(
+                                  context, "choseLogin_signup"),
                               redirect: new Signup())
                         ],
                       ),

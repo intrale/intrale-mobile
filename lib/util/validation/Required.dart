@@ -1,11 +1,11 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/util/validation/Validator.dart';
 
 class Required implements Validator {
-  String message;
+  String message = '';
 
-  String validate(value) {
+  String? validate(value) {
     if (value.isEmpty) {
       return message;
     }

@@ -7,13 +7,12 @@ part of 'ConfirmRecoveryRequest.dart';
 // **************************************************************************
 
 ConfirmRecoveryRequest _$ConfirmRecoveryRequestFromJson(
-    Map<String, dynamic> json) {
-  return ConfirmRecoveryRequest(
-    email: json['email'] as String,
-    password: json['password'] as String,
-    code: json['code'] as String,
-  )..requestId = json['requestId'] as String;
-}
+        Map<String, dynamic> json) =>
+    ConfirmRecoveryRequest(
+      email: json['email'] as String,
+      password: json['password'] as String,
+      code: json['code'] as String,
+    )..requestId = json['requestId'] as String;
 
 Map<String, dynamic> _$ConfirmRecoveryRequestToJson(
         ConfirmRecoveryRequest instance) =>

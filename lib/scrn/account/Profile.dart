@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intrale/scrn/account/AboutApps.dart';
 import 'package:intrale/scrn/account/CallCenter.dart';
 import 'package:intrale/scrn/account/Message.dart';
-import 'package:intrale/scrn/account/languageSetting.dart';
+//import 'package:intrale/scrn/account/languageSetting.dart';
 import 'package:intrale/scrn/LoginOrSignup/ChoseLoginOrSignup.dart';
 import 'package:intrale/scrn/account/CreditCardSetting.dart';
 import 'package:intrale/scrn/account/MyOrders.dart';
@@ -213,8 +213,8 @@ class _profilState extends State<profil> {
                     padding: 30.0,
                     image: "assets/icon/language.png",
                     tap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                          pageBuilder: (_, __, ___) => new languageSetting()));
+                      /*Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => new languageSetting()));*/
                     },
                   ),
                   Padding(
@@ -252,7 +252,11 @@ class category extends StatelessWidget {
   GestureTapCallback tap;
   double padding;
 
-  category({this.txt, this.image, this.tap, this.padding});
+  category(
+      {required this.txt,
+      required this.image,
+      required this.tap,
+      required this.padding});
 
   Widget build(BuildContext context) {
     return InkWell(

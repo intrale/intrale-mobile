@@ -150,7 +150,7 @@ class _chatItemState extends State<chatItem> with TickerProviderStateMixin {
 }
 
 class Msg extends StatelessWidget {
-  Msg({this.txt, this.animationController});
+  Msg({required this.txt, required this.animationController});
 
   final String txt;
   final AnimationController animationController;

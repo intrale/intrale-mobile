@@ -32,7 +32,7 @@ class SignupScreenState extends IntraleState<Signup> {
     ]),
   );
 
-  SignupService signupService;
+  late SignupService signupService;
 
   SignupScreenState() : super() {
     signupService = new SignupService(handlers: [okHandler, errorHandler]);

@@ -6,11 +6,10 @@ part of 'SignupRequest.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignupRequest _$SignupRequestFromJson(Map<String, dynamic> json) {
-  return SignupRequest(
-    email: json['email'] as String,
-  )..requestId = json['requestId'] as String;
-}
+SignupRequest _$SignupRequestFromJson(Map<String, dynamic> json) =>
+    SignupRequest(
+      email: json['email'] as String,
+    )..requestId = json['requestId'] as String;
 
 Map<String, dynamic> _$SignupRequestToJson(SignupRequest instance) =>
     <String, dynamic>{

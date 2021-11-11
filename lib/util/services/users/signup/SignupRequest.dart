@@ -7,7 +7,7 @@ part 'SignupRequest.g.dart';
 class SignupRequest extends Request {
   String email;
 
-  SignupRequest({this.email}) : super();
+  SignupRequest({required this.email}) : super();
 
   factory SignupRequest.fromJson(Map<String, dynamic> json) =>
       _$SignupRequestFromJson(json);

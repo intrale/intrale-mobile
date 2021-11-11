@@ -33,7 +33,7 @@ class RecoveryScreenState extends IntraleState<Recovery> {
   );
 
   // Services declarations
-  RecoveryService recoveryService;
+  late RecoveryService recoveryService;
 
   RecoveryScreenState() {
     recoveryService = RecoveryService(handlers: [okHandler, errorHandler]);
@@ -76,14 +76,13 @@ class RecoveryScreenState extends IntraleState<Recovery> {
   }
 
   void onError(Response response) {
-    RecoveryResponse recoveryResponse = response;
-    Error error = recoveryResponse.errors.first;
+    Error error = response.errors!.first;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Ocurrio un error:" + error.code),
-              content: Text(error.description));
+              title: Text("Ocurrio un error:" + (error.code ?? '')),
+              content: Text(error.description ?? ''));
         });
   }
 }

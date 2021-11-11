@@ -7,7 +7,7 @@ class PageViewModel {
   final Color pageColor;
 
   ///icon image path
-  final String iconImageAssetPath;
+  late String iconImageAssetPath;
 
   /// iconColor
   final Color iconColor;
@@ -32,7 +32,7 @@ class PageViewModel {
   final Widget body;
 
   /// set default TextStyle for both title and body
-  final TextStyle textStyle;
+  late TextStyle textStyle;
 
   /// Image Widget
   ///
@@ -44,18 +44,19 @@ class PageViewModel {
   /// _typicaly a Image Widget_
   ///
   /// gets overriden by [iconImageAssetPath]
-  final Widget bubble;
+  late Widget bubble;
 
-  PageViewModel(
-      {this.pageColor,
-      this.iconImageAssetPath,
-      this.bubbleBackgroundColor = const Color(0x88FFFFFF),
-      this.iconColor,
-      @required this.title,
-      @required this.body,
-      @required this.mainImage,
-      this.bubble,
-      this.textStyle});
+  PageViewModel({
+    required this.pageColor,
+    /*this.iconImageAssetPath,*/
+    this.bubbleBackgroundColor = const Color(0x88FFFFFF),
+    required this.iconColor,
+    required this.title,
+    required this.body,
+    required this.mainImage,
+    /*this.bubble,
+      required this.textStyle*/
+  });
 
   TextStyle get titleTextStyle {
     return TextStyle(color: Colors.white, fontSize: 50.0).merge(this.textStyle);
