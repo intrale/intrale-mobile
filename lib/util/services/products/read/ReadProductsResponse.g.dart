@@ -13,7 +13,7 @@ ReadProductsResponse _$ReadProductsResponseFromJson(
           ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
           .toList(),
     )
-      ..statusCode = json['statusCode'] as int
+      ..statusCode = json['statusCode'] as int?
       ..errors = (json['errors'] as List<dynamic>?)
           ?.map((e) => Error.fromJson(e as Map<String, dynamic>))
           .toList();

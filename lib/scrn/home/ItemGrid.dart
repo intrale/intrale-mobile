@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intrale/model/HomeGridItemRecomended.dart';
+import 'package:intrale/model/Product.dart';
 import 'package:intrale/scrn/home/DetailProduct.dart';
 
 const TextStyle RATING_ITEM_TEXT_STYLE = TextStyle(
@@ -19,7 +20,8 @@ const TextStyle PRICE_TEXT_STYLE =
     TextStyle(fontFamily: "Sans", fontWeight: FontWeight.w500, fontSize: 14.0);
 
 class ItemGrid extends StatelessWidget {
-  GridItem gridItem;
+  //GridItem gridItem;
+  Product gridItem;
   ItemGrid(this.gridItem);
 
   @override
@@ -76,7 +78,7 @@ class ItemGrid extends StatelessWidget {
                                     child: Hero(
                                         tag: "hero-grid-${gridItem.id}",
                                         child: Image.asset(
-                                          gridItem.img,
+                                          "assets/imgItem/fashion1.jpg", //gridItem.img,
                                           width: 300.0,
                                           height: 300.0,
                                           alignment: Alignment.center,
@@ -99,7 +101,9 @@ class ItemGrid extends StatelessWidget {
                                 topLeft: Radius.circular(7.0),
                                 topRight: Radius.circular(7.0)),
                             image: DecorationImage(
-                                image: AssetImage(gridItem.img),
+                                image: AssetImage(
+                                  "assets/imgItem/fashion1.jpg", /*gridItem.img*/
+                                ),
                                 fit: BoxFit.cover)),
                       ),
                     ),
@@ -109,7 +113,7 @@ class ItemGrid extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
-                    gridItem.title,
+                    gridItem.name,
                     overflow: TextOverflow.ellipsis,
                     style: TITLE_TEXT_STYLE,
                   ),
@@ -118,7 +122,7 @@ class ItemGrid extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
-                    gridItem.price,
+                    gridItem.price!.unitPrice.toString(),
                     style: PRICE_TEXT_STYLE,
                   ),
                 ),
@@ -132,7 +136,7 @@ class ItemGrid extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            gridItem.rattingValue,
+                            "5.0" /*gridItem.rattingValue*/,
                             style: RATING_ITEM_TEXT_STYLE,
                           ),
                           Icon(

@@ -7,7 +7,7 @@ const List<Error> DEFAULT_ERROR_LIST = <Error>[];
 
 @JsonSerializable()
 class Response {
-  int statusCode;
+  int? statusCode;
   List<Error>? errors;
 
   Response({this.statusCode = 200, this.errors = DEFAULT_ERROR_LIST}) {}

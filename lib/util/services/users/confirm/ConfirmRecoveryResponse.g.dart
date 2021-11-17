@@ -11,7 +11,7 @@ ConfirmRecoveryResponse _$ConfirmRecoveryResponseFromJson(
     ConfirmRecoveryResponse(
       email: json['email'] as String?,
     )
-      ..statusCode = json['statusCode'] as int
+      ..statusCode = json['statusCode'] as int?
       ..errors = (json['errors'] as List<dynamic>?)
           ?.map((e) => Error.fromJson(e as Map<String, dynamic>))
           .toList();

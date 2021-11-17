@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 //view model for pages
 
+const DEFAULT_WIDGET = Text('data');
+const DEFAULT_TEXT_STYLE = TextStyle();
+
 class PageViewModel {
   /// Page BackGround Color
   final Color pageColor;
 
   ///icon image path
-  late String iconImageAssetPath;
+  String iconImageAssetPath;
 
   /// iconColor
   final Color iconColor;
@@ -32,7 +35,7 @@ class PageViewModel {
   final Widget body;
 
   /// set default TextStyle for both title and body
-  late TextStyle textStyle;
+  TextStyle textStyle;
 
   /// Image Widget
   ///
@@ -44,19 +47,18 @@ class PageViewModel {
   /// _typicaly a Image Widget_
   ///
   /// gets overriden by [iconImageAssetPath]
-  late Widget bubble;
+  Widget bubble;
 
-  PageViewModel({
-    required this.pageColor,
-    /*this.iconImageAssetPath,*/
-    this.bubbleBackgroundColor = const Color(0x88FFFFFF),
-    required this.iconColor,
-    required this.title,
-    required this.body,
-    required this.mainImage,
-    /*this.bubble,
-      required this.textStyle*/
-  });
+  PageViewModel(
+      {required this.pageColor,
+      this.iconImageAssetPath = '',
+      this.bubbleBackgroundColor = const Color(0x88FFFFFF),
+      required this.iconColor,
+      required this.title,
+      required this.body,
+      required this.mainImage,
+      this.bubble = DEFAULT_WIDGET,
+      this.textStyle = DEFAULT_TEXT_STYLE});
 
   TextStyle get titleTextStyle {
     return TextStyle(color: Colors.white, fontSize: 50.0).merge(this.textStyle);

@@ -7,13 +7,15 @@ import 'package:intrale/model/Cart.dart';
 import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/model/HomeGridItemRecomended.dart';
 import 'package:intrale/model/Price.dart';
+import 'package:intrale/model/Product.dart';
 import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/ChatItem.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailProduct extends StatefulWidget {
-  GridItem gridItem;
+  //GridItem gridItem;
+  Product gridItem;
 
   DetailProduct(this.gridItem);
 
@@ -27,7 +29,8 @@ class DetailProductState extends State<DetailProduct> {
   int starCount = 5;
 
   /// Declaration List item HomeGridItemRe....dart Class
-  final GridItem gridItem;
+  //final GridItem gridItem;
+  final Product gridItem;
   DetailProductState(this.gridItem);
 
   int valueItemChart = 0;
@@ -255,9 +258,12 @@ class DetailProductState extends State<DetailProduct> {
                           autoplay: false,
                           boxFit: BoxFit.cover,
                           images: [
-                            AssetImage(gridItem.img),
-                            AssetImage(gridItem.img),
-                            AssetImage(gridItem.img),
+                            AssetImage(
+                                "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
+                            AssetImage(
+                                "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
+                            AssetImage(
+                                "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
                           ],
                         ),
                       ),
@@ -280,12 +286,12 @@ class DetailProductState extends State<DetailProduct> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            gridItem.title,
+                            gridItem.name,
                             style: _customTextStyle,
                           ),
                           Padding(padding: EdgeInsets.only(top: 5.0)),
                           Text(
-                            gridItem.price,
+                            gridItem.price!.unitPrice.toString(),
                             style: _customTextStyle,
                           ),
                           Padding(padding: EdgeInsets.only(top: 10.0)),
@@ -316,7 +322,8 @@ class DetailProductState extends State<DetailProduct> {
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            gridItem.rattingValue,
+                                            "5.0",
+                                            /*gridItem.rattingValue,*/
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -336,7 +343,8 @@ class DetailProductState extends State<DetailProduct> {
                                 Padding(
                                   padding: const EdgeInsets.only(right: 15.0),
                                   child: Text(
-                                    gridItem.itemSale,
+                                    "itemSale",
+                                    /*gridItem.itemSale,*/
                                     style: TextStyle(
                                         color: Colors.black54,
                                         fontSize: 13.0,
@@ -638,11 +646,11 @@ class DetailProductState extends State<DetailProduct> {
                       },
                     cart.items.add(CartItem(
                         id: gridItem.id,
-                        name: gridItem.title,
+                        name: gridItem.name,
                         description: gridItem.description,
                         price: Price(
-                            currencyAcronym: "\$",
-                            unitPrice: 1 /*gridItem.price*/),
+                            currencyAcronym: gridItem.price!.currencyAcronym,
+                            unitPrice: gridItem.price!.unitPrice),
                         count: 1)),
                     cartString = jsonEncode(cart),
                     preferences.setString("cart", cartString!)

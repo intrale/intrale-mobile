@@ -21,6 +21,10 @@ class DashboardState extends State<Dashboard> {
   void removeTokens(SharedPreferences sharedPreferences) {
     sharedPreferences.remove('accessToken');
     sharedPreferences.remove('idToken');
+    //Borra el carrito de compras cuando sale, ver a futuro si esto es necesario
+    //por el momento se coloca debido a las contanstantes actualizaciones
+    // del json que se almacena en cart, para que no resulte en incompatibilidades
+    sharedPreferences.remove('cart');
   }
 
   void forward(SharedPreferences sharedPreferences) {

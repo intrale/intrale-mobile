@@ -12,7 +12,7 @@ SigninResponse _$SigninResponseFromJson(Map<String, dynamic> json) =>
       accessToken: json['accessToken'] as String?,
       refreshToken: json['refreshToken'] as String?,
     )
-      ..statusCode = json['statusCode'] as int
+      ..statusCode = json['statusCode'] as int?
       ..errors = (json['errors'] as List<dynamic>?)
           ?.map((e) => Error.fromJson(e as Map<String, dynamic>))
           .toList();

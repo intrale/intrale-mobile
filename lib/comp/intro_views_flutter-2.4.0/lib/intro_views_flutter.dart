@@ -14,6 +14,8 @@ import 'package:intrale/comp/intro_views_flutter-2.4.0/lib/UI/page.dart';
 import 'package:intrale/comp/intro_views_flutter-2.4.0/lib/UI/page_indicator_buttons.dart';
 import 'package:intrale/comp/intro_views_flutter-2.4.0/lib/UI/pager_indicator.dart';
 
+const DEFAULT_STYLE = TextStyle();
+
 /// This is the IntroViewsFlutter widget of app which is a stateful widget as its state is dynamic and updates asynchronously.
 class IntroViewsFlutter extends StatefulWidget {
   /// List of [PageViewModel] to display
@@ -33,7 +35,7 @@ class IntroViewsFlutter extends StatefulWidget {
   /// TextStyles for done, skip Buttons
   ///
   /// overrides [pageButtonFontFamily] [pageButtonsColor] [pageButtonTextSize]
-  late TextStyle pageButtonTextStyles;
+  TextStyle pageButtonTextStyles;
 
   /// run a function after skip Button pressed
   late VoidCallback onTapSkipButton;
@@ -46,7 +48,7 @@ class IntroViewsFlutter extends StatefulWidget {
   /// set the Font Family for skip, done buttons
   ///
   /// gets overridden by [pageButtonTextStyles]
-  late String pageButtonFontFamily;
+  String pageButtonFontFamily;
 
   /// Override 'DONE' Text with Your Own Text,
   /// typicaly a Text Widget
@@ -77,9 +79,9 @@ class IntroViewsFlutter extends StatefulWidget {
     /* Key key,*/
     required this.onTapDoneButton,
     this.showSkipButton = true,
-    /* this.pageButtonTextStyles,*/
+    this.pageButtonTextStyles = DEFAULT_STYLE,
     this.pageButtonTextSize = 18.0,
-    /*this.pageButtonFontFamily,*/
+    this.pageButtonFontFamily = '',
     /* this.onTapSkipButton, */
     required this.pageButtonsColor,
     this.doneText = const Text("DONE"),

@@ -1,12 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/model/Cart.dart';
 import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intrale/scrn/cart/NoItemCart.dart';
+import 'package:intrale/util/services/mercadopago/preferences/CheckoutPreferencesRequest.dart';
+import 'package:intrale/util/services/mercadopago/preferences/CheckoutPreferencesService.dart';
+import 'package:intrale/util/services/mercadopago/preferences/Item.dart';
+import 'package:intrale/util/services/mercadopago/preferences/Payer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const TextStyle TITLE_TEXT_STYLE = TextStyle(
@@ -23,6 +28,25 @@ const TextStyle TOTAL_TEXT_STYLE = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 15.5,
     fontFamily: "Sans");
+
+const MERCADO_PAGO_CHANNEL = const MethodChannel('intrale.com/mercado_pago');
+
+// platform channel method calling
+Future<Null> startPayment(
+    /*BuildContext context*/ String? publicKey, String? preferenceId) async {
+  try {
+    final String result = await MERCADO_PAGO_CHANNEL.invokeMethod(
+        'startPayment', // call the native function
+        <String, dynamic>{
+          "publicKey": publicKey,
+          "preferenceId": preferenceId
+        });
+    // result hold the response from plaform calls
+  } on PlatformException catch (error) {
+    // handle error
+    print('Error: $error'); // here
+  }
+}
 
 class CartScreen extends StatefulWidget {
   @override
@@ -320,10 +344,32 @@ class CartScreenState extends State<CartScreen> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Navigator.of(context).push(
+                                      CheckoutPreferencesService service =
+                                          CheckoutPreferencesService();
+                                      Item item = Item();
+                                      item.id = '1';
+                                      item.title = 'Producto 1';
+                                      item.description = 'Prueba';
+                                      item.quantity = 1;
+                                      item.currency_id = "\$";
+                                      item.unit_price = 200;
+                                      CheckoutPreferencesRequest request =
+                                          CheckoutPreferencesRequest();
+                                      request.items = [item];
+                                      Payer payer = Payer();
+                                      payer.email = 'mail@mail.com';
+                                      request.payer = payer;
+
+                                      service.post(request: request).then(
+                                          (value) => {
+                                                startPayment(
+                                                    'publicKey', value.id)
+                                              });
+
+                                      /*Navigator.of(context).push(
                                           PageRouteBuilder(
                                               pageBuilder: (_, __, ___) =>
-                                                  delivery()));
+                                                  delivery()));*/
                                     },
                                     child: Padding(
                                       padding:

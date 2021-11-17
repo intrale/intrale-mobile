@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:intrale/model/Product.dart';
 
-import 'package:intrale/model/HomeGridItemRecomended.dart';
+//import 'package:intrale/model/HomeGridItemRecomended.dart';
 import 'package:intrale/scrn/home/AppbarGradient.dart';
 import 'package:intrale/scrn/home/ImageSlider.dart';
 import 'package:intrale/scrn/home/ItemGrid.dart';
@@ -16,7 +17,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with TickerProviderStateMixin {
   bool isStarted = false;
   late ReadProductsService readProductsServices;
-  List<GridItem> gridItemArray = [];
+  List<Product> gridItemArray = [];
 
   HomeState() : super() {
     readProductsServices = ReadProductsService();
@@ -27,8 +28,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     super.initState();
     readProductsServices.post(request: ReadProductsRequest()).then((value) => {
           setState(() {
-              if (value.products!=null){
-              value.products?.forEach((element) {
+            if (value.products != null) {
+              gridItemArray = value.products!;
+              /*value.products?.forEach((element) {
                 gridItemArray.add(GridItem(
                     id: element.id ?? '',
                     img: "assets/imgItem/fashion1.jpg",
@@ -37,7 +39,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                     itemSale: "932 Sale", 
                     rattingValue: "4.8",
                     description: element.description ?? ''));
-              });
+              });*/
             }
           })
         });
