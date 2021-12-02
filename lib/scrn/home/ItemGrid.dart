@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intrale/model/HomeGridItemRecomended.dart';
 import 'package:intrale/model/Product.dart';
 import 'package:intrale/scrn/home/DetailProduct.dart';
+import 'package:intrale/util/tools.dart';
 
 const TextStyle RATING_ITEM_TEXT_STYLE = TextStyle(
     fontFamily: "Sans",
@@ -29,8 +30,11 @@ class ItemGrid extends StatelessWidget {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (_, __, ___) => new DetailProduct(gridItem),
+        debugPrint("OnTap ItemGrid");
+        redirectTo(context, DetailProduct(gridItem));
+        /*Navigator.of(context).push(PageRouteBuilder(
+            pageBuilder: (BuildContext context, __, ___) =>
+                new DetailProduct(gridItem),
             transitionDuration: Duration(milliseconds: 900),
 
             /// Set animation Opacity in route to detailProduk layout
@@ -40,7 +44,7 @@ class ItemGrid extends StatelessWidget {
                 opacity: animation.value,
                 child: child,
               );
-            }));
+            }));*/
       },
       child: Container(
         decoration: BoxDecoration(

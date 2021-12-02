@@ -29,6 +29,7 @@ dependencies:
   shared_preferences: ^2.0.5
   intl: ^0.17.0
   flutter_i18n: ^0.30.0
+  intrale_mobile_mercadopago: ^0.0.8
 
 dev_dependencies:
   flutter_test:

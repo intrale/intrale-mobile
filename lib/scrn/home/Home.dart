@@ -30,16 +30,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           setState(() {
             if (value.products != null) {
               gridItemArray = value.products!;
-              /*value.products?.forEach((element) {
-                gridItemArray.add(GridItem(
-                    id: element.id ?? '',
-                    img: "assets/imgItem/fashion1.jpg",
-                    title: element.name ?? '',
-                    price: element.price?.unitPrice?.toString() ?? '',
-                    itemSale: "932 Sale", 
-                    rattingValue: "4.8",
-                    description: element.description ?? ''));
-              });*/
             }
           })
         });
@@ -49,7 +39,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQueryData();
 
-    var Grid = SingleChildScrollView(
+    var grid = SingleChildScrollView(
       child: Container(
         color: Colors.white,
         child: Column(
@@ -97,9 +87,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                         top: mediaQueryData.padding.top + 58.5)),
 
                 /// Call var imageSlider
-                new ImageSlider(),
+                ImageSlider(),
 
-                Grid,
+                grid,
               ],
             ),
           ),

@@ -1,23 +1,59 @@
-import 'dart:convert';
-
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/Cart.dart';
 import 'package:intrale/model/CartItem.dart';
-import 'package:intrale/model/HomeGridItemRecomended.dart';
 import 'package:intrale/model/Price.dart';
 import 'package:intrale/model/Product.dart';
-import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/ChatItem.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intrale/scrn/home/DetailProductCartIcon.dart';
+import 'package:intrale/states/CartState.dart';
+import 'package:intrale/util/tools.dart';
+import 'package:provider/provider.dart';
+
+const TextStyle CUSTOM_TEXT_STYLE = TextStyle(
+  color: Colors.black,
+  fontFamily: "Gotik",
+  fontSize: 17.0,
+  fontWeight: FontWeight.w800,
+);
+
+const TextStyle SUB_HEADER_CUSTOM_TEXT_STYLE = TextStyle(
+    color: Colors.black54,
+    fontWeight: FontWeight.w700,
+    fontFamily: "Gotik",
+    fontSize: 16.0);
+
+const TextStyle DETAIL_TEXT_STYLE = TextStyle(
+    fontFamily: "Gotik",
+    color: Colors.black54,
+    letterSpacing: 0.3,
+    wordSpacing: 0.5);
+
+const TextStyle PRODUCT_DETAIL_TEXT_STYLE = TextStyle(
+  fontWeight: FontWeight.w500,
+  color: Colors.black54,
+  fontSize: 17.0,
+  fontFamily: "Gotik",
+);
+
+const TextStyle VIEW_MORE_TEXT_STYLE = TextStyle(
+  color: Colors.indigoAccent,
+  fontSize: 15.0,
+  fontFamily: "Gotik",
+  fontWeight: FontWeight.w700,
+);
+
+const TextStyle CART_PAY_TEXT_STYLE =
+    TextStyle(color: Colors.white, fontWeight: FontWeight.w700);
 
 class DetailProduct extends StatefulWidget {
-  //GridItem gridItem;
   Product gridItem;
 
-  DetailProduct(this.gridItem);
+  DetailProduct(this.gridItem) {
+    debugPrint("Constructor DetailProduct");
+  }
 
   @override
   DetailProductState createState() => DetailProductState(gridItem);
@@ -25,967 +61,303 @@ class DetailProduct extends StatefulWidget {
 
 /// Detail Product for Recomended Grid in home screen
 class DetailProductState extends State<DetailProduct> {
-  double rating = 3.5;
-  int starCount = 5;
-
   /// Declaration List item HomeGridItemRe....dart Class
-  //final GridItem gridItem;
   final Product gridItem;
-  DetailProductState(this.gridItem);
-
-  int valueItemChart = 0;
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-
-  /// BottomSheet for view more in specification
-  void _bottomSheet() {
-    showModalBottomSheet(
-        context: context,
-        builder: (builder) {
-          return SingleChildScrollView(
-            child: Container(
-              color: Colors.black26,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 2.0),
-                child: Container(
-                  height: 1500.0,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0))),
-                  child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(padding: EdgeInsets.only(top: 20.0)),
-                      Center(
-                          child: Text(
-                        'description',
-                        style: _subHeaderCustomStyle,
-                      )),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20.0, left: 20.0, right: 20.0, bottom: 20.0),
-                        child: Text('longLorem', style: _detailText),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Text(
-                          'spesifications',
-                          style: TextStyle(
-                              fontFamily: "Gotik",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15.0,
-                              color: Colors.black,
-                              letterSpacing: 0.3,
-                              wordSpacing: 0.5),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-                        child: Text(
-                          'loremIpsum',
-                          style: _detailText,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        });
+  DetailProductState(this.gridItem) {
+    debugPrint("Constructor DetailProductState");
   }
 
-  /// Custom Text black
-  static var _customTextStyle = TextStyle(
-    color: Colors.black,
-    fontFamily: "Gotik",
-    fontSize: 17.0,
-    fontWeight: FontWeight.w800,
-  );
-
-  /// Custom Text for Header title
-  static var _subHeaderCustomStyle = TextStyle(
-      color: Colors.black54,
-      fontWeight: FontWeight.w700,
-      fontFamily: "Gotik",
-      fontSize: 16.0);
-
-  /// Custom Text for Detail title
-  static var _detailText = TextStyle(
-      fontFamily: "Gotik",
-      color: Colors.black54,
-      letterSpacing: 0.3,
-      wordSpacing: 0.5);
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   Widget build(BuildContext context) {
-    /// Variable Component UI use in bottom layout "Top Rated Products"
-    var _suggestedItem = Padding(
-      padding: const EdgeInsets.only(
-          left: 15.0, right: 20.0, top: 30.0, bottom: 20.0),
-      child: Container(
-        height: 280.0,
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'topRated',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Gotik",
-                      fontSize: 15.0),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'seeAll',
-                    style: TextStyle(
-                        color: Colors.indigoAccent.withOpacity(0.8),
-                        fontFamily: "Gotik",
-                        fontWeight: FontWeight.w700),
-                  ),
-                )
+    return ChangeNotifierProvider(
+        create: (context) => CartState(Cart()),
+        child: Consumer<CartState>(builder: (context, cart, child) {
+          return Scaffold(
+            key: _key,
+            appBar: AppBar(
+              actions: <Widget>[
+                DetailProductCartIcon(),
               ],
-            ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.only(top: 20.0, bottom: 2.0),
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  FavoriteItem(
-                    image: "assets/imgItem/shoes1.jpg",
-                    title: 'productTitle1',
-                    Salary: "\$ 10",
-                    Rating: "4.8",
-                    sale: 'productSale1',
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 10.0)),
-                  FavoriteItem(
-                    image: "assets/imgItem/acesoris1.jpg",
-                    title: 'productTitle2',
-                    Salary: "\$ 200",
-                    Rating: "4.2",
-                    sale: 'productSale2',
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 10.0)),
-                  FavoriteItem(
-                    image: "assets/imgItem/kids1.jpg",
-                    title: 'productTitle3',
-                    Salary: "\$ 3",
-                    Rating: "4.8",
-                    sale: 'productSale3',
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 10.0)),
-                  FavoriteItem(
-                    image: "assets/imgItem/man1.jpg",
-                    title: 'productTitle1',
-                    Salary: "\$ 8",
-                    Rating: "4.4",
-                    sale: 'productSale2',
-                  ),
-                  Padding(padding: EdgeInsets.only(right: 10.0)),
-                ],
+              elevation: 0.5,
+              centerTitle: true,
+              backgroundColor: Colors.white,
+              title: Text(
+                'productDetail',
+                style: PRODUCT_DETAIL_TEXT_STYLE,
               ),
             ),
-          ],
-        ),
-      ),
-    );
-
-    return Scaffold(
-      key: _key,
-      appBar: AppBar(
-        actions: <Widget>[
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (_, __, ___) => new CartScreen()));
-            },
-            child: Stack(
-              alignment: AlignmentDirectional(-1.0, -0.8),
+            body: Column(
               children: <Widget>[
-                IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.black26,
-                    )),
-                CircleAvatar(
-                  radius: 10.0,
-                  backgroundColor: Colors.red,
-                  child: Text(
-                    valueItemChart.toString(),
-                    style: TextStyle(color: Colors.white, fontSize: 13.0),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-        elevation: 0.5,
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        title: Text(
-          'productDetail',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: Colors.black54,
-            fontSize: 17.0,
-            fontFamily: "Gotik",
-          ),
-        ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Flexible(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  /// Header image slider
-                  Container(
-                    height: 300.0,
-                    child: Hero(
-                      tag: "hero-grid-${gridItem.id}",
-                      child: Material(
-                        child: new Carousel(
-                          dotColor: Colors.black26,
-                          dotIncreaseSize: 1.7,
-                          dotBgColor: Colors.transparent,
-                          autoplay: false,
-                          boxFit: BoxFit.cover,
-                          images: [
-                            AssetImage(
-                                "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
-                            AssetImage(
-                                "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
-                            AssetImage(
-                                "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  /// Background white title,price and ratting
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFF656565).withOpacity(0.15),
-                        blurRadius: 1.0,
-                        spreadRadius: 0.2,
-                      )
-                    ]),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20.0, top: 10.0, right: 20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            gridItem.name,
-                            style: _customTextStyle,
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 5.0)),
-                          Text(
-                            gridItem.price!.unitPrice.toString(),
-                            style: _customTextStyle,
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 10.0)),
-                          Divider(
-                            color: Colors.black12,
-                            height: 1.0,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Container(
-                                      height: 30.0,
-                                      width: 75.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.lightGreen,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20.0)),
-                                      ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            "5.0",
-                                            /*gridItem.rattingValue,*/
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 8.0)),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.white,
-                                            size: 19.0,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 15.0),
-                                  child: Text(
-                                    "itemSale",
-                                    /*gridItem.itemSale,*/
-                                    style: TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 13.0,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  /// Background white for chose Size and Color
-                  /*Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        height: 220.0,
-                        width: 600.0,
-                        decoration:
-                            BoxDecoration(color: Colors.white, boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF656565).withOpacity(0.15),
-                            blurRadius: 1.0,
-                            spreadRadius: 0.2,
-                          )
-                        ]),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, left: 20.0, right: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(AppLocalizations.of(context).tr('size'),
-                                  style: _subHeaderCustomStyle),
-                              Row(
-                                children: <Widget>[
-                                  RadioButtonCustom(
-                                    txt: AppLocalizations.of(context).tr('s'),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 15.0)),
-                                  RadioButtonCustom(
-                                    txt: AppLocalizations.of(context).tr('m'),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 15.0)),
-                                  RadioButtonCustom(
-                                    txt: AppLocalizations.of(context).tr('l'),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 15.0)),
-                                  RadioButtonCustom(
-                                    txt: AppLocalizations.of(context).tr('xl'),
-                                  ),
+                Flexible(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        /// Header image slider
+                        Container(
+                          height: 300.0,
+                          child: Hero(
+                            tag: "hero-grid-${gridItem.id}",
+                            child: Material(
+                              child: new Carousel(
+                                dotColor: Colors.black26,
+                                dotIncreaseSize: 1.7,
+                                dotBgColor: Colors.transparent,
+                                autoplay: false,
+                                boxFit: BoxFit.cover,
+                                images: [
+                                  AssetImage(
+                                      "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
+                                  AssetImage(
+                                      "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
+                                  AssetImage(
+                                      "assets/imgItem/fashion1.jpg" /*gridItem.img*/),
                                 ],
                               ),
-                              Padding(padding: EdgeInsets.only(top: 15.0)),
-                              Divider(
-                                color: Colors.black12,
-                                height: 1.0,
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 10.0)),
-                              Text(
-                                AppLocalizations.of(context).tr('color'),
-                                style: _subHeaderCustomStyle,
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  RadioButtonColor(Colors.black),
-                                  Padding(padding: EdgeInsets.only(left: 15.0)),
-                                  RadioButtonColor(Colors.white),
-                                  Padding(padding: EdgeInsets.only(left: 15.0)),
-                                  RadioButtonColor(Colors.blue),
-                                ],
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),*/
 
-                  /// Background white for description
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Container(
-                      width: 600.0,
-                      decoration:
-                          BoxDecoration(color: Colors.white, boxShadow: [
-                        BoxShadow(
-                          color: Color(0xFF656565).withOpacity(0.15),
-                          blurRadius: 1.0,
-                          spreadRadius: 0.2,
-                        )
-                      ]),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20.0, right: 20.0),
-                              child: Text(
-                                'description',
-                                style: _subHeaderCustomStyle,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0,
-                                  right: 20.0,
-                                  bottom: 10.0,
-                                  left: 20.0),
-                              child: Text(gridItem.description,
-                                  style: _detailText),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 15.0),
-                              child: Center(
-                                child: InkWell(
-                                  onTap: () {
-                                    _bottomSheet();
-                                  },
-                                  child: Text(
-                                    'viewMore',
-                                    style: TextStyle(
-                                      color: Colors.indigoAccent,
-                                      fontSize: 15.0,
-                                      fontFamily: "Gotik",
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                        /// Background white title,price and ratting
+                        Container(
+                          decoration:
+                              BoxDecoration(color: Colors.white, boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF656565).withOpacity(0.15),
+                              blurRadius: 1.0,
+                              spreadRadius: 0.2,
                             )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  /// Background white for Ratting
-                  /*Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Container(
-                      width: 600.0,
-                      decoration:
-                          BoxDecoration(color: Colors.white, boxShadow: [
-                        BoxShadow(
-                          color: Color(0xFF656565).withOpacity(0.15),
-                          blurRadius: 1.0,
-                          spreadRadius: 0.2,
-                        )
-                      ]),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          ]),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20.0, top: 10.0, right: 20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  'review',
-                                  style: _subHeaderCustomStyle,
+                                  gridItem.name,
+                                  style: CUSTOM_TEXT_STYLE,
+                                ),
+                                Padding(padding: EdgeInsets.only(top: 5.0)),
+                                Text(
+                                  gridItem.price!.unitPrice.toString(),
+                                  style: CUSTOM_TEXT_STYLE,
+                                ),
+                                Padding(padding: EdgeInsets.only(top: 10.0)),
+                                Divider(
+                                  color: Colors.black12,
+                                  height: 1.0,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 20.0, top: 15.0, bottom: 15.0),
+                                      top: 10.0, bottom: 10.0),
                                   child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      InkWell(
-                                        child: Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 2.0, right: 3.0),
-                                            child: Text(
-                                              'viewAll',
-                                              style: _subHeaderCustomStyle
-                                                  .copyWith(
-                                                      color:
-                                                          Colors.indigoAccent,
-                                                      fontSize: 14.0),
-                                            )),
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              PageRouteBuilder(
-                                                  pageBuilder: (_, __, ___) =>
-                                                      ReviewsAll()));
-                                        },
+                                      Row(
+                                        children: <Widget>[
+                                          Container(
+                                            height: 30.0,
+                                            width: 75.0,
+                                            decoration: BoxDecoration(
+                                              color: Colors.lightGreen,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20.0)),
+                                            ),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(
+                                                  "5.0",
+                                                  /*gridItem.rattingValue,*/
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 8.0)),
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.white,
+                                                  size: 19.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 15.0, top: 2.0),
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          size: 18.0,
-                                          color: Colors.black54,
+                                        padding:
+                                            const EdgeInsets.only(right: 15.0),
+                                        child: Text(
+                                          "itemSale",
+                                          /*gridItem.itemSale,*/
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 13.0,
+                                              fontWeight: FontWeight.w500),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 )
                               ],
                             ),
-                            Row(
-                              children: <Widget>[
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      StarRating(
-                                        size: 25.0,
-                                        starCount: 5,
-                                        rating: 4.0,
-                                        color: Colors.yellow,
-                                      ),
-                                      SizedBox(width: 5.0),
-                                      Text(
-                                        'reviews',
-                                      )
-                                    ]),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 0.0,
-                                  right: 20.0,
-                                  top: 15.0,
-                                  bottom: 7.0),
-                              child: _line(),
-                            ),
-                            _buildRating('date', 'ratingReview', (rating) {
-                              setState(() {
-                                this.rating = rating;
-                              });
-                            }, "assets/avatars/avatar-1.jpg"),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 0.0,
-                                  right: 20.0,
-                                  top: 15.0,
-                                  bottom: 7.0),
-                              child: _line(),
-                            ),
-                            _buildRating('date', 'ratingReview', (rating) {
-                              setState(() {
-                                this.rating = rating;
-                              });
-                            }, "assets/avatars/avatar-4.jpg"),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 0.0,
-                                  right: 20.0,
-                                  top: 15.0,
-                                  bottom: 7.0),
-                              child: _line(),
-                            ),
-                            _buildRating('date', 'ratingReview', (rating) {
-                              setState(() {
-                                this.rating = rating;
-                              });
-                            }, "assets/avatars/avatar-2.jpg"),
-                            Padding(padding: EdgeInsets.only(bottom: 20.0)),
-                          ],
+                          ),
                         ),
-                      ),
+
+                        /// Background white for description
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            width: 600.0,
+                            decoration:
+                                BoxDecoration(color: Colors.white, boxShadow: [
+                              BoxShadow(
+                                color: Color(0xFF656565).withOpacity(0.15),
+                                blurRadius: 1.0,
+                                spreadRadius: 0.2,
+                              )
+                            ]),
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
+                                    child: Text(
+                                      'description',
+                                      style: SUB_HEADER_CUSTOM_TEXT_STYLE,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 15.0,
+                                        right: 20.0,
+                                        bottom: 10.0,
+                                        left: 20.0),
+                                    child: Text(gridItem.description,
+                                        style: DETAIL_TEXT_STYLE),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 15.0),
+                                    child: Center(
+                                      child: InkWell(
+                                        onTap: () {
+                                          /*_bottomSheet();*/
+                                        },
+                                        child: Text(
+                                          'viewMore',
+                                          style: VIEW_MORE_TEXT_STYLE,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),*/
-
-                  //_suggestedItem
-                ],
-              ),
-            ),
-          ),
-
-          /// If user click icon chart SnackBar show
-          /// this code to show a SnackBar
-          /// and Increase a valueItemChart + 1
-          InkWell(
-            onTap: () {
-              var snackbar = SnackBar(
-                content: Text(
-                  FlutterI18n.translate(context, 'itemAdded'),
+                  ),
                 ),
-              );
 
-              String? cartString;
-              Map<String, dynamic> jsonMap;
-              Cart cart = Cart();
+                /// If user click icon chart SnackBar show
+                /// this code to show a SnackBar
+                /// and Increase a valueItemChart + 1
+                InkWell(
+                  onTap: () {
+                    var snackbar = SnackBar(
+                      content: Text(
+                        FlutterI18n.translate(context, 'itemAdded'),
+                      ),
+                    );
 
-              SharedPreferences.getInstance().then((preferences) => {
-                    cartString = preferences.getString("cart"),
-                    if (cartString != null)
-                      {
-                        jsonMap = jsonDecode(cartString!),
-                        cart = Cart.fromJson(jsonMap)
-                      },
-                    cart.items.add(CartItem(
+                    cart.add(CartItem(
                         id: gridItem.id,
                         name: gridItem.name,
                         description: gridItem.description,
                         price: Price(
                             currencyAcronym: gridItem.price!.currencyAcronym,
                             unitPrice: gridItem.price!.unitPrice),
-                        count: 1)),
-                    cartString = jsonEncode(cart),
-                    preferences.setString("cart", cartString!)
-                  });
-
-              setState(() {
-                valueItemChart++;
-              });
-              _key.currentState?.showSnackBar(snackbar);
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 5.0),
-              child: Container(
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      height: 40.0,
-                      width: 60.0,
-                      decoration: BoxDecoration(
-                          color: Colors.white12.withOpacity(0.1),
-                          border: Border.all(color: Colors.black12)),
-                      child: Center(
-                        child: Image.asset(
-                          "assets/icon/shopping-cart.png",
-                          height: 23.0,
-                        ),
-                      ),
-                    ),
-
-                    /// Chat Icon
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, ___, ____) => new chatItem()));
-                      },
-                      child: Container(
-                        height: 40.0,
-                        width: 60.0,
-                        decoration: BoxDecoration(
-                            color: Colors.white12.withOpacity(0.1),
-                            border: Border.all(color: Colors.black12)),
-                        child: Center(
-                          child: Image.asset("assets/icon/message.png",
-                              height: 20.0),
-                        ),
-                      ),
-                    ),
-
-                    /// Button Pay
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => new delivery()));
-                      },
-                      child: Container(
-                        height: 45.0,
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                          color: Colors.indigoAccent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            'cartPay',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-      //),
-    );
-  }
-
-  Widget _buildRating(String date, String details,
-      void Function(double) changeRating, String image) {
-    return ListTile(
-      leading: Container(
-        height: 45.0,
-        width: 45.0,
-        decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-            borderRadius: BorderRadius.all(Radius.circular(50.0))),
-      ),
-      title: Row(
-        children: <Widget>[
-          /*StarRating(
-              size: 20.0,
-              rating: 3.5,
-              starCount: 5,
-              color: Colors.yellow,
-              onRatingChanged: changeRating),*/
-          SizedBox(width: 8.0),
-          Text(
-            date,
-            style: TextStyle(fontSize: 12.0),
-          )
-        ],
-      ),
-      subtitle: Text(
-        details,
-        style: _detailText,
-      ),
-    );
-  }
-}
-
-/// RadioButton for item choose in size
-class RadioButtonCustom extends StatefulWidget {
-  String txt;
-
-  RadioButtonCustom({required this.txt});
-
-  @override
-  _RadioButtonCustomState createState() => _RadioButtonCustomState(this.txt);
-}
-
-class _RadioButtonCustomState extends State<RadioButtonCustom> {
-  _RadioButtonCustomState(this.txt);
-
-  String txt;
-  bool itemSelected = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            if (itemSelected == false) {
-              setState(() {
-                itemSelected = true;
-              });
-            } else if (itemSelected == true) {
-              setState(() {
-                itemSelected = false;
-              });
-            }
-          });
-        },
-        child: Container(
-          height: 37.0,
-          width: 37.0,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                  color: itemSelected ? Colors.black54 : Colors.indigoAccent),
-              shape: BoxShape.circle),
-          child: Center(
-            child: Text(
-              txt,
-              style: TextStyle(
-                  color: itemSelected ? Colors.black54 : Colors.indigoAccent),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// RadioButton for item choose in color
-class RadioButtonColor extends StatefulWidget {
-  Color clr;
-
-  RadioButtonColor(this.clr);
-
-  @override
-  _RadioButtonColorState createState() => _RadioButtonColorState(this.clr);
-}
-
-class _RadioButtonColorState extends State<RadioButtonColor> {
-  bool itemSelected = true;
-  Color clr;
-
-  _RadioButtonColorState(this.clr);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: InkWell(
-        onTap: () {
-          if (itemSelected == false) {
-            setState(() {
-              itemSelected = true;
-            });
-          } else if (itemSelected == true) {
-            setState(() {
-              itemSelected = false;
-            });
-          }
-        },
-        child: Container(
-          height: 37.0,
-          width: 37.0,
-          decoration: BoxDecoration(
-              color: clr,
-              border: Border.all(
-                  color: itemSelected ? Colors.black26 : Colors.indigoAccent,
-                  width: 2.0),
-              shape: BoxShape.circle),
-        ),
-      ),
-    );
-  }
-}
-
-/// Class for card product in "Top Rated Products"
-class FavoriteItem extends StatelessWidget {
-  String image, Rating, Salary, title, sale;
-
-  FavoriteItem(
-      {required this.image,
-      required this.Rating,
-      required this.Salary,
-      required this.title,
-      required this.sale});
-
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFF656565).withOpacity(0.15),
-                blurRadius: 4.0,
-                spreadRadius: 1.0,
-//           offset: Offset(4.0, 10.0)
-              )
-            ]),
-        child: Wrap(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  height: 150.0,
-                  width: 150.0,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(7.0),
-                          topRight: Radius.circular(7.0)),
-                      image: DecorationImage(
-                          image: AssetImage(image), fit: BoxFit.cover)),
-                ),
-                Padding(padding: EdgeInsets.only(top: 15.0)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                        letterSpacing: 0.5,
-                        color: Colors.black54,
-                        fontFamily: "Sans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.0),
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 1.0)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Text(
-                    Salary,
-                    style: TextStyle(
-                        fontFamily: "Sans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
+                        count: 1));
+                    _key.currentState?.showSnackBar(snackbar);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: Container(
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Text(
-                            Rating,
-                            style: TextStyle(
-                                fontFamily: "Sans",
-                                color: Colors.black26,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.0),
+                          Container(
+                            height: 40.0,
+                            width: 60.0,
+                            decoration: BoxDecoration(
+                                color: Colors.white12.withOpacity(0.1),
+                                border: Border.all(color: Colors.black12)),
+                            child: Center(
+                              child: Image.asset(
+                                "assets/icon/shopping-cart.png",
+                                height: 23.0,
+                              ),
+                            ),
                           ),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                            size: 14.0,
-                          )
+
+                          /// Chat Icon
+                          InkWell(
+                            onTap: () {
+                              redirectTo(context, chatItem());
+                            },
+                            child: Container(
+                              height: 40.0,
+                              width: 60.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.white12.withOpacity(0.1),
+                                  border: Border.all(color: Colors.black12)),
+                              child: Center(
+                                child: Image.asset("assets/icon/message.png",
+                                    height: 20.0),
+                              ),
+                            ),
+                          ),
+
+                          /// Button Pay
+                          InkWell(
+                            onTap: () {
+                              redirectTo(context, delivery());
+                            },
+                            child: Container(
+                              height: 45.0,
+                              width: 200.0,
+                              decoration: BoxDecoration(
+                                color: Colors.indigoAccent,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'cartPay',
+                                  style: CART_PAY_TEXT_STYLE,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                      Text(
-                        sale,
-                        style: TextStyle(
-                            fontFamily: "Sans",
-                            color: Colors.black26,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12.0),
-                      )
-                    ],
+                    ),
                   ),
-                ),
+                )
               ],
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        }));
   }
-}
-
-Widget _line() {
-  return Container(
-    height: 0.9,
-    width: double.infinity,
-    color: Colors.black12,
-  );
 }

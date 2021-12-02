@@ -5,14 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/model/Cart.dart';
 import 'package:intrale/model/CartItem.dart';
-import 'package:intrale/scrn/cart/Delivery.dart';
+import 'package:intrale/scrn/cart/CartItemCard.dart';
+import 'package:intrale/scrn/cart/CartPayButton.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intrale/scrn/cart/NoItemCart.dart';
-import 'package:intrale/util/services/mercadopago/preferences/CheckoutPreferencesRequest.dart';
-import 'package:intrale/util/services/mercadopago/preferences/CheckoutPreferencesService.dart';
-import 'package:intrale/util/services/mercadopago/preferences/Item.dart';
-import 'package:intrale/util/services/mercadopago/preferences/Payer.dart';
+import 'package:intrale/states/CartState.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:intrale_mobile_mercadopago/intrale_mobile_mercadopago.dart';
 
 const TextStyle TITLE_TEXT_STYLE = TextStyle(
     fontFamily: "Gotik",
@@ -29,23 +30,26 @@ const TextStyle TOTAL_TEXT_STYLE = TextStyle(
     fontSize: 15.5,
     fontFamily: "Sans");
 
+const TextStyle ITEM_DESCRIPTION_TEXT_STYLE = TextStyle(
+  color: Colors.black54,
+  fontWeight: FontWeight.w500,
+  fontSize: 12.0,
+);
+
+const TextStyle ITEM_NAME_TEXT_STYLE = TextStyle(
+  fontWeight: FontWeight.w700,
+  fontFamily: "Sans",
+  color: Colors.black87,
+);
+
 const MERCADO_PAGO_CHANNEL = const MethodChannel('intrale.com/mercado_pago');
 
 // platform channel method calling
 Future<Null> startPayment(
-    /*BuildContext context*/ String? publicKey, String? preferenceId) async {
-  try {
-    final String result = await MERCADO_PAGO_CHANNEL.invokeMethod(
-        'startPayment', // call the native function
-        <String, dynamic>{
-          "publicKey": publicKey,
-          "preferenceId": preferenceId
-        });
-    // result hold the response from plaform calls
-  } on PlatformException catch (error) {
-    // handle error
-    print('Error: $error'); // here
-  }
+    /*BuildContext context*/ String publicKey, String preferenceId) async {
+  IntraleMobileMercadopago.startPayment(
+          publicKey: publicKey, preferenceId: preferenceId)
+      .then((value) => debugPrint("startPayment:" + value.toString()));
 }
 
 class CartScreen extends StatefulWidget {
@@ -54,12 +58,12 @@ class CartScreen extends StatefulWidget {
 }
 
 class CartScreenState extends State<CartScreen> {
-  List<CartItem> items = [];
+  //List<CartItem> items = [];
 
   @override
   void initState() {
     super.initState();
-    String? cartString;
+    /*String? cartString;
     Map<String, dynamic> jsonMap;
     Cart cart = Cart();
     SharedPreferences.getInstance().then((preferences) => {
@@ -67,340 +71,157 @@ class CartScreenState extends State<CartScreen> {
           if (cartString != null)
             {jsonMap = jsonDecode(cartString!), cart = Cart.fromJson(jsonMap)},
           setState(() {
-            items = cart.items;
+            items = cart.get();
           })
-        });
+        });*/
   }
-
-  /// Declare price and value for chart
-  //int value = 1;
-  //int pay = 950;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Color(0xFF6991C7)),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          title: Text(
-            FlutterI18n.translate(context, 'cart'),
-            style: TITLE_TEXT_STYLE,
-          ),
-          elevation: 0.0,
-        ),
-
-        ///
-        ///
-        /// Checking item value of cart
-        ///
-        ///
-        body: items.length > 0
-            ? ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (context, position) {
-                  ///
-                  /// Widget for list view slide delete
-                  ///
-                  return Slidable(
-                    //delegate: new SlidableDrawerDelegate(),
-                    actionPane: SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
-                    actions: <Widget>[
-                      new IconSlideAction(
-                        caption: 'cartArchiveText',
-                        color: Colors.blue,
-                        icon: Icons.archive,
-                        onTap: () {
-                          ///
-                          /// SnackBar show if cart Archive
-                          ///
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                            content: Text('cartArchice'),
-                            duration: Duration(seconds: 2),
-                            backgroundColor: Colors.blue,
-                          ));
-                        },
-                      ),
-                    ],
-                    secondaryActions: <Widget>[
-                      new IconSlideAction(
-                        key: Key(items[position].id.toString()),
-                        caption: 'cartDelete',
-                        color: Colors.red,
-                        icon: Icons.delete,
-                        onTap: () {
-                          setState(() {
-                            items.removeAt(position);
-                          });
-
-                          ///
-                          /// SnackBar show if cart delet
-                          ///
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                            content: Text('cartDeleted'),
-                            duration: Duration(seconds: 2),
-                            backgroundColor: Colors.redAccent,
-                          ));
-                        },
-                      ),
-                    ],
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 1.0, left: 13.0, right: 13.0),
-
-                      /// Background Constructor for card
-                      child: Container(
-                        height: 220.0,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12.withOpacity(0.1),
-                              blurRadius: 3.5,
-                              spreadRadius: 0.4,
-                            )
+    return ChangeNotifierProvider(
+        create: (context) => CartState(Cart()),
+        child: Consumer<CartState>(builder: (context, cart, child) {
+          return Scaffold(
+              appBar: AppBar(
+                iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+                centerTitle: true,
+                backgroundColor: Colors.white,
+                title: Text(
+                  FlutterI18n.translate(context, 'cart'),
+                  style: TITLE_TEXT_STYLE,
+                ),
+                elevation: 0.0,
+              ),
+              body: cart.length() > 0
+                  ? ListView.builder(
+                      itemCount: cart.length(),
+                      itemBuilder: (context, position) {
+                        return Slidable(
+                          //delegate: new SlidableDrawerDelegate(),
+                          actionPane: SlidableDrawerActionPane(),
+                          actionExtentRatio: 0.25,
+                          actions: <Widget>[
+                            new IconSlideAction(
+                              caption: 'cartArchiveText',
+                              color: Colors.blue,
+                              icon: Icons.archive,
+                              onTap: () {
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text('cartArchice'),
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.blue,
+                                ));
+                              },
+                            ),
                           ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                    padding: EdgeInsets.all(10.0),
+                          secondaryActions: <Widget>[
+                            new IconSlideAction(
+                              key: Key(cart.item(position).id.toString()),
+                              caption: 'cartDelete',
+                              color: Colors.red,
+                              icon: Icons.delete,
+                              onTap: () {
+                                setState(() {
+                                  cart.remove(position);
+                                });
 
-                                    /// Image item
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Colors.white.withOpacity(0.1),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black12
-                                                      .withOpacity(0.1),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.1)
-                                            ]),
-                                        child: Image.asset(
-                                          //'${items[position].id}', //deberia ir la imagen del producto
-                                          'assets/imgItem/fashion1.jpg',
-                                          height: 130.0,
-                                          width: 120.0,
-                                          fit: BoxFit.cover,
-                                        ))),
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 25.0, left: 10.0, right: 5.0),
-                                    child: Column(
-                                      /// Text Information Item
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          '${items[position].name}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontFamily: "Sans",
-                                            color: Colors.black87,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(top: 10.0)),
-                                        Text(
-                                          '${items[position].description}',
-                                          style: TextStyle(
-                                            color: Colors.black54,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12.0,
-                                          ),
-                                        ),
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(top: 10.0)),
-                                        Text(
-                                            '${items[position].price.unitPrice}'),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 18.0, left: 0.0),
-                                          child: Container(
-                                            width: 112.0,
-                                            decoration: BoxDecoration(
-                                                color: Colors.white70,
-                                                border: Border.all(
-                                                    color: Colors.black12
-                                                        .withOpacity(0.1))),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: <Widget>[
-                                                /// Decrease of value item
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      if (items[position]
-                                                              .count >
-                                                          1) {
-                                                        items[position].count =
-                                                            (items[position]
-                                                                    .count -
-                                                                1);
-                                                      }
-                                                      //pay = 950 * value;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: 30.0,
-                                                    width: 30.0,
-                                                    decoration: BoxDecoration(
-                                                        border: Border(
-                                                            right: BorderSide(
-                                                                color: Colors
-                                                                    .black12
-                                                                    .withOpacity(
-                                                                        0.1)))),
-                                                    child: Center(
-                                                        child: Text("-")),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 18.0),
-                                                  child: Text(items[position]
-                                                      .count
-                                                      .toString()),
-                                                ),
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text('cartDeleted'),
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.redAccent,
+                                ));
+                              },
+                            ),
+                          ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 1.0, left: 13.0, right: 13.0),
 
-                                                /// Increasing value of item
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      items[position].count =
-                                                          (items[position]
-                                                                  .count +
-                                                              1);
-                                                      //pay = 950 * value;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: 30.0,
-                                                    width: 28.0,
-                                                    decoration: BoxDecoration(
-                                                        border: Border(
-                                                            left: BorderSide(
-                                                                color: Colors
-                                                                    .black12
-                                                                    .withOpacity(
-                                                                        0.1)))),
-                                                    child: Center(
-                                                        child: Text("+")),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(padding: EdgeInsets.only(top: 8.0)),
-                            Divider(
-                              height: 2.0,
-                              color: Colors.black12,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 9.0, left: 10.0, right: 10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                            /// Background Constructor for card
+                            child: Container(
+                              height: 220.0,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12.withOpacity(0.1),
+                                    blurRadius: 3.5,
+                                    spreadRadius: 0.4,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Padding(
+                                          padding: EdgeInsets.all(10.0),
 
-                                    /// Total price of item buy
-                                    child: Text(
-                                      FlutterI18n.translate(
-                                              context, 'cart_total') +
-                                          items[position]
-                                              .price
-                                              .currencyAcronym +
-                                          (items[position].price.unitPrice *
-                                                  items[position].count)
-                                              .toString(),
-                                      style: TOTAL_TEXT_STYLE,
-                                    ),
+                                          /// Image item
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white
+                                                      .withOpacity(0.1),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.black12
+                                                            .withOpacity(0.1),
+                                                        blurRadius: 0.5,
+                                                        spreadRadius: 0.1)
+                                                  ]),
+                                              child: Image.asset(
+                                                //'${items[position].id}', //deberia ir la imagen del producto
+                                                'assets/imgItem/fashion1.jpg',
+                                                height: 130.0,
+                                                width: 120.0,
+                                                fit: BoxFit.cover,
+                                              ))),
+                                      CartItemCard(position),
+                                    ],
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      CheckoutPreferencesService service =
-                                          CheckoutPreferencesService();
-                                      Item item = Item();
-                                      item.id = '1';
-                                      item.title = 'Producto 1';
-                                      item.description = 'Prueba';
-                                      item.quantity = 1;
-                                      item.currency_id = "\$";
-                                      item.unit_price = 200;
-                                      CheckoutPreferencesRequest request =
-                                          CheckoutPreferencesRequest();
-                                      request.items = [item];
-                                      Payer payer = Payer();
-                                      payer.email = 'mail@mail.com';
-                                      request.payer = payer;
+                                  Padding(padding: EdgeInsets.only(top: 8.0)),
+                                  Divider(
+                                    height: 2.0,
+                                    color: Colors.black12,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 9.0, left: 10.0, right: 10.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 10.0),
 
-                                      service.post(request: request).then(
-                                          (value) => {
-                                                startPayment(
-                                                    'publicKey', value.id)
-                                              });
-
-                                      /*Navigator.of(context).push(
-                                          PageRouteBuilder(
-                                              pageBuilder: (_, __, ___) =>
-                                                  delivery()));*/
-                                    },
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Container(
-                                        height: 40.0,
-                                        width: 120.0,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFA3BDED),
-                                        ),
-                                        child: Center(
+                                          /// Total price of item buy
                                           child: Text(
                                             FlutterI18n.translate(
-                                                context, 'cart_pay'),
-                                            style: CART_PAY_TEXT_STYLE,
+                                                    context, 'cart_total') +
+                                                cart
+                                                    .item(position)
+                                                    .getTotalPrice(),
+                                            style: TOTAL_TEXT_STYLE,
                                           ),
                                         ),
-                                      ),
+                                        CartPayButton(),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                scrollDirection: Axis.vertical,
-              )
-            : NoItemCart());
+                          ),
+                        );
+                      },
+                      scrollDirection: Axis.vertical,
+                    )
+                  : NoItemCart());
+        }));
   }
 }

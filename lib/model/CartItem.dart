@@ -24,4 +24,18 @@ class CartItem {
       _$CartItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$CartItemToJson(this);
+
+  String getTotalPrice() {
+    return price.currencyAcronym + (price.unitPrice * count).toString();
+  }
+
+  void increase() {
+    count = count + 1;
+  }
+
+  void decrease() {
+    if (count > 1) {
+      count = count - 1;
+    }
+  }
 }
