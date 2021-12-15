@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intrale/model/Cart.dart';
 import 'package:intrale/model/CartItem.dart';
+import 'package:intrale/states/AppState.dart';
 import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +15,8 @@ class CartItemIncrease extends StatefulWidget {
   @override
   CartItemIncreaseState createState() => CartItemIncreaseState();
 
-  void action(CartState cart) {
-    cart.item(position).increase();
+  void action(AppState appState) {
+    appState.increase(position);
   }
 
   String symbol() {
@@ -35,11 +36,11 @@ class CartItemIncreaseState extends State<CartItemIncrease> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartState>(builder: (context, cart, child) {
+    return Consumer<AppState>(builder: (context, appState, child) {
       return InkWell(
         onTap: () {
           setState(() {
-            widget.action(cart);
+            widget.action(appState);
           });
         },
         child: Container(

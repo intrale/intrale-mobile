@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intrale/model/Cart.dart';
 import 'package:intrale/scrn/cart/CartScreen.dart';
+import 'package:intrale/states/AppState.dart';
 import 'package:intrale/states/CartState.dart';
 import 'package:intrale/util/tools.dart';
 import 'package:provider/provider.dart';
@@ -8,10 +9,10 @@ import 'package:provider/provider.dart';
 class DetailProductCartIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartState>(builder: (context, cart, child) {
+    return Consumer<AppState>(builder: (context, appState, child) {
       return InkWell(
         onTap: () {
-          redirectTo(context, CartScreen());
+          appState.forwardToCartScreen();
         },
         child: Stack(
           alignment: AlignmentDirectional(-1.0, -0.8),
@@ -26,7 +27,7 @@ class DetailProductCartIcon extends StatelessWidget {
               radius: 10.0,
               backgroundColor: Colors.red,
               child: Text(
-                cart.count().toString(),
+                appState.cartCount().toString(),
                 style: TextStyle(color: Colors.white, fontSize: 13.0),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class NoItemCart extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class NoItemCart extends StatelessWidget {
             ),
             Padding(padding: EdgeInsets.only(bottom: 10.0)),
             Text(
-              'cartNoItem',
+              FlutterI18n.translate(context, 'cartNoItem'),
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 18.5,

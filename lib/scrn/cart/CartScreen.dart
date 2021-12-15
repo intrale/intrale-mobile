@@ -9,6 +9,7 @@ import 'package:intrale/scrn/cart/CartItemCard.dart';
 import 'package:intrale/scrn/cart/CartPayButton.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intrale/scrn/cart/NoItemCart.dart';
+import 'package:intrale/states/AppState.dart';
 import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,150 +79,150 @@ class CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return /*ChangeNotifierProvider(
         create: (context) => CartState(Cart()),
-        child: Consumer<CartState>(builder: (context, cart, child) {
-          return Scaffold(
-              appBar: AppBar(
-                iconTheme: IconThemeData(color: Color(0xFF6991C7)),
-                centerTitle: true,
-                backgroundColor: Colors.white,
-                title: Text(
-                  FlutterI18n.translate(context, 'cart'),
-                  style: TITLE_TEXT_STYLE,
-                ),
-                elevation: 0.0,
-              ),
-              body: cart.length() > 0
-                  ? ListView.builder(
-                      itemCount: cart.length(),
-                      itemBuilder: (context, position) {
-                        return Slidable(
-                          //delegate: new SlidableDrawerDelegate(),
-                          actionPane: SlidableDrawerActionPane(),
-                          actionExtentRatio: 0.25,
-                          actions: <Widget>[
-                            new IconSlideAction(
-                              caption: 'cartArchiveText',
-                              color: Colors.blue,
-                              icon: Icons.archive,
-                              onTap: () {
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text('cartArchice'),
-                                  duration: Duration(seconds: 2),
-                                  backgroundColor: Colors.blue,
-                                ));
-                              },
-                            ),
-                          ],
-                          secondaryActions: <Widget>[
-                            new IconSlideAction(
-                              key: Key(cart.item(position).id.toString()),
-                              caption: 'cartDelete',
-                              color: Colors.red,
-                              icon: Icons.delete,
-                              onTap: () {
-                                setState(() {
-                                  cart.remove(position);
-                                });
+        child:*/
+        Consumer<AppState>(builder: (context, appState, child) {
+      return Scaffold(
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Color(0xFF6991C7)),
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            title: Text(
+              FlutterI18n.translate(context, 'cart'),
+              style: TITLE_TEXT_STYLE,
+            ),
+            elevation: 0.0,
+          ),
+          body: appState.cartLength() > 0
+              ? ListView.builder(
+                  itemCount: appState.cartLength(),
+                  itemBuilder: (context, position) {
+                    return Slidable(
+                      //delegate: new SlidableDrawerDelegate(),
+                      actionPane: SlidableDrawerActionPane(),
+                      actionExtentRatio: 0.25,
+                      actions: <Widget>[
+                        new IconSlideAction(
+                          caption: 'cartArchiveText',
+                          color: Colors.blue,
+                          icon: Icons.archive,
+                          onTap: () {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('cartArchice'),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.blue,
+                            ));
+                          },
+                        ),
+                      ],
+                      secondaryActions: <Widget>[
+                        new IconSlideAction(
+                          key: Key(appState.item(position).id.toString()),
+                          caption: 'cartDelete',
+                          color: Colors.red,
+                          icon: Icons.delete,
+                          onTap: () {
+                            setState(() {
+                              appState.removeCartItem(position);
+                            });
 
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text('cartDeleted'),
-                                  duration: Duration(seconds: 2),
-                                  backgroundColor: Colors.redAccent,
-                                ));
-                              },
-                            ),
-                          ],
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 1.0, left: 13.0, right: 13.0),
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('cartDeleted'),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.redAccent,
+                            ));
+                          },
+                        ),
+                      ],
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 1.0, left: 13.0, right: 13.0),
 
-                            /// Background Constructor for card
-                            child: Container(
-                              height: 220.0,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black12.withOpacity(0.1),
-                                    blurRadius: 3.5,
-                                    spreadRadius: 0.4,
-                                  )
-                                ],
-                              ),
-                              child: Column(
+                        /// Background Constructor for card
+                        child: Container(
+                          height: 220.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12.withOpacity(0.1),
+                                blurRadius: 3.5,
+                                spreadRadius: 0.4,
+                              )
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Padding(
-                                          padding: EdgeInsets.all(10.0),
-
-                                          /// Image item
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white
-                                                      .withOpacity(0.1),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        blurRadius: 0.5,
-                                                        spreadRadius: 0.1)
-                                                  ]),
-                                              child: Image.asset(
-                                                //'${items[position].id}', //deberia ir la imagen del producto
-                                                'assets/imgItem/fashion1.jpg',
-                                                height: 130.0,
-                                                width: 120.0,
-                                                fit: BoxFit.cover,
-                                              ))),
-                                      CartItemCard(position),
-                                    ],
-                                  ),
-                                  Padding(padding: EdgeInsets.only(top: 8.0)),
-                                  Divider(
-                                    height: 2.0,
-                                    color: Colors.black12,
-                                  ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 9.0, left: 10.0, right: 10.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10.0),
+                                      padding: EdgeInsets.all(10.0),
 
-                                          /// Total price of item buy
-                                          child: Text(
-                                            FlutterI18n.translate(
-                                                    context, 'cart_total') +
-                                                cart
-                                                    .item(position)
-                                                    .getTotalPrice(),
-                                            style: TOTAL_TEXT_STYLE,
-                                          ),
-                                        ),
-                                        CartPayButton(),
-                                      ],
-                                    ),
-                                  ),
+                                      /// Image item
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  Colors.white.withOpacity(0.1),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
+                                                    blurRadius: 0.5,
+                                                    spreadRadius: 0.1)
+                                              ]),
+                                          child: Image.asset(
+                                            //'${items[position].id}', //deberia ir la imagen del producto
+                                            'assets/imgItem/fashion1.jpg',
+                                            height: 130.0,
+                                            width: 120.0,
+                                            fit: BoxFit.cover,
+                                          ))),
+                                  CartItemCard(position),
                                 ],
                               ),
-                            ),
+                              Padding(padding: EdgeInsets.only(top: 8.0)),
+                              Divider(
+                                height: 2.0,
+                                color: Colors.black12,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 9.0, left: 10.0, right: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
+
+                                      /// Total price of item buy
+                                      child: Text(
+                                        FlutterI18n.translate(
+                                                context, 'cart_total') +
+                                            appState
+                                                .item(position)
+                                                .getTotalPrice(),
+                                        style: TOTAL_TEXT_STYLE,
+                                      ),
+                                    ),
+                                    CartPayButton(),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                      scrollDirection: Axis.vertical,
-                    )
-                  : NoItemCart());
-        }));
+                        ),
+                      ),
+                    );
+                  },
+                  scrollDirection: Axis.vertical,
+                )
+              : NoItemCart());
+    }) /*)*/;
   }
 }

@@ -5,6 +5,9 @@ import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/account/Profile.dart';
 import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/Home.dart';
+import 'package:intrale/states/AppState.dart';
+import 'package:intrale/states/CartState.dart';
+import 'package:intrale/states/ScreenState.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,60 +54,65 @@ class DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-            body: getScreen(),
-            bottomNavigationBar: Theme(
-                data: Theme.of(context).copyWith(
-                    canvasColor: Colors.white,
-                    textTheme: Theme.of(context).textTheme.copyWith(
-                        caption: TextStyle(
-                            color: Colors.black26.withOpacity(0.15)))),
-                child: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  currentIndex: currentIndex,
-                  fixedColor: Color(0xFF6991C7),
-                  onTap: (value) {
-                    debugPrint(
-                        'ItlNavigationBarrState onTap:' + value.toString());
+    return ChangeNotifierProvider(
+        create: (context) => AppState(),
+        child: Consumer<AppState>(builder: (context, appState, child) {
+          return Scaffold(
+              body: appState.getScreen() /*getScreen()*/,
+              bottomNavigationBar: Theme(
+                  data: Theme.of(context).copyWith(
+                      canvasColor: Colors.white,
+                      textTheme: Theme.of(context).textTheme.copyWith(
+                          caption: TextStyle(
+                              color: Colors.black26.withOpacity(0.15)))),
+                  child: BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    currentIndex: currentIndex,
+                    fixedColor: Color(0xFF6991C7),
+                    onTap: (value) {
+                      debugPrint(
+                          'ItlNavigationBarrState onTap:' + value.toString());
 
-                    setState(() {
-                      debugPrint('ItlNavigationBarrState setState:' +
-                          value.toString());
-                      currentIndex = value;
-                    });
-                  },
-                  items: [
-                    BottomNavigationBarItem(
-                        icon: Icon(
-                          Icons.home,
-                          size: 23.0,
-                        ),
-                        title: Text(
-                          FlutterI18n.translate(context, 'home'),
-                          style: ITEM_TEXT_STYLE,
-                        )),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.shopping_cart),
-                        title: Text(
-                          FlutterI18n.translate(context, 'cart'),
-                          style: ITEM_TEXT_STYLE,
-                        )),
-                    BottomNavigationBarItem(
-                        icon: Icon(
-                          Icons.person,
-                          size: 24.0,
-                        ),
-                        title: Text(
-                          FlutterI18n.translate(context, 'account'),
-                          style: ITEM_TEXT_STYLE,
-                        )),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.exit_to_app),
-                        title: Text(
-                          FlutterI18n.translate(context, 'exit'),
-                          style: ITEM_TEXT_STYLE,
-                        )),
-                  ],
-                )));
+                      setState(() {
+                        debugPrint('ItlNavigationBarrState setState:' +
+                            value.toString());
+                        //currentIndex = value;
+                        appState.setScreenIndex(value);
+                      });
+                    },
+                    items: [
+                      BottomNavigationBarItem(
+                          icon: Icon(
+                            Icons.home,
+                            size: 23.0,
+                          ),
+                          title: Text(
+                            FlutterI18n.translate(context, 'home'),
+                            style: ITEM_TEXT_STYLE,
+                          )),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.shopping_cart),
+                          title: Text(
+                            FlutterI18n.translate(context, 'cart'),
+                            style: ITEM_TEXT_STYLE,
+                          )),
+                      BottomNavigationBarItem(
+                          icon: Icon(
+                            Icons.person,
+                            size: 24.0,
+                          ),
+                          title: Text(
+                            FlutterI18n.translate(context, 'account'),
+                            style: ITEM_TEXT_STYLE,
+                          )),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.exit_to_app),
+                          title: Text(
+                            FlutterI18n.translate(context, 'exit'),
+                            style: ITEM_TEXT_STYLE,
+                          )),
+                    ],
+                  )));
+        }));
   }
 }

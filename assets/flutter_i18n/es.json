@@ -52,5 +52,6 @@
     "confirm_submit":"Confirmar",
 
     "cart_pay":"Pagar",
-    "cart_total":"Total "
+    "cart_total":"Total ",
+    "cartNoItem": "No hay productos en el carrito."
 }

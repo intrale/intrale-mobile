@@ -3,6 +3,7 @@ import 'package:intrale/model/Cart.dart';
 import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/scrn/cart/CartItemDecrease.dart';
 import 'package:intrale/scrn/cart/CartItemIncrease.dart';
+import 'package:intrale/states/AppState.dart';
 import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,7 @@ class CartItemCountBarState extends State<CartItemCountBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartState>(builder: (context, cart, child) {
+    return Consumer<AppState>(builder: (context, appState, child) {
       return Padding(
         padding: const EdgeInsets.only(top: 18.0, left: 0.0),
         child: Container(
@@ -53,7 +54,7 @@ class CartItemCountBarState extends State<CartItemCountBar> {
               CartItemDecrease(widget.position),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Text(cart.item(widget.position).count.toString()),
+                child: Text(appState.item(widget.position).count.toString()),
               ),
               CartItemIncrease(widget.position),
             ],
