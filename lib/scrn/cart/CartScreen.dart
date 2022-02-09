@@ -1,18 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:intrale/model/Cart.dart';
-import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/scrn/cart/CartItemCard.dart';
 import 'package:intrale/scrn/cart/CartPayButton.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intrale/scrn/cart/NoItemCart.dart';
 import 'package:intrale/states/AppState.dart';
-import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:intrale_mobile_mercadopago/intrale_mobile_mercadopago.dart';
 

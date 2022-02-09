@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/IntraleState.dart';
+import 'package:intrale/comp/ItlCustom.dart';
 import 'package:intrale/comp/ItlText.dart';
 import 'package:intrale/const/TextStyleConst.dart';
 import 'package:intrale/model/Cart.dart';
@@ -44,19 +45,21 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(
-        new Duration(milliseconds: 2000),
-        () => {
-              usernameExists().then((exist) => {
-                    if (exist)
-                      {validateToken(context)}
-                    else
-                      {
-                        Future.delayed(new Duration(milliseconds: 2000),
-                            redirectTo(context, onBoarding()))
-                      }
+    ItlCustom.instance.initialize().then((value) => {
+          Future.delayed(
+              new Duration(milliseconds: 2000),
+              () => {
+                    usernameExists().then((exist) => {
+                          if (exist)
+                            {validateToken(context)}
+                          else
+                            {
+                              Future.delayed(new Duration(milliseconds: 2000),
+                                  redirectTo(context, onBoarding()))
+                            }
+                        })
                   })
-            });
+        });
   }
 
   /// Code Create UI Splash Screen

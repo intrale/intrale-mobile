@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/Product.dart';
 import 'package:intrale/states/AppState.dart';
@@ -70,13 +71,23 @@ class ItemGrid extends StatelessWidget {
                                     child: InkWell(
                                       child: Hero(
                                           tag: "hero-grid-${gridItem.id}",
-                                          child: Image.asset(
+                                          child: CachedNetworkImage(
+                                              placeholder: (context, url) =>
+                                                  const CircularProgressIndicator(),
+                                              imageUrl:
+                                                  'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/products/${gridItem.id}/main.jpg',
+                                              errorWidget: (context, url,
+                                                      error) =>
+                                                  const Icon(
+                                                      Icons.question_answer))
+                                          /*Image.asset(
                                             "assets/imgItem/fashion1.jpg", //gridItem.img,
                                             width: 300.0,
                                             height: 300.0,
                                             alignment: Alignment.center,
                                             fit: BoxFit.contain,
-                                          )),
+                                          )*/
+                                          ),
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
@@ -89,15 +100,21 @@ class ItemGrid extends StatelessWidget {
                         child: Container(
                           height: mediaQueryData.size.height / 3.3,
                           width: 200.0,
-                          decoration: BoxDecoration(
+                          child: CachedNetworkImage(
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(),
+                              imageUrl:
+                                  'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/products/${gridItem.id}/main.jpg',
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.question_answer)),
+                          /*decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(7.0),
                                   topRight: Radius.circular(7.0)),
                               image: DecorationImage(
-                                  image: AssetImage(
-                                    "assets/imgItem/fashion1.jpg", /*gridItem.img*/
-                                  ),
-                                  fit: BoxFit.cover)),
+                                  image: CachedNetworkImageProvider(
+                                      'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/products/${gridItem.id}/main.jpg'),
+                                  fit: BoxFit.cover)),*/
                         ),
                       ),
                     ),

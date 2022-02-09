@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as HTTP;
+import 'package:intrale/comp/ItlCustom.dart';
 import 'package:intrale/util/services/Handler.dart';
 import 'package:intrale/util/services/Response.dart';
 
@@ -17,6 +18,17 @@ abstract class Service<RES extends Response> {
 
   String endpoint;
   String function;
+
+  Service(
+      {required this.endpoint,
+      required this.function,
+      List<Handler> handlers = DEFAULT_HANDLER_LIST}) {
+    if (handlers != null) {
+      debugPrint('handlers:' + handlers.toString());
+      this.handlers = Map.fromIterable(handlers,
+          key: (handler) => handler.statusCode, value: (handler) => handler);
+    }
+  }
 
   Future initializeHeaders() async {
     if (initialized) {
@@ -39,24 +51,13 @@ abstract class Service<RES extends Response> {
       'Authorization': accessToken,
       'idtoken': idToken,
       'function': function,
-      'businessname': 'INTRALE',
+      'businessname': ItlCustom.instance.custom.businessname,
     };
 
     initialized = true;
     debugPrint("INTRALE: initializeHeaders headers:" + this.headers.toString());
     debugPrint('Fin Inicializando Servicio');
     return;
-  }
-
-  Service(
-      {required this.endpoint,
-      required this.function,
-      List<Handler> handlers = DEFAULT_HANDLER_LIST}) {
-    if (handlers != null) {
-      debugPrint('handlers:' + handlers.toString());
-      this.handlers = Map.fromIterable(handlers,
-          key: (handler) => handler.statusCode, value: (handler) => handler);
-    }
   }
 
   RES mapToResponse(Map<String, dynamic> responseMap);

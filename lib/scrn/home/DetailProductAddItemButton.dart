@@ -6,7 +6,6 @@ import 'package:intrale/model/Product.dart';
 import 'package:intrale/scrn/home/DetailProductCartPayButton.dart';
 import 'package:intrale/scrn/home/DetailProductChatButton.dart';
 import 'package:intrale/states/AppState.dart';
-import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
 
 class DetailProductAddItemButton extends StatelessWidget {

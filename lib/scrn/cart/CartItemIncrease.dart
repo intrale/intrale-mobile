@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/model/Cart.dart';
-import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/states/AppState.dart';
-import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
 
 class CartItemIncrease extends StatefulWidget {
   int position;
-  //void Function() function;
-  //CartItem cartItem;
 
-  CartItemIncrease(this.position /* this.cartItem*/);
+  CartItemIncrease(this.position);
 
   @override
   CartItemIncreaseState createState() => CartItemIncreaseState();
@@ -25,15 +20,6 @@ class CartItemIncrease extends StatefulWidget {
 }
 
 class CartItemIncreaseState extends State<CartItemIncrease> {
-  //void Function() increaseFunction;
-
-  /*late CartItem cartItem;
-
-  void initState() {
-    super.initState();
-    cartItem = widget.cartItem;
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {

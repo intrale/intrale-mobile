@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/model/Cart.dart';
-import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/states/AppState.dart';
-import 'package:intrale/states/CartState.dart';
-import 'package:intrale/util/tools.dart';
 import 'package:provider/provider.dart';
 
 class DetailProductCartIcon extends StatelessWidget {

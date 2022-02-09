@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 
@@ -23,11 +24,22 @@ class ImageSliderState extends State<ImageSlider> {
         overlayShadowColors: Colors.white.withOpacity(0.9),
         overlayShadowSize: 0.9,
         images: [
-          AssetImage("assets/img/baner1.png"),
+          CachedNetworkImageProvider(
+              'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/banners/banner1.jpg'),
+          CachedNetworkImageProvider(
+              'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/banners/banner2.jpg'),
+          CachedNetworkImageProvider(
+              'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/banners/banner3.jpg'),
+          CachedNetworkImageProvider(
+              'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/banners/banner4.jpg'),
+          CachedNetworkImageProvider(
+              'https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/files/get/INTRALE/banners/banner5.jpg'),
+
+          /*AssetImage("assets/img/baner1.png"),
           AssetImage("assets/img/baner12.png"),
           AssetImage("assets/img/baner2.png"),
           AssetImage("assets/img/baner3.png"),
-          AssetImage("assets/img/baner4.png"),
+          AssetImage("assets/img/baner4.png"),*/
         ],
       ),
     );

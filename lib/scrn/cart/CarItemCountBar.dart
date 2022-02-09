@@ -1,43 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/model/Cart.dart';
-import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/scrn/cart/CartItemDecrease.dart';
 import 'package:intrale/scrn/cart/CartItemIncrease.dart';
 import 'package:intrale/states/AppState.dart';
-import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
 
 class CartItemCountBar extends StatefulWidget {
   int position;
 
-  //CartItem cartItem;
-
-  /*void Function() increaseFunction;
-  void Function() decreaseFunction;
-  String Function() countFunction;*/
-
-  CartItemCountBar(
-      this.position /*
-      this.increaseFunction, this.decreaseFunction, this.countFunction*/
-      );
+  CartItemCountBar(this.position);
 
   @override
-  CartItemCountBarState createState() => CartItemCountBarState(
-      /*increaseFunction, decreaseFunction, countFunction*/);
+  CartItemCountBarState createState() => CartItemCountBarState();
 }
 
 class CartItemCountBarState extends State<CartItemCountBar> {
-  /*void Function() increaseFunction;
-  void Function() decreaseFunction;
-  String Function() countFunction;*/
-
-  /*late CartItem cartItem;
-
-  void initState() {
-    super.initState();
-    cartItem = widget.cartItem;
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {

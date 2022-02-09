@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/model/Cart.dart';
 import 'package:intrale/scrn/cart/CarItemCountBar.dart';
 import 'package:intrale/states/AppState.dart';
-import 'package:intrale/states/CartState.dart';
 import 'package:provider/provider.dart';
 
 const TextStyle ITEM_DESCRIPTION_TEXT_STYLE = TextStyle(

@@ -1,6 +1,7 @@
+import 'package:intrale/comp/ItlCustom.dart';
+
 class Endpoints {
-  static final String USERS =
-      "https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/users";
+  static final String USERS = ItlCustom.instance.custom.api_url + "/users";
   static final String PRODUCTS =
       "https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/products";
   static final String MP_PREFERENCES =

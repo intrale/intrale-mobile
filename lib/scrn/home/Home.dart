@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/model/Product.dart';
 
-//import 'package:intrale/model/HomeGridItemRecomended.dart';
 import 'package:intrale/scrn/home/AppbarGradient.dart';
 import 'package:intrale/scrn/home/ImageSlider.dart';
 import 'package:intrale/scrn/home/ItemGrid.dart';

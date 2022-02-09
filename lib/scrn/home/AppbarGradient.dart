@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/scrn/account/Notification.dart';
-import 'package:intrale/scrn/home/Search.dart';
 import 'package:intrale/scrn/account/Message.dart';
 
 class AppbarGradient extends StatefulWidget {
