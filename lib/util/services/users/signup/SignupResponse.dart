@@ -7,8 +7,8 @@ part 'SignupResponse.g.dart';
 
 @JsonSerializable()
 class SignupResponse extends Response {
-  String? businessName;
-  String? email;
+  String businessName;
+  String email;
 
   SignupResponse({required this.businessName, required this.email}) {}
 

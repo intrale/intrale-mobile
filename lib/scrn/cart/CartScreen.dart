@@ -94,7 +94,7 @@ class CartScreenState extends State<CartScreen> {
                   itemBuilder: (context, position) {
                     return Slidable(
                       //delegate: new SlidableDrawerDelegate(),
-                      actionPane: SlidableDrawerActionPane(),
+                      /*actionPane: SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
                       actions: <Widget>[
                         new IconSlideAction(
@@ -128,7 +128,7 @@ class CartScreenState extends State<CartScreen> {
                             ));
                           },
                         ),
-                      ],
+                      ],*/
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 1.0, left: 13.0, right: 13.0),

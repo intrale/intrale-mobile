@@ -8,7 +8,7 @@ part 'ReadProductsResponse.g.dart';
 
 @JsonSerializable()
 class ReadProductsResponse extends Response {
-  List<Product>? products;
+  List<Product> products;
 
   ReadProductsResponse({required this.products}) {}
 

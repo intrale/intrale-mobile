@@ -7,7 +7,12 @@ part of 'ItlCustomEntity.dart';
 // **************************************************************************
 
 ItlCustomEntity _$ItlCustomEntityFromJson(Map<String, dynamic> json) =>
-    ItlCustomEntity();
+    ItlCustomEntity()
+      ..businessname = json['businessname'] as String
+      ..api_url = json['api_url'] as String;
 
 Map<String, dynamic> _$ItlCustomEntityToJson(ItlCustomEntity instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'businessname': instance.businessname,
+      'api_url': instance.api_url,
+    };

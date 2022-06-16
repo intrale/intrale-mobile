@@ -9,7 +9,7 @@ import 'package:intrale/states/AppState.dart';
 import 'package:provider/provider.dart';
 
 class DetailProductAddItemButton extends StatelessWidget {
-  Product gridItem;
+  Product? gridItem;
   GlobalKey<ScaffoldState> key;
 
   DetailProductAddItemButton(this.gridItem, this.key);
@@ -26,12 +26,12 @@ class DetailProductAddItemButton extends StatelessWidget {
           );
 
           appState.addCartItem(CartItem(
-              id: gridItem.id,
-              name: gridItem.name,
-              description: gridItem.description,
+              id: gridItem!.id,
+              name: gridItem!.name,
+              description: gridItem!.description,
               price: Price(
-                  currencyAcronym: gridItem.price!.currencyAcronym,
-                  unitPrice: gridItem.price!.unitPrice),
+                  currencyAcronym: gridItem!.price.currencyAcronym,
+                  unitPrice: gridItem!.price.unitPrice),
               count: 1));
           key.currentState?.showSnackBar(snackbar);
         },

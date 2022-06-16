@@ -12,9 +12,9 @@ class FormatValidation implements Validator {
 
   String regexp;
   String messageKey;
-  late String message;
+  String? message;
 
-  FormatValidation({required this.regexp, required this.messageKey}) {}
+  FormatValidation({required this.regexp, required this.messageKey});
 
   String? validate(value) {
     if (value.isNotEmpty) {

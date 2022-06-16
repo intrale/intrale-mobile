@@ -38,11 +38,11 @@ class ConfirmScreenState extends IntraleState<Confirm> {
   ItlPassword password =
       ItlPassword(descriptionKey: "confirm_password", validator: Required());
 
-  late ConfirmRecoveryService confirmRecoveryService;
+  ConfirmRecoveryService? confirmRecoveryService;
 
   ConfirmScreenState() {
     confirmRecoveryService =
-        ConfirmRecoveryService(handlers: [okHandler, errorHandler]);
+        ConfirmRecoveryService(handlers: [okHandler!, errorHandler!]);
   }
 
   /// Component Widget layout UI
@@ -78,7 +78,7 @@ class ConfirmScreenState extends IntraleState<Confirm> {
 
   @override
   onValidSubmit() async {
-    confirmRecoveryService.post(
+    confirmRecoveryService?.post(
         request: ConfirmRecoveryRequest(
             email: this.email.value,
             password: this.password.value,
@@ -90,15 +90,15 @@ class ConfirmScreenState extends IntraleState<Confirm> {
   }
 
   void onError(Response response) {
-    ConfirmRecoveryResponse? recoveryResponse =
-        response as ConfirmRecoveryResponse?;
-    Error? error = recoveryResponse?.errors!.first;
+    ConfirmRecoveryResponse recoveryResponse =
+        response as ConfirmRecoveryResponse;
+    Error error = recoveryResponse.errors!.first;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Ocurrio un error:" + (error?.code ?? '')),
-              content: Text((error?.description ?? '')));
+              title: Text("Ocurrio un error:" + (error.code)),
+              content: Text((error.description)));
         });
   }
 }

@@ -9,7 +9,7 @@ part of 'ConfirmRecoveryResponse.dart';
 ConfirmRecoveryResponse _$ConfirmRecoveryResponseFromJson(
         Map<String, dynamic> json) =>
     ConfirmRecoveryResponse(
-      email: json['email'] as String?,
+      email: json['email'] as String,
     )
       ..statusCode = json['statusCode'] as int?
       ..errors = (json['errors'] as List<dynamic>?)

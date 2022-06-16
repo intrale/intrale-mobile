@@ -38,7 +38,7 @@ class IntroViewsFlutter extends StatefulWidget {
   TextStyle pageButtonTextStyles;
 
   /// run a function after skip Button pressed
-  late VoidCallback onTapSkipButton;
+  VoidCallback? onTapSkipButton;
 
   /// set the Text Size for skip, done buttons
   ///
@@ -251,7 +251,7 @@ class _IntroViewsFlutterState extends State<IntroViewsFlutter>
                 // after skip pressed invoke function
                 // this can be used for analytics/page transition
                 if (widget.onTapSkipButton != null) {
-                  widget.onTapSkipButton();
+                  widget.onTapSkipButton!();
                 }
               });
             },

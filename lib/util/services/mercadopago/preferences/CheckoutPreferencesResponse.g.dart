@@ -43,7 +43,7 @@ CheckoutPreferencesResponse _$CheckoutPreferencesResponseFromJson(
       ..expiration_date_from = json['expiration_date_from'] as String?
       ..expiration_date_to = json['expiration_date_to'] as String?
       ..date_created = json['date_created'] as String?
-      ..id = json['id'] as String
+      ..id = json['id'] as String?
       ..init_point = json['init_point'] as String?
       ..sandbox_init_point = json['sandbox_init_point'] as String?;
 

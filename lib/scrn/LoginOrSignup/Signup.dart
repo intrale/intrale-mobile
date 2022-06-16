@@ -32,10 +32,10 @@ class SignupScreenState extends IntraleState<Signup> {
     ]),
   );
 
-  late SignupService signupService;
+  SignupService? signupService;
 
   SignupScreenState() : super() {
-    signupService = new SignupService(handlers: [okHandler, errorHandler]);
+    signupService = new SignupService(handlers: [okHandler!, errorHandler!]);
   }
 
   /// Component Widget layout UI
@@ -68,7 +68,7 @@ class SignupScreenState extends IntraleState<Signup> {
   @override
   onValidSubmit() {
     signupService
-        .post(request: SignupRequest(email: this.email.value))
+        ?.post(request: SignupRequest(email: this.email.value))
         .then((value) => {
               showDialog(
                   context: context,

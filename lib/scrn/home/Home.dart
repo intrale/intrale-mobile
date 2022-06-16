@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
   bool isStarted = false;
-  late ReadProductsService readProductsServices;
+  ReadProductsService? readProductsServices;
   List<Product> gridItemArray = [];
 
   HomeState() : super() {
@@ -25,10 +25,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   initState() {
     super.initState();
-    readProductsServices.post(request: ReadProductsRequest()).then((value) => {
+    readProductsServices?.post(request: ReadProductsRequest()).then((value) => {
           setState(() {
             if (value.products != null) {
-              gridItemArray = value.products!;
+              gridItemArray = value.products;
             }
           })
         });

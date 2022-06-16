@@ -31,7 +31,7 @@ class CheckoutPreferencesResponse extends Response {
   String? expiration_date_from;
   String? expiration_date_to;
   String? date_created;
-  late String id;
+  String? id;
   String? init_point;
   String? sandbox_init_point;
 

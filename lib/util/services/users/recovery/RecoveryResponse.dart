@@ -7,7 +7,7 @@ part 'RecoveryResponse.g.dart';
 
 @JsonSerializable()
 class RecoveryResponse extends Response {
-  String? email;
+  String email;
 
   RecoveryResponse({required this.email}) {}
 

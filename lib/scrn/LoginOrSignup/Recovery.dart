@@ -33,10 +33,10 @@ class RecoveryScreenState extends IntraleState<Recovery> {
   );
 
   // Services declarations
-  late RecoveryService recoveryService;
+  RecoveryService? recoveryService;
 
   RecoveryScreenState() {
-    recoveryService = RecoveryService(handlers: [okHandler, errorHandler]);
+    recoveryService = RecoveryService(handlers: [okHandler!, errorHandler!]);
   }
 
   /// Component Widget layout UI
@@ -68,7 +68,7 @@ class RecoveryScreenState extends IntraleState<Recovery> {
 
   @override
   onValidSubmit() {
-    recoveryService.post(request: SignupRequest(email: this.email.value));
+    recoveryService?.post(request: SignupRequest(email: this.email.value));
   }
 
   void onOk(Response response) {
@@ -81,8 +81,8 @@ class RecoveryScreenState extends IntraleState<Recovery> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Ocurrio un error:" + (error.code ?? '')),
-              content: Text(error.description ?? ''));
+              title: Text("Ocurrio un error:" + (error.code)),
+              content: Text(error.description));
         });
   }
 }

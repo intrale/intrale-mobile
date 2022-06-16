@@ -81,36 +81,43 @@ class DashboardState extends State<Dashboard> {
                       });
                     },
                     items: [
-                      BottomNavigationBarItem(
+                      BottomNavigationBarItem( 
                           icon: Icon(
                             Icons.home,
                             size: 23.0,
                           ),
-                          title: Text(
+                          label: FlutterI18n.translate(context, 'home')
+                          /*title: Text(
                             FlutterI18n.translate(context, 'home'),
                             style: ITEM_TEXT_STYLE,
-                          )),
+                          )*/),
                       BottomNavigationBarItem(
                           icon: Icon(Icons.shopping_cart),
+                          label: FlutterI18n.translate(context, 'cart')
+                          /*
                           title: Text(
                             FlutterI18n.translate(context, 'cart'),
                             style: ITEM_TEXT_STYLE,
-                          )),
+                          )*/),
                       BottomNavigationBarItem(
                           icon: Icon(
                             Icons.person,
                             size: 24.0,
                           ),
+                          label: FlutterI18n.translate(context, 'account')
+                          /*
                           title: Text(
                             FlutterI18n.translate(context, 'account'),
                             style: ITEM_TEXT_STYLE,
-                          )),
+                          )*/),
                       BottomNavigationBarItem(
                           icon: Icon(Icons.exit_to_app),
+                          label: FlutterI18n.translate(context, 'account')
+                          /*
                           title: Text(
                             FlutterI18n.translate(context, 'exit'),
                             style: ITEM_TEXT_STYLE,
-                          )),
+                          )*/),
                     ],
                   )));
         }));

@@ -28,8 +28,8 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   ItlHeader header = ItlHeader();
   MediaQueryData mediaQueryData = new MediaQueryData();
 
-  late Handler okHandler;
-  late Handler errorHandler;
+  Handler? okHandler;
+  Handler? errorHandler;
 
   IntraleState() {
     okHandler = Handler(

@@ -33,12 +33,12 @@ class LoginScreenState extends IntraleState<Login> {
   ItlPassword password =
       ItlPassword(descriptionKey: "login_password", validator: Required());
 
-  late SigninService signinService;
+  SigninService? signinService;
 
   LoginScreenState() : super() {
     signinService = new SigninService(handlers: [
-      okHandler,
-      errorHandler,
+      okHandler!,
+      errorHandler!,
       Handler(
           statusCode: 426, function: (response) => onChangePassword(response))
     ]);
@@ -76,7 +76,7 @@ class LoginScreenState extends IntraleState<Login> {
   @override
   onValidSubmit() {
     debugPrint('Login onSubmit');
-    signinService.post(
+    signinService?.post(
         request: SigninRequest(
             username: this.email.value,
             email: this.email.value,
@@ -84,10 +84,10 @@ class LoginScreenState extends IntraleState<Login> {
   }
 
   void onOk(Response response) {
-    SigninResponse? signinResponse = response as SigninResponse?;
+    SigninResponse signinResponse = response as SigninResponse;
     SharedPreferences.getInstance().then((pref) {
-      pref.setString('accessToken', signinResponse?.accessToken ?? '');
-      pref.setString('idToken', signinResponse?.idToken ?? '');
+      pref.setString('accessToken', signinResponse.accessToken);
+      pref.setString('idToken', signinResponse.idToken);
       // Ingresa normalmente a la aplicacion
       //redirectTo(context, ItlNavigationBarDeprecated());
       redirectTo(context, Dashboard());

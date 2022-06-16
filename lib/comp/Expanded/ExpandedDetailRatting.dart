@@ -87,13 +87,13 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
   final ColorTween _iconColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
-  late AnimationController _controller;
-  late Animation<double> _iconTurns;
-  late Animation<double> _heightFactor;
-  late Animation<Color> _borderColor;
-  late Animation<Color> _headerColor;
-  late Animation<Color> _iconColor;
-  late Animation<Color> _backgroundColor;
+  AnimationController? _controller;
+  Animation<double>? _iconTurns;
+  Animation<double>? _heightFactor;
+  Animation<Color>? _borderColor;
+  Animation<Color>? _headerColor;
+  Animation<Color>? _iconColor;
+  Animation<Color>? _backgroundColor;
 
   bool _isExpanded = false;
   bool _gradientExpanded = true;
@@ -102,8 +102,8 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
   void initState() {
     super.initState();
     _controller = AnimationController(duration: _kExpand, vsync: this);
-    _heightFactor = _controller.drive(_easeInTween);
-    _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
+    _heightFactor = _controller!.drive(_easeInTween);
+    _iconTurns = _controller!.drive(_halfTween.chain(_easeInTween));
     /*_borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
@@ -112,12 +112,12 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
     _gradientExpanded = true;
     _isExpanded =
         PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded) _controller.value = 1.0;
+    if (_isExpanded) _controller!.value = 1.0;
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -125,12 +125,12 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
     setState(() {
       _isExpanded = !_isExpanded;
       if (_isExpanded) {
-        _controller.forward();
+        _controller!.forward();
         setState(() {
           _gradientExpanded = false;
         });
       } else {
-        _controller.reverse().then<void>((void value) {
+        _controller!.reverse().then<void>((void value) {
           if (!mounted) return;
           setState(() {
             _gradientExpanded = true;
@@ -154,15 +154,15 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
   }
 
   Widget _buildChildren(BuildContext context, Widget? child) {
-    final Color borderSideColor = _borderColor.value ?? Colors.transparent;
-    final Color titleColor = _headerColor.value;
+    final Color borderSideColor = _borderColor!.value ?? Colors.transparent;
+    final Color titleColor = _headerColor!.value;
 
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconTheme.merge(
-              data: IconThemeData(color: _iconColor.value),
+              data: IconThemeData(color: _iconColor!.value),
               child: GestureDetector(
                 onTap: _handleTap,
                 child: Stack(
@@ -211,7 +211,7 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
               ),
           ClipRect(
             child: Align(
-              heightFactor: _heightFactor.value,
+              heightFactor: _heightFactor!.value,
               child: child,
             ),
           ),
@@ -236,9 +236,9 @@ class _ExpansionTileCustomRattingState extends State<ExpansionTileCustomRatting>
 
   @override
   Widget build(BuildContext context) {
-    final bool closed = !_isExpanded && _controller.isDismissed;
+    final bool closed = !_isExpanded && _controller!.isDismissed;
     return AnimatedBuilder(
-        animation: _controller.view,
+        animation: _controller!.view,
         builder: _buildChildren,
         child: closed
             ? null

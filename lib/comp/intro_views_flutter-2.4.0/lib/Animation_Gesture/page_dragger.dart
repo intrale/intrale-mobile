@@ -28,8 +28,8 @@ class PageDragger extends StatefulWidget {
 
 class _PageDraggerState extends State<PageDragger> {
   //Variables
-  late Offset dragStart;
-  late SlideDirection slideDirection;
+  Offset? dragStart;
+  SlideDirection? slideDirection;
   double slidePercent = 0.0;
 
   // This methods executes when user starts dragging.
@@ -43,7 +43,7 @@ class _PageDraggerState extends State<PageDragger> {
       //Getting new position details
       final newPosition = details.globalPosition;
       //Change in position in x
-      final dx = dragStart.dx - newPosition.dx;
+      final dx = dragStart!.dx - newPosition.dx;
 
       //predicting slide direction
       if (dx > 0.0 && widget.canDragRightToLeft) {
@@ -64,7 +64,7 @@ class _PageDraggerState extends State<PageDragger> {
 
       // Adding to slideUpdateStream
       widget.slideUpdateStream
-          .add(SlideUpdate(slideDirection, slidePercent, UpdateType.dragging));
+          .add(SlideUpdate(slideDirection!, slidePercent, UpdateType.dragging));
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:intrale/util/validation/Validator.dart';
 
 class MaxLength implements Validator {
   int length;
-  late String message;
+  String? message;
 
   MaxLength({required this.length}) {}
 

@@ -27,7 +27,7 @@ class SplashScreen extends StatefulWidget {
 /// Component UI
 class SplashScreenState extends IntraleState<SplashScreen> {
   // Services declarations
-  late ValidateTokenService validateTokenService;
+  //ValidateTokenService validateTokenService;
 
   //AssetImage man;
 
@@ -37,7 +37,7 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   BoxDecoration gradientBlack;*/
 
   SplashScreenState() : super() {
-    validateTokenService = ValidateTokenService();
+    //validateTokenService = ValidateTokenService();
   }
 
   /// Declare startTime to InitState
@@ -115,10 +115,10 @@ class SplashScreenState extends IntraleState<SplashScreen> {
           if (preferences.getString(ACCESS_TOKEN) != null)
             {
               // Validar que el token sea valido
-              validateTokenService
+              ValidateTokenService()
                   .post(request: Request())
                   .then((response) => tokenOk(response, context))
-                  .onError((error, stackTrace) => forwardToLogin(context))
+                  .catchError((error, stackTrace) => forwardToLogin(context))
             }
           else
             {

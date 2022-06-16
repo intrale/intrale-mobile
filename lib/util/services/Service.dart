@@ -13,8 +13,8 @@ const List<Handler> DEFAULT_HANDLER_LIST = <Handler>[];
 abstract class Service<RES extends Response> {
   bool initialized = false;
 
-  late Map<int, Handler> handlers;
-  late Map<String, String> headers;
+  Map<int, Handler>? handlers;
+  Map<String, String>? headers;
 
   String endpoint;
   String function;
@@ -36,20 +36,20 @@ abstract class Service<RES extends Response> {
     }
     debugPrint('Inicializando Servicio');
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String accessToken = '';
-    String idToken = '';
+    String? accessToken = '';
+    String? idToken = '';
 
     if (sharedPreferences.containsKey('accessToken')) {
-      accessToken = sharedPreferences.getString('accessToken')!;
+      accessToken = sharedPreferences.getString('accessToken');
     }
     if (sharedPreferences.containsKey('idToken')) {
-      idToken = sharedPreferences.getString('idToken')!;
+      idToken = sharedPreferences.getString('idToken');
     }
 
     this.headers = {
       'Content-type': 'application/json',
-      'Authorization': accessToken,
-      'idtoken': idToken,
+      'Authorization': accessToken.toString(),
+      'idtoken': idToken.toString(),
       'function': function,
       'businessname': ItlCustom.instance.custom.businessname,
     };
@@ -82,12 +82,12 @@ abstract class Service<RES extends Response> {
     RES response = mapToResponse(responseMap);
 
     //Tratar resultado con handlers
-    if (handlers != null) {
-      Handler? handler = handlers[response.statusCode];
+    if ((handlers != null) && (handlers!.isNotEmpty)) {
+      Handler? handler = handlers![response.statusCode];
       if (handler == null) {
-        handler = handlers[0];
+        handler = handlers![0];
       }
-      handler?.execute(response);
+      handler!.execute(response);
     }
 
     return response;

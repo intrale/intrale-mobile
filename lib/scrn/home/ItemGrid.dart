@@ -132,7 +132,7 @@ class ItemGrid extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                     child: Text(
-                      gridItem.price!.unitPrice.toString(),
+                      gridItem.price.unitPrice.toString(),
                       style: PRICE_TEXT_STYLE,
                     ),
                   ),

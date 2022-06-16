@@ -1,5 +1,6 @@
 import 'package:intrale/comp/ItlCustom.dart';
 
+//TODO: Evaluar si esto deberia estar en ItlCustom para no correr el riesgo de utilizar urls antes de estar disponibles
 class Endpoints {
   static final String USERS = ItlCustom.instance.custom.api_url + "/users";
   static final String PRODUCTS =

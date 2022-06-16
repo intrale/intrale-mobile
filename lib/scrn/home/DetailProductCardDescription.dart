@@ -21,7 +21,7 @@ const TextStyle DETAIL_TEXT_STYLE = TextStyle(
     wordSpacing: 0.5);
 
 class DetailProductCardDescription extends StatelessWidget {
-  Product gridItem;
+  Product? gridItem;
   DetailProductCardDescription(this.gridItem);
 
   @override
@@ -52,7 +52,7 @@ class DetailProductCardDescription extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(
                     top: 15.0, right: 20.0, bottom: 10.0, left: 20.0),
-                child: Text(gridItem.description, style: DETAIL_TEXT_STYLE),
+                child: Text(gridItem!.description, style: DETAIL_TEXT_STYLE),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),

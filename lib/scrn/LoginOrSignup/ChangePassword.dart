@@ -53,10 +53,10 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
             regexp: FormatValidation.PASSWORD_PATTERN)
       ]));
 
-  late SigninService signinService;
+  SigninService? signinService;
 
   ChangePasswordState({required this.email, required this.password}) : super() {
-    signinService = new SigninService(handlers: [okHandler, errorHandler]);
+    signinService = new SigninService(handlers: [okHandler!, errorHandler!]);
   }
 
   @override
@@ -87,7 +87,7 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
 
   @override
   onValidSubmit() {
-    signinService.post(
+    signinService?.post(
         request: SigninRequest(
             name: this.name.value,
             familyName: this.familyName.value,
@@ -108,8 +108,8 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Ocurrio un error:" + (error.code ?? '')),
-              content: Text(error.description ?? ''));
+              title: Text("Ocurrio un error:" + (error.code)),
+              content: Text(error.description));
         });
   }
 }

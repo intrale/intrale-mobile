@@ -10,7 +10,7 @@ class ItlCustom {
   Future initialize() async {
     print("obteniendo custom.json");
     var jsonText =
-        await rootBundle.loadString("assets/custom/INTRALE/custom.json");
+        await rootBundle.loadString("assets/custom/custom.json");
     print(jsonText);
     Map<String, dynamic> responseMap = jsonDecode(jsonText);
     this.custom = ItlCustomEntity.fromJson(responseMap);

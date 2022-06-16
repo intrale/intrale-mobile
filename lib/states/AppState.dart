@@ -20,7 +20,7 @@ class AppState extends ChangeNotifier {
 
   Cart cart = Cart();
 
-  late Product product;
+  Product? product;
 
   //FIXME: Evaluar si es posible inicializar el carrito dentro del constructor
   AppState(/*this.cart*/);

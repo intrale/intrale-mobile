@@ -4,8 +4,8 @@ part 'Error.g.dart';
 
 @JsonSerializable()
 class Error {
-  String? code;
-  String? description;
+  String code;
+  String description;
 
   Error({required this.code, required this.description}) {}
 

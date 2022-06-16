@@ -9,8 +9,8 @@ part of 'ReadProductsResponse.dart';
 ReadProductsResponse _$ReadProductsResponseFromJson(
         Map<String, dynamic> json) =>
     ReadProductsResponse(
-      products: (json['products'] as List<dynamic>?)
-          ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+      products: (json['products'] as List<dynamic>)
+          .map((e) => Product.fromJson(e as Map<String, dynamic>))
           .toList(),
     )
       ..statusCode = json['statusCode'] as int?

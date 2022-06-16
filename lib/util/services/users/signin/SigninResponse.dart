@@ -7,9 +7,9 @@ part 'SigninResponse.g.dart';
 
 @JsonSerializable()
 class SigninResponse extends Response {
-  String? idToken;
-  String? accessToken;
-  String? refreshToken;
+  String idToken;
+  String accessToken;
+  String refreshToken;
 
   SigninResponse(
       {required this.idToken,

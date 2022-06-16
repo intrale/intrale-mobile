@@ -16,7 +16,7 @@ class AnimatedPageDragger {
   final TransitionGoal transitionGoal;
 
   //Animation controller
-  late AnimationController completionAnimationController;
+  AnimationController? completionAnimationController;
 
   //Constructor
   AnimatedPageDragger({
@@ -53,7 +53,7 @@ class AnimatedPageDragger {
         duration: duration, vsync: vsync)
       ..addListener(() {
         final slidePercent = lerpDouble(startSlidePercent, endSlidePercent,
-            completionAnimationController.value);
+            completionAnimationController!.value);
 
         //Adding to slide update stream
         slideUpdateStream.add(
@@ -71,11 +71,11 @@ class AnimatedPageDragger {
 
   //This method is used to run animation Controller
   void run() {
-    completionAnimationController.forward(from: 0.0);
+    completionAnimationController!.forward(from: 0.0);
   }
 
   //This method is used to dispose animation controller
   void dispose() {
-    completionAnimationController.dispose();
+    completionAnimationController!.dispose();
   }
 }

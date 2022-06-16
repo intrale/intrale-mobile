@@ -9,7 +9,7 @@ const TextStyle CUSTOM_TEXT_STYLE = TextStyle(
 );
 
 class DetailProductCardData extends StatelessWidget {
-  Product gridItem;
+  Product? gridItem;
   DetailProductCardData(this.gridItem);
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class DetailProductCardData extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              gridItem.name,
+              gridItem!.name,
               style: CUSTOM_TEXT_STYLE,
             ),
             Padding(padding: EdgeInsets.only(top: 5.0)),
             Text(
-              gridItem.price!.unitPrice.toString(),
+              gridItem!.price.unitPrice.toString(),
               style: CUSTOM_TEXT_STYLE,
             ),
             Padding(padding: EdgeInsets.only(top: 10.0)),
