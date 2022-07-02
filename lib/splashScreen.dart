@@ -3,7 +3,6 @@ import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/ItlCustom.dart';
 import 'package:intrale/comp/ItlText.dart';
 import 'package:intrale/const/TextStyleConst.dart';
-import 'package:intrale/model/Cart.dart';
 import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/util/services/Request.dart';
@@ -13,7 +12,6 @@ import 'package:intrale/util/tools.dart';
 import 'package:intrale/util/users.dart';
 import 'package:intrale/scrn/LoginOrSignup/ChoseLoginOrSignup.dart';
 import 'package:intrale/scrn/OnBoarding.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String ACCESS_TOKEN = 'accessToken';
@@ -26,18 +24,8 @@ class SplashScreen extends StatefulWidget {
 
 /// Component UI
 class SplashScreenState extends IntraleState<SplashScreen> {
-  // Services declarations
-  //ValidateTokenService validateTokenService;
-
-  //AssetImage man;
-
-  // Other Components declarations
-  /*Hero hero;
-  BoxDecoration backgroundImage;
-  BoxDecoration gradientBlack;*/
 
   SplashScreenState() : super() {
-    //validateTokenService = ValidateTokenService();
   }
 
   /// Declare startTime to InitState
