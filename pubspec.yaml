@@ -48,8 +48,9 @@ dependencies:
 
   path_provider_android: 2.0.6
   sqflite: 2.0.0+3
-  firebase_messaging: ^11.4.2
-
+  firebase_messaging: 11.4.2
+  device_info_plus: 4.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

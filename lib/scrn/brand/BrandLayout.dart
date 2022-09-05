@@ -1,7 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:intrale/scrn/brand/BrandDetail.dart';
 import 'package:intrale/model/BrandDataList.dart';
 import 'package:intrale/scrn/home/Search.dart';

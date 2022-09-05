@@ -2,6 +2,7 @@ import 'package:intrale/comp/ItlCustom.dart';
 
 //TODO: Evaluar si esto deberia estar en ItlCustom para no correr el riesgo de utilizar urls antes de estar disponibles
 class Endpoints {
+  static final String NOTIFICATIONS = ItlCustom.instance.custom.api_url + "/notifications";
   static final String USERS = ItlCustom.instance.custom.api_url + "/users";
   static final String PRODUCTS =
       "https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/products";

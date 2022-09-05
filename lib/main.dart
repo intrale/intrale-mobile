@@ -6,6 +6,7 @@ import 'package:intrale/splashScreen.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
 /// Run first apps open
@@ -26,8 +27,12 @@ class IntraleApp extends StatelessWidget {
     .then(
       (value) => {
         print('Finaliza Firebase.initializeApp'),
-        /*var fcmToken = FirebaseMessaging.instance.getToken(),*/
-        FirebaseMessaging.instance.getToken().then((value) => print('fcmToken:' + value.toString()))
+        FirebaseMessaging.instance.getToken().then((value) => {
+          print('fcmToken:' + value.toString()),
+          SharedPreferences.getInstance().then((pref) {
+            pref.setString('fcmToken', value.toString());
+          })
+        })
       }
     );
 
@@ -44,28 +49,8 @@ class IntraleApp extends StatelessWidget {
 
     return getApp();
 
-    /* return FutureBuilder(
-      // Initialize FlutterFire
-      future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((value) => print('Finaliza Firebase.initializeApp')),
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return getApp();
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return getApp();
-        }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return getApp();
-      },
-    );*/
   }
-
-
-  }
+}
 
 
 MaterialApp getApp(){

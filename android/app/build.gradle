@@ -25,6 +25,7 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    // No puede ser superior a 30 porque entra en conflicto con el checkout de mercadolibre
     compileSdkVersion 30
 
     lintOptions {

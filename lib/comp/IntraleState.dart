@@ -9,6 +9,7 @@ import 'package:intrale/util/services/Handler.dart';
 import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/StatusCodes.dart';
 
+//TODO: Mejorar uso de handlers
 abstract class IntraleState<T extends StatefulWidget> extends State<T>
     with TickerProviderStateMixin {
   final formKey = GlobalKey<FormState>();
@@ -43,6 +44,7 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   void onError(Response response) {}
 
   onSubmit() {
+    debugPrint('IntraleState onSubmit');
     bool valid = formKey.currentState?.validate() ?? false;
     if (valid) {
       formKey.currentState?.save();

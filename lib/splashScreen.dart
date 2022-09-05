@@ -25,8 +25,7 @@ class SplashScreen extends StatefulWidget {
 /// Component UI
 class SplashScreenState extends IntraleState<SplashScreen> {
 
-  SplashScreenState() : super() {
-  }
+  SplashScreenState() : super();
 
   /// Declare startTime to InitState
   @override
@@ -52,21 +51,35 @@ class SplashScreenState extends IntraleState<SplashScreen> {
 
   /// Code Create UI Splash Screen
   Widget build(BuildContext context) {
-    return Container(
-      /// Set Background image in splash screen layout (Click to open code)
-      decoration: BoxDecoration(
+    BoxDecoration manImage = BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/img/man.png'), fit: BoxFit.cover)),
-      child: Container(
-        /// Set gradient black in image splash screen (Click to open code)
-        decoration: BoxDecoration(
+              image: AssetImage('assets/img/man.png'), fit: BoxFit.cover));
+
+    BoxDecoration gradientBlack =  BoxDecoration(
             gradient: LinearGradient(
                 colors: [
               Color.fromRGBO(0, 0, 0, 0.3),
               Color.fromRGBO(0, 0, 0, 0.4)
             ],
                 begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomCenter)),
+                end: FractionalOffset.bottomCenter));
+
+    ItlText welcomeTo = ItlText(
+                      textKey: "welcomeTo", style: SPLASH_SCREEN_WELCOME_TO);
+
+    Hero hero = Hero(
+                      tag: "Intrale",
+                      child: ItlText(
+                          textKey: "businessName",
+                          style: SPLASH_SCREEN_BUSINESS_NAME));
+
+
+    return Container(
+      /// Set Background image in splash screen layout (Click to open code)
+      decoration: manImage,
+      child: Container(
+        /// Set gradient black in image splash screen (Click to open code)
+        decoration: gradientBlack,
         child: Center(
           child: SingleChildScrollView(
             child: Container(
@@ -78,15 +91,10 @@ class SplashScreenState extends IntraleState<SplashScreen> {
                   ),
 
                   /// Text header "Welcome To" (Click to open code)
-                  ItlText(
-                      textKey: "welcomeTo", style: SPLASH_SCREEN_WELCOME_TO),
+                  welcomeTo,
 
                   /// Animation text Treva Shop to choose Login with Hero Animation (Click to open code)
-                  Hero(
-                      tag: "Intrale",
-                      child: ItlText(
-                          textKey: "businessName",
-                          style: SPLASH_SCREEN_BUSINESS_NAME))
+                  hero
                 ],
               ),
             ),

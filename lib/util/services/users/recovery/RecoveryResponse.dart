@@ -7,9 +7,9 @@ part 'RecoveryResponse.g.dart';
 
 @JsonSerializable()
 class RecoveryResponse extends Response {
-  String email;
+  String? email;
 
-  RecoveryResponse({required this.email}) {}
+  RecoveryResponse({this.email}) {}
 
   factory RecoveryResponse.fromJson(Map<String, dynamic> json) =>
       _$RecoveryResponseFromJson(json);

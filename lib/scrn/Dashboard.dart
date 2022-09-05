@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:intrale/model/Cart.dart';
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/account/Profile.dart';
 import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/Home.dart';
 import 'package:intrale/states/AppState.dart';
-import 'package:intrale/states/CartState.dart';
-import 'package:intrale/states/ScreenState.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,14 +41,6 @@ class DashboardState extends State<Dashboard> {
     sharedPreferences.then((preference) => forward(preference));
   }
 
-  Widget? getScreen() {
-    debugPrint("getScreen");
-    if (currentIndex < 3) {
-      return screens[currentIndex];
-    }
-    forwardToLogin();
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -76,7 +65,6 @@ class DashboardState extends State<Dashboard> {
                       setState(() {
                         debugPrint('ItlNavigationBarrState setState:' +
                             value.toString());
-                        //currentIndex = value;
                         appState.setScreenIndex(value);
                       });
                     },
@@ -87,37 +75,22 @@ class DashboardState extends State<Dashboard> {
                             size: 23.0,
                           ),
                           label: FlutterI18n.translate(context, 'home')
-                          /*title: Text(
-                            FlutterI18n.translate(context, 'home'),
-                            style: ITEM_TEXT_STYLE,
-                          )*/),
+                          ),
                       BottomNavigationBarItem(
                           icon: Icon(Icons.shopping_cart),
                           label: FlutterI18n.translate(context, 'cart')
-                          /*
-                          title: Text(
-                            FlutterI18n.translate(context, 'cart'),
-                            style: ITEM_TEXT_STYLE,
-                          )*/),
+                          ),
                       BottomNavigationBarItem(
                           icon: Icon(
                             Icons.person,
                             size: 24.0,
                           ),
                           label: FlutterI18n.translate(context, 'account')
-                          /*
-                          title: Text(
-                            FlutterI18n.translate(context, 'account'),
-                            style: ITEM_TEXT_STYLE,
-                          )*/),
+                          ),
                       BottomNavigationBarItem(
                           icon: Icon(Icons.exit_to_app),
                           label: FlutterI18n.translate(context, 'account')
-                          /*
-                          title: Text(
-                            FlutterI18n.translate(context, 'exit'),
-                            style: ITEM_TEXT_STYLE,
-                          )*/),
+                          ),
                     ],
                   )));
         }));

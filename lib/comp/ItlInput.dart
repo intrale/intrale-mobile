@@ -3,7 +3,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/const/TextStyleConst.dart';
 
 import 'package:intrale/util/validation/Validator.dart';
-import 'package:intrale/comp/TapEvent.dart';
 
 /// textfromfield custom class
 class ItlInput extends StatefulWidget {
@@ -12,7 +11,6 @@ class ItlInput extends StatefulWidget {
   final IconData icon;
   final TextInputType inputType;
   final Validator validator;
-  //final TapEvent tapEvent;
   var value;
 
   ItlInput(
@@ -21,7 +19,6 @@ class ItlInput extends StatefulWidget {
       this.inputType = TextInputType.text,
       this.password = false,
       this.validator = const Validator(),
-      /*this.tapEvent,*/
       this.value});
 
   onSaved(var value) {

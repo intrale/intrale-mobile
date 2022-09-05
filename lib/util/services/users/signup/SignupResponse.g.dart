@@ -8,8 +8,8 @@ part of 'SignupResponse.dart';
 
 SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) =>
     SignupResponse(
-      businessName: json['businessName'] as String,
-      email: json['email'] as String,
+      businessName: json['businessName'] as String?,
+      email: json['email'] as String?,
     )
       ..statusCode = json['statusCode'] as int?
       ..errors = (json['errors'] as List<dynamic>?)

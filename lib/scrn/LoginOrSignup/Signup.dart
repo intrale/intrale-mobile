@@ -65,27 +65,38 @@ class SignupScreenState extends IntraleState<Signup> {
         ));
   }
 
-  @override
-  onValidSubmit() {
-    signupService
-        ?.post(request: SignupRequest(email: this.email.value))
-        .then((value) => {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: ItlText(textKey: "review"),
-                      actions: [
-                        TextButton(
-                            child: ItlText(textKey: "signup_ok"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            }),
-                      ],
+  showDialogSignupOk(){
+    ItlText reviewText = ItlText(textKey: "review");
+    ItlText okText = ItlText(textKey: "signup_ok");
+    TextButton singupOkButton = TextButton(
+                            child: okText,
+                            onPressed:onPressedSignupOk()
+                            );
+    AlertDialog singupOkDialog = AlertDialog(
+                      title: reviewText,
+                      actions: [singupOkButton],
                     );
-                  })
-            });
+
+
+    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return singupOkDialog;
+                      });
+  }
+
+  onPressedSignupOk(){
+    debugPrint('onPressed');
+    Navigator.of(context).pop();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (BuildContext context) => new Login()));
+  }
+
+  @override
+  onValidSubmit() {
+
+    signupService
+        ?.post(request: SignupRequest(email: this.email.value))
+        .then((value) => showDialogSignupOk());
   }
 }

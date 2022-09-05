@@ -8,7 +8,7 @@ part of 'RecoveryResponse.dart';
 
 RecoveryResponse _$RecoveryResponseFromJson(Map<String, dynamic> json) =>
     RecoveryResponse(
-      email: json['email'] as String,
+      email: json['email'] as String?,
     )
       ..statusCode = json['statusCode'] as int?
       ..errors = (json['errors'] as List<dynamic>?)

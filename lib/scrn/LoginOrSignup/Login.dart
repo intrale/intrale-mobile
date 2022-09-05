@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/comp/IntraleState.dart';
@@ -8,9 +10,12 @@ import 'package:intrale/comp/ItlPassword.dart';
 import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/LoginOrSignup/ChangePassword.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
+import 'package:intrale/util/device/DeviceInfoFactory.dart';
 import 'package:intrale/util/services/Error.dart';
 import 'package:intrale/util/services/Handler.dart';
 import 'package:intrale/util/services/Response.dart';
+import 'package:intrale/util/services/notifications/save/SaveNotificationTokenRequest.dart';
+import 'package:intrale/util/services/notifications/save/SaveNotificationTokenService.dart';
 import 'package:intrale/util/services/users/signin/SigninRequest.dart';
 import 'package:intrale/util/services/users/signin/SigninResponse.dart';
 import 'package:intrale/util/services/users/signin/SigninService.dart';
@@ -25,6 +30,7 @@ class Login extends StatefulWidget {
 
 /// Component Widget this layout UI
 class LoginScreenState extends IntraleState<Login> {
+
   ItlEmail email = ItlEmail(
     descriptionKey: "login_email",
     validator: Required(),
@@ -86,11 +92,23 @@ class LoginScreenState extends IntraleState<Login> {
   void onOk(Response response) {
     SigninResponse signinResponse = response as SigninResponse;
     SharedPreferences.getInstance().then((pref) {
-      pref.setString('accessToken', signinResponse.accessToken);
-      pref.setString('idToken', signinResponse.idToken);
-      // Ingresa normalmente a la aplicacion
-      //redirectTo(context, ItlNavigationBarDeprecated());
-      redirectTo(context, Dashboard());
+      pref.setString('accessToken', signinResponse.accessToken!);
+      pref.setString('idToken', signinResponse.idToken!);
+
+      DeviceInfoFactory().getDeviceInfo().then((deviceInfo) {
+        print("onOk:" + deviceInfo.toString());
+        SaveNotificationTokenRequest saveNotificationTokenRequest = SaveNotificationTokenRequest();    
+        saveNotificationTokenRequest.email = this.email.value;
+        saveNotificationTokenRequest.device = deviceInfo.id;
+        saveNotificationTokenRequest.token = pref.getString('fcmToken');
+
+        SaveNotificationTokenService().post(request: saveNotificationTokenRequest).then((value) =>{
+          // Ingresa normalmente a la aplicacion
+          redirectTo(context, Dashboard())
+        });
+
+      } );
+      
     });
   }
 

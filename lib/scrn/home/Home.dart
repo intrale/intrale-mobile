@@ -28,7 +28,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     readProductsServices?.post(request: ReadProductsRequest()).then((value) => {
           setState(() {
             if (value.products != null) {
-              gridItemArray = value.products;
+              gridItemArray = value.products!;
             }
           })
         });
