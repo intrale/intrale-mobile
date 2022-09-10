@@ -1,6 +1,7 @@
 import 'package:intrale/comp/ItlRedirectButton.dart';
-import 'package:intrale/scrn/LoginOrSignup/Login.dart';
+
+//TODO: Quitar, el redirec se hace directo al path
 
 class ItlLoginRedirectButton extends ItlRedirectButton {
-  ItlLoginRedirectButton() : super(textKey: "haveUser", widget: Login());
+  ItlLoginRedirectButton() : super(textKey: "haveUser", path:'/login');
 }

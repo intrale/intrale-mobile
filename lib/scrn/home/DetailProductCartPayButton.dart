@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intrale/scrn/cart/Delivery.dart';
-import 'package:intrale/util/tools.dart';
 
 const TextStyle CART_PAY_TEXT_STYLE =
     TextStyle(color: Colors.white, fontWeight: FontWeight.w700);
@@ -10,7 +10,7 @@ class DetailProductCartPayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        redirectTo(context, delivery());
+        context.go('/delivery');
       },
       child: Container(
         height: 45.0,

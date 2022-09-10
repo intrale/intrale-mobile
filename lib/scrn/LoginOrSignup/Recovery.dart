@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/ItlButton.dart';
 import 'package:intrale/comp/ItlEmail.dart';
@@ -11,7 +12,6 @@ import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/users/recovery/RecoveryResponse.dart';
 import 'package:intrale/util/services/users/recovery/RecoveryService.dart';
 import 'package:intrale/util/services/users/signup/SignupRequest.dart';
-import 'package:intrale/util/tools.dart';
 import 'package:intrale/util/validation/FormatValidation.dart';
 import 'package:intrale/util/validation/MultipleValidations.dart';
 import 'package:intrale/util/validation/Required.dart';
@@ -72,7 +72,7 @@ class RecoveryScreenState extends IntraleState<Recovery> {
   }
 
   void onOk(Response response) {
-    redirectTo(context, Confirm());
+    context.go('/confirm');
   }
 
   void onError(Response response) {

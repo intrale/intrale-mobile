@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/ItlButton.dart';
 import 'package:intrale/comp/ItlEmail.dart';
@@ -12,7 +13,6 @@ import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/users/confirm/ConfirmRecoveryRequest.dart';
 import 'package:intrale/util/services/users/confirm/ConfirmRecoveryResponse.dart';
 import 'package:intrale/util/services/users/confirm/ConfirmRecoveryService.dart';
-import 'package:intrale/util/tools.dart';
 import 'package:intrale/util/validation/MinLength.dart';
 import 'package:intrale/util/validation/MultipleValidations.dart';
 import 'package:intrale/util/validation/Required.dart';
@@ -86,7 +86,7 @@ class ConfirmScreenState extends IntraleState<Confirm> {
   }
 
   void onOk(Response response) {
-    redirectTo(context, Login());
+    context.go('/login');
   }
 
   void onError(Response response) {

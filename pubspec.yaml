@@ -6,7 +6,8 @@ version: 0.0.1
 
 environment:
   #sdk: ">=2.5.2 <3.0.0"
-  sdk: ">=2.12.0 <3.0.0"
+  #sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -50,13 +51,15 @@ dependencies:
   sqflite: 2.0.0+3
   firebase_messaging: 11.4.2
   device_info_plus: 4.0.1
+  go_router: 4.3.0
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable:
   #build_runner: 1.3.0 #for flutter 1.22.6
-  build_runner: 2.1.11 #for flutter 3.0.1
+  #build_runner: 2.1.11 #for flutter 3.0.1
+  build_runner: 2.1.1 #for flutter 3.0.1
   
 
 flutter:

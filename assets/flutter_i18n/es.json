@@ -14,8 +14,11 @@
     "haveCode": "¿Posee un codigo de recuperacion?, Ingreselo",
     "haveUser":"¿Se encuentra registrado?, Ingrese",
 
+    "reviewTitle":"Atención",
+    "review":"Por favor, revise su correo. Hemos enviado información importante.",
+
     "emailFormat":"Debe tener formato de email",
-    "review":"Por favor, revise su correo",
+    
     "required": "El campo es obligatorio",
     "maxLength": "Puede contener hasta {count} caracteres",
     "minLength": "Debe contener al menos{count} caracteres",
@@ -32,7 +35,8 @@
     "login_email": "Email",
     "login_password":"Contraseña",
     "login_ok":"Aceptar",
-    "login_badCredentials":"Usuario o contraseña incorrectos",
+    "badCredentialsTitle":"Atención",
+    "badCredentials":"Usuario o contraseña incorrectos",
 
     "signup_submit":"Registrar", 
     "signup_email":"Email",

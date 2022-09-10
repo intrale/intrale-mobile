@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/util/tools.dart';
+import 'package:go_router/go_router.dart';
 
 class RedirectButton extends StatelessWidget {
   final String txt;
-  final Widget redirect;
+  final String path;
 
-  RedirectButton({required this.txt, required this.redirect});
+  RedirectButton({required this.txt, required this.path});
 
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          redirectTo(context, this.redirect);
+          context.go(this.path);
         },
         splashColor: Colors.white,
         child: LayoutBuilder(builder: (context, constraint) {
@@ -26,7 +26,7 @@ class RedirectButton extends StatelessWidget {
             child: Center(
                 child: TextButton(
                     onPressed: () {
-                      redirectTo(context, this.redirect);
+                      context.go(this.path);
                     },
                     child: Text(
                       txt,

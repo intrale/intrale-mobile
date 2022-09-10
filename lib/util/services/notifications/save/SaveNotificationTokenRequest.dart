@@ -11,6 +11,8 @@ class SaveNotificationTokenRequest extends Request {
 
   SaveNotificationTokenRequest() : super();
 
+  SaveNotificationTokenRequest.fromArgs(this.email, this.token, this.device) : super();
+
   factory SaveNotificationTokenRequest.fromJson(Map<String, dynamic> json) =>
       _$SaveNotificationTokenRequestFromJson(json);
 

@@ -1,11 +1,11 @@
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/const/TextStyleConst.dart';
 import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/LoginOrSignup/RedirectButton.dart';
 import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
-import 'package:intrale/util/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
 
@@ -200,7 +200,7 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                               RedirectButton(
                                   txt: FlutterI18n.translate(
                                       context, "choseLogin_login"),
-                                  redirect: new Login()),
+                                  path: '/login'),
                               Padding(padding: EdgeInsets.only(top: 15.0)),
                               Center(
                                 child: Row(
@@ -219,7 +219,7 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                                       /// navigation to home screen if user click "OR SKIP" (Click to open code)
                                       child: InkWell(
                                         onTap: () {
-                                          redirectTo(context, Dashboard());
+                                          context.go('/dashboard');
                                         },
                                         child: Text(
                                           FlutterI18n.translate(
@@ -248,7 +248,7 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                           RedirectButton(
                               txt: FlutterI18n.translate(
                                   context, "choseLogin_signup"),
-                              redirect: new Signup())
+                              path: '/signup')
                         ],
                       ),
                     ],

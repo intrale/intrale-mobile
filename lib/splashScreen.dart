@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/ItlCustom.dart';
 import 'package:intrale/comp/ItlText.dart';
-import 'package:intrale/const/TextStyleConst.dart';
-import 'package:intrale/scrn/Dashboard.dart';
-import 'package:intrale/scrn/LoginOrSignup/Login.dart';
+import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/util/IntralePreferences.dart';
+import 'package:intrale/util/Wait.dart';
 import 'package:intrale/util/services/Request.dart';
 import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/users/validateToken/ValidateTokenService.dart';
-import 'package:intrale/util/tools.dart';
-import 'package:intrale/util/users.dart';
-import 'package:intrale/scrn/LoginOrSignup/ChoseLoginOrSignup.dart';
-import 'package:intrale/scrn/OnBoarding.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-const String ACCESS_TOKEN = 'accessToken';
-const String ID_TOKEN = 'idToken';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -32,21 +25,8 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   void initState() {
     super.initState();
 
-    ItlCustom.instance.initialize().then((value) => {
-          Future.delayed(
-              new Duration(milliseconds: 2000),
-              () => {
-                    usernameExists().then((exist) => {
-                          if (exist)
-                            {validateToken(context)}
-                          else
-                            {
-                              Future.delayed(new Duration(milliseconds: 2000),
-                                  redirectTo(context, onBoarding()))
-                            }
-                        })
-                  })
-        });
+    ItlCustom.instance.initialize().then((value) => validateToken(context));
+
   }
 
   /// Code Create UI Splash Screen
@@ -65,14 +45,13 @@ class SplashScreenState extends IntraleState<SplashScreen> {
                 end: FractionalOffset.bottomCenter));
 
     ItlText welcomeTo = ItlText(
-                      textKey: "welcomeTo", style: SPLASH_SCREEN_WELCOME_TO);
+                      textKey: "welcomeTo", style: Styles.TEXT_STYLES.WELCOME_PREFIX);
 
     Hero hero = Hero(
                       tag: "Intrale",
                       child: ItlText(
                           textKey: "businessName",
-                          style: SPLASH_SCREEN_BUSINESS_NAME));
-
+                          style: Styles.TEXT_STYLES.WELCOME_BUSINESS_NAME));
 
     return Container(
       /// Set Background image in splash screen layout (Click to open code)
@@ -93,7 +72,7 @@ class SplashScreenState extends IntraleState<SplashScreen> {
                   /// Text header "Welcome To" (Click to open code)
                   welcomeTo,
 
-                  /// Animation text Treva Shop to choose Login with Hero Animation (Click to open code)
+                  /// Animation text Business Name to choose Login with Hero Animation (Click to open code)
                   hero
                 ],
               ),
@@ -105,42 +84,31 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   }
 
   void validateToken(BuildContext context) {
-    Future<SharedPreferences> sharedPreferences =
-        SharedPreferences.getInstance();
-    sharedPreferences.then((preferences) => {
-          if (preferences.getString(ACCESS_TOKEN) != null)
-            {
+    IntralePreferences().read().then((value) => {
+      if (value.accessToken!=null){
               // Validar que el token sea valido
               ValidateTokenService()
                   .post(request: Request())
                   .then((response) => tokenOk(response, context))
                   .catchError((error, stackTrace) => forwardToLogin(context))
-            }
-          else
-            {
-              Future.delayed(new Duration(milliseconds: 2000),
-                  redirectTo(context, ChoseLogin()))
-            }
-        });
+      } else {
+        Wait(milliseconds: 4000, onFinishFunction: ()=>context.go('/choseLogin'))
+      }
+    });
+
   }
 
   void tokenOk(Response response, BuildContext context) async {
     if (response.statusCode == 200) {
-      redirectTo(context, Dashboard());
+      context.go('/dashboard');
     } else {
       forwardToLogin(context);
     }
   }
 
   void forwardToLogin(BuildContext context) {
-    Future<SharedPreferences> sharedPreferences =
-        SharedPreferences.getInstance();
-    sharedPreferences.then((preference) => removeTokens(preference));
-    redirectTo(context, new Login());
+    IntralePreferences().reset();
+    context.go('/login');
   }
 
-  void removeTokens(SharedPreferences sharedPreferences) {
-    sharedPreferences.remove(ACCESS_TOKEN);
-    sharedPreferences.remove(ID_TOKEN);
-  }
 }

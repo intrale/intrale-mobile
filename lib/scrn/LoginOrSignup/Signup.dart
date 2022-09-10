@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intrale/comp/IntraleMessageDialog.dart';
 
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/ItlButton.dart';
 import 'package:intrale/comp/ItlEmail.dart';
 import 'package:intrale/comp/ItlFields.dart';
-import 'package:intrale/comp/ItlText.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
 
-import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/util/services/users/signup/SignupRequest.dart';
 import 'package:intrale/util/services/users/signup/SignupService.dart';
 import 'package:intrale/util/validation/FormatValidation.dart';
@@ -23,6 +22,7 @@ class Signup extends StatefulWidget {
 
 /// Component Widget this layout UI
 class SignupScreenState extends IntraleState<Signup> {
+
   ItlEmail email = ItlEmail(
     descriptionKey: "signup_email",
     validator: MultipleValidations(validations: [
@@ -66,37 +66,17 @@ class SignupScreenState extends IntraleState<Signup> {
   }
 
   showDialogSignupOk(){
-    ItlText reviewText = ItlText(textKey: "review");
-    ItlText okText = ItlText(textKey: "signup_ok");
-    TextButton singupOkButton = TextButton(
-                            child: okText,
-                            onPressed:onPressedSignupOk()
-                            );
-    AlertDialog singupOkDialog = AlertDialog(
-                      title: reviewText,
-                      actions: [singupOkButton],
-                    );
-
-
-    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return singupOkDialog;
-                      });
-  }
-
-  onPressedSignupOk(){
-    debugPrint('onPressed');
-    Navigator.of(context).pop();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => new Login()));
+    debugPrint('showDialogSignupOk');
+    IntraleMessageDialog dialog = IntraleMessageDialog(titleKey: "reviewTitle", contentKey: "review", buttonKey: "signup_ok", 
+              onPressButton: ()=>context.go('/login'));
+    dialog.show(context);
   }
 
   @override
   onValidSubmit() {
-
     signupService
         ?.post(request: SignupRequest(email: this.email.value))
-        .then((value) => showDialogSignupOk());
+        .then((value) => showDialogSignupOk())
+        .onError((error, stackTrace) => debugPrint('Ocurrio un error onValidSubmit:' + error.toString()));
   }
 }

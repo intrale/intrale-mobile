@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intrale/splashScreen.dart';
+import 'package:intrale/IntraleRouter.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intrale/util/IntralePreferences.dart';
 import 'firebase_options.dart';
 
 /// Run first apps open
 void main() { 
-  runApp(MaterialApp(home: IntraleApp()));
+  runApp(IntraleApp());
 }
 
 /// Set orienttation
@@ -29,9 +29,7 @@ class IntraleApp extends StatelessWidget {
         print('Finaliza Firebase.initializeApp'),
         FirebaseMessaging.instance.getToken().then((value) => {
           print('fcmToken:' + value.toString()),
-          SharedPreferences.getInstance().then((pref) {
-            pref.setString('fcmToken', value.toString());
-          })
+          IntralePreferences().writeFCMToken(value.toString())
         })
       }
     );
@@ -57,8 +55,11 @@ MaterialApp getApp(){
 
   print('Obteniendo fcmToken');
 
-    return MaterialApp(localizationsDelegates: [
-      FlutterI18nDelegate(
+    return MaterialApp.router(
+      routeInformationProvider: _router.routeInformationProvider,
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
+      localizationsDelegates: [FlutterI18nDelegate(
         translationLoader: FileTranslationLoader(
             basePath: 'assets/flutter_i18n',
             fallbackFile: 'es',
@@ -67,11 +68,12 @@ MaterialApp getApp(){
           print("--- Missing Key: $key, languageCode: ${locale?.languageCode}");
         },
       ),
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ], supportedLocales: [
-      Locale('en', ''), // English, no country code
-      Locale('es', ''), // Spanish, no country code
-    ], home: SplashScreen());
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      title: 'GoRouter Example',
+    );
+
 }
+
+final IntraleRouter _router = IntraleRouter();

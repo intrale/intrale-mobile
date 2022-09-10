@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/scrn/home/ChatItem.dart';
-import 'package:intrale/util/tools.dart';
+import 'package:go_router/go_router.dart';
 
 class DetailProductChatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        redirectTo(context, chatItem());
+        context.go('/chat');
       },
       child: Container(
         height: 40.0,

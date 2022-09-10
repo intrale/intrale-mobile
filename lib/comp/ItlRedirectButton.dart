@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/ItlText.dart';
-import 'package:intrale/util/tools.dart';
 
 class ItlRedirectButton extends StatelessWidget {
   String textKey;
-  Widget widget;
+  String path;
 
-  ItlRedirectButton({required this.textKey, required this.widget}) {}
+  ItlRedirectButton({required this.textKey, required this.path}) {}
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () {
-          redirectTo(context, widget);
+          context.go(path);
         },
         child: ItlText(textKey: textKey));
   }
