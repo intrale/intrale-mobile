@@ -17,6 +17,9 @@
     "reviewTitle":"Atención",
     "review":"Por favor, revise su correo. Hemos enviado información importante.",
 
+    "errorTitle":"Error",
+    "error":"Ocurrio un error desafortunado.",
+
     "emailFormat":"Debe tener formato de email",
     
     "required": "El campo es obligatorio",

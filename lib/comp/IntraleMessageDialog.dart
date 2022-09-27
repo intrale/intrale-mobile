@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/comp/ItlButton.dart';
+import 'package:intrale/comp/buttons/SolidButton.dart';
 import 'package:intrale/comp/ItlText.dart';
 import 'package:intrale/styles/IntraleStyles.dart';
 
@@ -18,7 +18,7 @@ class IntraleMessageDialog extends StatelessWidget {
                                 title: ItlText(textKey: titleKey, style: Styles.TEXT_STYLES.ALERT_DIALOG_TITLE),
                                 content: ItlText(textKey: contentKey, style: Styles.TEXT_STYLES.ALERT_DIALOG_BODY), 
                                 actions:[
-                                  ItlButton(descriptionKey: buttonKey, onTap: onPressButton)
+                                  SolidButton(descriptionKey: buttonKey, onTap: onPressButton)
                                 ]
                               );
   }

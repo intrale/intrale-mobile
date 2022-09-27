@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intrale/SplashScreenBackgroundImage.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/ItlCustom.dart';
 import 'package:intrale/comp/ItlText.dart';
@@ -31,19 +32,7 @@ class SplashScreenState extends IntraleState<SplashScreen> {
 
   /// Code Create UI Splash Screen
   Widget build(BuildContext context) {
-    BoxDecoration manImage = BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/img/man.png'), fit: BoxFit.cover));
-
-    BoxDecoration gradientBlack =  BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-              Color.fromRGBO(0, 0, 0, 0.3),
-              Color.fromRGBO(0, 0, 0, 0.4)
-            ],
-                begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomCenter));
-
+    
     ItlText welcomeTo = ItlText(
                       textKey: "welcomeTo", style: Styles.TEXT_STYLES.WELCOME_PREFIX);
 
@@ -55,19 +44,17 @@ class SplashScreenState extends IntraleState<SplashScreen> {
 
     return Container(
       /// Set Background image in splash screen layout (Click to open code)
-      decoration: manImage,
+      decoration: SplashScreenBackgroundImage(),
       child: Container(
         /// Set gradient black in image splash screen (Click to open code)
-        decoration: gradientBlack,
+        decoration: Styles.DECORATION_STYLES.GRADIENT_BLACK,
         child: Center(
           child: SingleChildScrollView(
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 30.0),
-                  ),
+                  Styles.PADDING_STYLES.ONLY_TOP_30,
 
                   /// Text header "Welcome To" (Click to open code)
                   welcomeTo,

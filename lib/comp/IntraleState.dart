@@ -1,10 +1,10 @@
+
 import 'package:flutter/material.dart';
-import 'package:intrale/comp/ItlConfirmRedirectButton.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/ItlHeader.dart';
-import 'package:intrale/comp/ItlLoginRedirectButton.dart';
 import 'package:intrale/comp/ItlLogo.dart';
-import 'package:intrale/comp/ItlRecoveryRedirectButton.dart';
-import 'package:intrale/comp/ItlSignupRedirectButton.dart';
+import 'package:intrale/comp/buttons/Button.dart';
+import 'package:intrale/comp/buttons/LinkButton.dart';
 import 'package:intrale/util/services/Handler.dart';
 import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/StatusCodes.dart';
@@ -12,15 +12,14 @@ import 'package:intrale/util/services/StatusCodes.dart';
 //TODO: Mejorar uso de handlers
 abstract class IntraleState<T extends StatefulWidget> extends State<T>
     with TickerProviderStateMixin {
+      
   final formKey = GlobalKey<FormState>();
 
-  static const Padding DEFAULT_PADDING = Padding(padding: EdgeInsets.all(10));
-
   // Buttons declarations
-  ItlSignupRedirectButton notHaveButton = ItlSignupRedirectButton();
-  ItlRecoveryRedirectButton missingButton = ItlRecoveryRedirectButton();
-  ItlConfirmRedirectButton haveCodeButton = ItlConfirmRedirectButton();
-  ItlLoginRedirectButton haveUserButton = ItlLoginRedirectButton();
+  late Button notHaveButton;
+  late Button missingButton;
+  late Button haveCodeButton;
+  late Button haveUserButton;
 
   // Images declarations
   ItlLogo logo = ItlLogo();
@@ -33,12 +32,24 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   Handler? errorHandler;
 
   IntraleState() {
+    notHaveButton = LinkButton(descriptionKey: "notHave", onTap: ()=> context.go('/signup'));
+    missingButton = LinkButton(descriptionKey: "missing", onTap: ()=> context.go('/recovery'));
+    haveCodeButton = LinkButton(descriptionKey: "haveCode", onTap: ()=> context.go('/confirm'));
+    haveUserButton = LinkButton(descriptionKey: "haveUser", onTap: ()=> context.go('/login'));
+
     okHandler = Handler(
         statusCode: STATUS_CODE_OK, function: (response) => onOk(response));
 
     errorHandler =
         Handler(statusCode: 0, function: (response) => onError(response));
   }
+
+  Padding mediaQueryTopPadding(double top) => topPadding(mediaQueryData.padding.top + top);
+
+  Padding topPadding(double top) => Padding(
+                padding:
+                    EdgeInsets.only(top: top));
+  
 
   void onOk(Response response) {}
   void onError(Response response) {}

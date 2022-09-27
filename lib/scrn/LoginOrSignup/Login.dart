@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleMessageDialog.dart';
 import 'package:intrale/comp/IntraleState.dart';
-import 'package:intrale/comp/ItlButton.dart';
+import 'package:intrale/comp/buttons/SolidButton.dart';
 import 'package:intrale/comp/ItlEmail.dart';
 import 'package:intrale/comp/ItlFields.dart';
 import 'package:intrale/comp/ItlPassword.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
+import 'package:intrale/styles/IntraleStyles.dart';
 import 'package:intrale/util/IntralePreferences.dart';
 import 'package:intrale/util/device/DeviceInfoFactory.dart';
 import 'package:intrale/util/services/Handler.dart';
@@ -42,8 +43,18 @@ class LoginScreenState extends IntraleState<Login> {
       okHandler!,
       errorHandler!,
       Handler(
-          statusCode: 426, function: (response) => context.go('/changePassword'))
+          statusCode: 426, function: (response) => context.go('/changePassword', extra: changePasswordParams()))
     ]);
+  }
+
+  changePasswordParams(){
+    debugPrint('email.value:' + email.value);
+    debugPrint('password.value:' + password.value);
+    Map<String, String> params = {
+      "email": email.value,
+      "password": password.value
+    };
+    return params;
   }
 
   /// Component Widget layout UI
@@ -54,20 +65,18 @@ class LoginScreenState extends IntraleState<Login> {
         body: ItlFields(
           children: <Widget>[
             /// padding logo
-            Padding(
-                padding:
-                    EdgeInsets.only(top: mediaQueryData.padding.top + 40.0)),
+            mediaQueryTopPadding(40),
             header,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             email,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             password,
 
-            ItlButton(
+            SolidButton(
               descriptionKey: "login_submit",
               onTap: () => onSubmit(),
             ),
-
+            
             notHaveButton,
             missingButton,
             haveCodeButton,

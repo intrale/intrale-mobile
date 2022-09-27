@@ -1,15 +1,12 @@
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleState.dart';
+import 'package:intrale/comp/ItlText.dart';
 import 'package:intrale/const/TextStyleConst.dart';
-import 'package:intrale/scrn/Dashboard.dart';
-import 'package:intrale/scrn/LoginOrSignup/Login.dart';
-import 'package:intrale/scrn/LoginOrSignup/RedirectButton.dart';
-import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
+import 'package:intrale/scrn/LoginOrSignup/ChoseLoginOrSignupCarousel.dart';
+import 'package:intrale/comp/buttons/TransparentButton.dart';
 import 'package:flutter/material.dart';
-import 'package:intrale/comp/carousel_pro/carousel_pro.dart';
+import 'package:intrale/styles/IntraleStyles.dart';
 
-//TODO: Falta completar refactor
 class ChoseLogin extends StatefulWidget {
   @override
   ChoseLoginState createState() => ChoseLoginState();
@@ -17,138 +14,20 @@ class ChoseLogin extends StatefulWidget {
 
 /// Component Widget this layout UI
 class ChoseLoginState extends IntraleState<ChoseLogin> {
-  /*String login;
-  String signup;
-
-  Text hintChoseLogin;
-  Text orSkip;
-  Text title;
-
-  Container carousel;
-  BoxDecoration gradientBlack;
-  Container whiteLine;
-
-  @override
-  void buttonsInitializations() {}
-
-  @override
-  void fieldsInitializations() {}
-
-  @override
-  void imagesInitializations() {}
-
-  @override
-  void othersInitializations() {
-    carousel = Container(
-      color: Colors.white,
-      child: new Carousel(
-        boxFit: BoxFit.cover,
-        autoplay: true,
-        animationDuration: Duration(milliseconds: 300),
-        dotSize: 0.0,
-        dotSpacing: 16.0,
-        dotBgColor: Colors.transparent,
-        showIndicator: false,
-        overlayShadow: false,
-        images: [
-          AssetImage('assets/img/girl.png'),
-          AssetImage("assets/img/SliderLogin2.png"),
-          AssetImage('assets/img/SliderLogin3.png'),
-          AssetImage("assets/img/SliderLogin4.png"),
-        ],
-      ),
-    );
-
-    gradientBlack = BoxDecoration(
-        gradient: LinearGradient(colors: [
-      Color.fromRGBO(0, 0, 0, 0.3),
-      Color.fromRGBO(0, 0, 0, 0.4)
-    ], begin: FractionalOffset.topCenter, end: FractionalOffset.bottomCenter));
-
-    whiteLine = Container(
-      color: Colors.white,
-      height: 0.2,
-      width: 80.0,
-    );
-  }
-
-  @override
-  void servicesInitializations() {}
-
-  @override
-  void textsInitializations() {
-    hintChoseLogin = Text(
-      AppLocalizations.of(context).choseLogin_hint,
-      textDirection: TextDirection.ltr,
-      style: CHOSE_LOGIN_OR_SIGNUP_SCREEN_HINT,
-    );
-
-    orSkip = Text(
-      AppLocalizations.of(context).choseLogin_orSkip,
-      textDirection: TextDirection.ltr,
-      style: CHOSE_LOGIN_OR_SIGNUP_SCREEN_OR_SKIP,
-    );
-
-    title = Text(
-      AppLocalizations.of(context).businessName,
-      textDirection: TextDirection.ltr,
-      style: CHOSE_LOGIN_OR_SIGNUP_SCREEN_BUSINESS_NAME,
-    );
-
-    login = AppLocalizations.of(context).choseLogin_login;
-    signup = AppLocalizations.of(context).choseLogin_signup;
-  }*/
 
   /// Component Widget layout UI
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQuery = MediaQuery.of(context);
-    mediaQuery.devicePixelRatio;
-    mediaQuery.size.height;
-    mediaQuery.size.width;
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
-          /// Set background image slider
+          ChoseLoginOrSignupCarousel(),
           Container(
-            color: Colors.white,
-            child: new Carousel(
-              boxFit: BoxFit.cover,
-              autoplay: true,
-              animationDuration: Duration(milliseconds: 300),
-              dotSize: 0.0,
-              dotSpacing: 16.0,
-              dotBgColor: Colors.transparent,
-              showIndicator: false,
-              overlayShadow: false,
-              images: [
-                AssetImage('assets/img/girl.png'),
-                AssetImage("assets/img/SliderLogin2.png"),
-                AssetImage('assets/img/SliderLogin3.png'),
-                AssetImage("assets/img/SliderLogin4.png"),
-              ],
-            ),
-          ),
-          Container(
-            /// Set Background image in layout (Click to open code)
-            decoration: BoxDecoration(
-//              image: DecorationImage(
-//                  image: AssetImage('assets/img/girl.png'), fit: BoxFit.cover)
-                ),
+            decoration: BoxDecoration(),
             child: Container(
-              /// Set gradient color in image (Click to open code)
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                    Color.fromRGBO(0, 0, 0, 0.3),
-                    Color.fromRGBO(0, 0, 0, 0.4)
-                  ],
-                      begin: FractionalOffset.topCenter,
-                      end: FractionalOffset.bottomCenter)),
-
-              /// Set component layout
+              decoration: Styles.DECORATION_STYLES.GRADIENT_BLACK,
               child: ListView(
                 padding: EdgeInsets.all(0.0),
                 children: <Widget>[
@@ -163,33 +42,14 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: mediaQuery.padding.top + 50.0),
-                                ),
-
+                                mediaQueryTopPadding(50),
                                 header,
-
-                                /// Padding Text "Get best product in treva shop" (Click to open code)
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 160.0,
-                                        right: 160.0,
-                                        top: mediaQuery.padding.top + 190.0,
-                                        bottom: 10.0),
-                                    child: Container(
-                                      color: Colors.white,
-                                      height: 0.5,
-                                    )),
-
-                                /// to set Text "get best product...." (Click to open code)
-                                Text(
-                                  FlutterI18n.translate(
-                                      context, "choseLogin_hint"),
+                                Styles.PADDING_STYLES.ONLY_TOP_250,
+                                ItlText(textKey: "choseLogin_hint", 
                                   textDirection: TextDirection.ltr,
                                   style: CHOSE_LOGIN_OR_SIGNUP_SCREEN_HINT,
                                 ),
-                                Padding(padding: EdgeInsets.only(top: 250.0)),
+                                Styles.PADDING_STYLES.ONLY_TOP_250
                               ],
                             ),
                           ),
@@ -197,60 +57,38 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
-                              RedirectButton(
-                                  txt: FlutterI18n.translate(
-                                      context, "choseLogin_login"),
-                                  path: '/login'),
-                              Padding(padding: EdgeInsets.only(top: 15.0)),
+                              TransparentButton(
+                                  descriptionKey: "choseLogin_login",
+                                  onTap: ()=>context.go('/login')),
+                              topPadding(1.0),
                               Center(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     /// To set white line (Click to open code)
-                                    Container(
-                                      color: Colors.white,
-                                      height: 0.2,
-                                      width: 80.0,
-                                    ),
+                                    Styles.CONTAINER_STYLES.WHITE_LINE,
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 10.0, right: 10.0),
-
-                                      /// navigation to home screen if user click "OR SKIP" (Click to open code)
-                                      child: InkWell(
-                                        onTap: () {
-                                          context.go('/dashboard');
-                                        },
-                                        child: Text(
-                                          FlutterI18n.translate(
-                                              context, "choseLogin_orSkip"),
-                                          textDirection: TextDirection.ltr,
-                                          style:
-                                              CHOSE_LOGIN_OR_SIGNUP_SCREEN_OR_SKIP,
-                                        ),
-                                      ),
+                                      padding: Styles.EDGE_INSETS_GEOMETRY_STYLES.BOTH_SIDES_10,
                                     ),
 
                                     /// To set white line (Click to open code)
-                                    Container(
-                                      color: Colors.white,
-                                      height: 0.2,
-                                      width: 80.0,
-                                    )
+                                    Styles.CONTAINER_STYLES.WHITE_LINE
                                   ],
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top: 70.0)),
+                              topPadding(70.0),
                             ],
                           ),
 
                           /// To create animation if user tap == animation play (Click to open code)
-                          RedirectButton(
-                              txt: FlutterI18n.translate(
-                                  context, "choseLogin_signup"),
-                              path: '/signup')
+                          TransparentButton(
+                              descriptionKey: "choseLogin_signup",
+                              onTap: () => context.go('/signup'))
                         ],
                       ),
+
+
+
                     ],
                   ),
                 ],

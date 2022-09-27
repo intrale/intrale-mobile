@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intrale/comp/IntraleMessageDialog.dart';
 
 import 'package:intrale/comp/IntraleState.dart';
-import 'package:intrale/comp/ItlButton.dart';
+import 'package:intrale/comp/buttons/SolidButton.dart';
 import 'package:intrale/comp/ItlFields.dart';
 import 'package:intrale/comp/ItlInput.dart';
 import 'package:intrale/comp/ItlPassword.dart';
-import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
+import 'package:intrale/styles/IntraleStyles.dart';
 
 import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/validation/FormatValidation.dart';
@@ -66,18 +68,16 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
         body: ItlFields(
           children: <Widget>[
             /// padding logo
-            Padding(
-                padding:
-                    EdgeInsets.only(top: mediaQueryData.padding.top + 40.0)),
+            mediaQueryTopPadding(40),
             header,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             name,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             familyName,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             newPassword,
 
-            ItlButton(
+            SolidButton(
               descriptionKey: "login_submit",
               onTap: () => onSubmit(),
             ),
@@ -98,18 +98,17 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
   }
 
   void onOk(Response response) {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
+    context.go('/dashboard');
   }
 
   void onError(Response response) {
     Error error = response.errors!.first;
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text("Ocurrio un error:" + (error.code)),
-              content: Text(error.description));
-        });
+    IntraleMessageDialog dialog = 
+        IntraleMessageDialog(
+              titleKey: "errorTitle", 
+              contentKey: "error", 
+              buttonKey: "signup_ok", 
+              onPressButton: ()=>Navigator.of(context).pop());
+    dialog.show(context);
   }
 }

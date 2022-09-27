@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleState.dart';
-import 'package:intrale/comp/ItlButton.dart';
+import 'package:intrale/comp/buttons/SolidButton.dart';
 import 'package:intrale/comp/ItlEmail.dart';
 import 'package:intrale/comp/ItlFields.dart';
 import 'package:intrale/comp/ItlInput.dart';
 import 'package:intrale/comp/ItlPassword.dart';
-import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
+import 'package:intrale/styles/IntraleStyles.dart';
 import 'package:intrale/util/services/Error.dart';
 import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/users/confirm/ConfirmRecoveryRequest.dart';
@@ -53,25 +53,23 @@ class ConfirmScreenState extends IntraleState<Confirm> {
         body: ItlFields(
           children: <Widget>[
             /// padding logo
-            Padding(
-                padding:
-                    EdgeInsets.only(top: mediaQueryData.padding.top + 40.0)),
+            mediaQueryTopPadding(40),
             header,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             email,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             password,
-            IntraleState.DEFAULT_PADDING,
+            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
             code,
 
-            ItlButton(
+            SolidButton(
               descriptionKey: "confirm_submit",
               onTap: () => onSubmit(),
             ),
 
             haveUserButton,
             notHaveButton,
-            missingButton
+            missingButton 
           ],
         ));
   }
@@ -90,6 +88,7 @@ class ConfirmScreenState extends IntraleState<Confirm> {
   }
 
   void onError(Response response) {
+    //TODO: Aplicar show dialgo estandar de intrale
     ConfirmRecoveryResponse recoveryResponse =
         response as ConfirmRecoveryResponse;
     Error error = recoveryResponse.errors!.first;
