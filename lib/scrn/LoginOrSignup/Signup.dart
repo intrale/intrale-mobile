@@ -68,8 +68,11 @@ class SignupScreenState extends IntraleState<Signup> {
 
   showDialogSignupOk(){
     debugPrint('showDialogSignupOk');
-    IntraleMessageDialog dialog = IntraleMessageDialog(titleKey: "reviewTitle", contentKey: "review", buttonKey: "signup_ok", 
-              onPressButton: ()=>context.go('/login'));
+    IntraleMessageDialog dialog = IntraleMessageDialog(
+      titleKey: "reviewTitle", 
+      contentKey: "review", 
+      buttonKey: "signup_ok", 
+      onPressButton: ()=>context.go('/login'));
     dialog.show(context);
   }
 

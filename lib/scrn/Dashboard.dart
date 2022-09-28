@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:intrale/scrn/LoginOrSignup/Login.dart';
-import 'package:intrale/scrn/account/Profile.dart';
-import 'package:intrale/scrn/cart/CartScreen.dart';
-import 'package:intrale/scrn/home/Home.dart';
 import 'package:intrale/states/AppState.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const TextStyle ITEM_TEXT_STYLE =
-    TextStyle(fontFamily: "Berlin", letterSpacing: 0.5);
 
 class Dashboard extends StatefulWidget {
   @override
@@ -17,7 +11,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class DashboardState extends State<Dashboard> {
-  Map<int, Widget> screens = {0: Home(), 1: CartScreen(), 2: profil()};
   int currentIndex = 0;
 
   void removeTokens(SharedPreferences sharedPreferences) {
@@ -29,16 +22,13 @@ class DashboardState extends State<Dashboard> {
     sharedPreferences.remove('cart');
   }
 
-  void forward(SharedPreferences sharedPreferences) {
-    removeTokens(sharedPreferences);
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => new Login()));
-  }
-
   void forwardToLogin() {
     Future<SharedPreferences> sharedPreferences =
         SharedPreferences.getInstance();
-    sharedPreferences.then((preference) => forward(preference));
+    sharedPreferences.then((preference) => {
+      removeTokens(preference),
+      context.go('/login')
+    });
   }
 
   @override
@@ -47,7 +37,7 @@ class DashboardState extends State<Dashboard> {
         create: (context) => AppState(),
         child: Consumer<AppState>(builder: (context, appState, child) {
           return Scaffold(
-              body: appState.getScreen() /*getScreen()*/,
+              body: appState.getScreen(),
               bottomNavigationBar: Theme(
                   data: Theme.of(context).copyWith(
                       canvasColor: Colors.white,
@@ -61,19 +51,17 @@ class DashboardState extends State<Dashboard> {
                     onTap: (value) {
                       debugPrint(
                           'ItlNavigationBarrState onTap:' + value.toString());
-
-                      setState(() {
-                        debugPrint('ItlNavigationBarrState setState:' +
-                            value.toString());
-                        appState.setScreenIndex(value);
-                      });
+                      if (value!=3){
+                        setState(() {
+                          appState.setScreenIndex(value);
+                        });
+                      } else {
+                        forwardToLogin();
+                      }
                     },
                     items: [
                       BottomNavigationBarItem( 
-                          icon: Icon(
-                            Icons.home,
-                            size: 23.0,
-                          ),
+                          icon: Icon(Icons.home),
                           label: FlutterI18n.translate(context, 'home')
                           ),
                       BottomNavigationBarItem(
@@ -81,15 +69,12 @@ class DashboardState extends State<Dashboard> {
                           label: FlutterI18n.translate(context, 'cart')
                           ),
                       BottomNavigationBarItem(
-                          icon: Icon(
-                            Icons.person,
-                            size: 24.0,
-                          ),
+                          icon: Icon(Icons.person),
                           label: FlutterI18n.translate(context, 'account')
                           ),
                       BottomNavigationBarItem(
                           icon: Icon(Icons.exit_to_app),
-                          label: FlutterI18n.translate(context, 'account')
+                          label: FlutterI18n.translate(context, 'exit')
                           ),
                     ],
                   )));

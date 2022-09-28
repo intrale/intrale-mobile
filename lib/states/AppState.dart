@@ -14,8 +14,7 @@ class AppState extends ChangeNotifier {
   Map<int, Widget> screens = {
     0: Home(),
     1: CartScreen(),
-    2: profil(),
-    3: DetailProduct()
+    2: profil()
   };
 
   Cart cart = Cart();

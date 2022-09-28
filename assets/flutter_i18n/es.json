@@ -16,6 +16,7 @@
 
     "reviewTitle":"Atención",
     "review":"Por favor, revise su correo. Hemos enviado información importante.",
+    "confirmOk":"Su contraseña se restauro correctamente. Por favor, vuelva a autenticarse.",
 
     "errorTitle":"Error",
     "error":"Ocurrio un error desafortunado.",

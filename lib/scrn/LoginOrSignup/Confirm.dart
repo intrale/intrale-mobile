@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intrale/comp/IntraleMessageDialog.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/buttons/SolidButton.dart';
 import 'package:intrale/comp/ItlEmail.dart';
@@ -84,20 +85,24 @@ class ConfirmScreenState extends IntraleState<Confirm> {
   }
 
   void onOk(Response response) {
-    context.go('/login');
+    IntraleMessageDialog dialog = IntraleMessageDialog(
+      titleKey: "reviewTitle", 
+      contentKey: "confirmOk", 
+      buttonKey: "signup_ok", 
+      onPressButton: ()=>context.go('/login'));
+    dialog.show(context);
   }
 
   void onError(Response response) {
-    //TODO: Aplicar show dialgo estandar de intrale
     ConfirmRecoveryResponse recoveryResponse =
         response as ConfirmRecoveryResponse;
     Error error = recoveryResponse.errors!.first;
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text("Ocurrio un error:" + (error.code)),
-              content: Text((error.description)));
-        });
+    IntraleMessageDialog dialog = 
+        IntraleMessageDialog(
+              titleKey: "errorTitle", 
+              contentKey: "error", 
+              buttonKey: "signup_ok", 
+              onPressButton: ()=>Navigator.of(context).pop());
+    dialog.show(context);
   }
 }
