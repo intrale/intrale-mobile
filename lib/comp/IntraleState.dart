@@ -32,10 +32,10 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   Handler? errorHandler;
 
   IntraleState() {
-    notHaveButton = LinkButton(descriptionKey: "notHave", onTap: ()=> context.go('/signup'));
-    missingButton = LinkButton(descriptionKey: "missing", onTap: ()=> context.go('/recovery'));
-    haveCodeButton = LinkButton(descriptionKey: "haveCode", onTap: ()=> context.go('/confirm'));
-    haveUserButton = LinkButton(descriptionKey: "haveUser", onTap: ()=> context.go('/login'));
+    notHaveButton = LinkButton(descriptionKey: "notHave", onTap: () => Future(()=>context.go('location')));
+    missingButton = LinkButton(descriptionKey: "missing", onTap: () => Future(()=> context.go('/recovery')));
+    haveCodeButton = LinkButton(descriptionKey: "haveCode", onTap: () => Future(()=> context.go('/confirm')));
+    haveUserButton = LinkButton(descriptionKey: "haveUser", onTap: () => Future(()=> context.go('/login')));
 
     okHandler = Handler(
         statusCode: STATUS_CODE_OK, function: (response) => onOk(response));
@@ -59,7 +59,7 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
     bool valid = formKey.currentState?.validate() ?? false;
     if (valid) {
       formKey.currentState?.save();
-      onValidSubmit();
+      return onValidSubmit();
     }
   }
 

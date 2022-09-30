@@ -4,7 +4,7 @@ import 'package:intrale/styles/IntraleStyles.dart';
 
 class SolidButton extends Button {
   final String descriptionKey;
-  final void Function() onTap;
+  final Future Function() onTap;
 
     SolidButton({required this.descriptionKey, required this.onTap}):super(
     descriptionKey: descriptionKey,

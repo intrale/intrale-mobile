@@ -74,7 +74,7 @@ class LoginScreenState extends IntraleState<Login> {
 
             SolidButton(
               descriptionKey: "login_submit",
-              onTap: () => onSubmit(),
+              onTap: () => onSubmit() ,
             ),
             
             notHaveButton,
@@ -86,7 +86,7 @@ class LoginScreenState extends IntraleState<Login> {
 
   @override
   onValidSubmit() {
-    signinService?.post(
+    return signinService?.post(
         request: SigninRequest(
             username: this.email.value,
             email: this.email.value,
@@ -113,7 +113,7 @@ class LoginScreenState extends IntraleState<Login> {
 
   void onError(Response response) {
     IntraleMessageDialog dialog = IntraleMessageDialog(titleKey: "badCredentialsTitle", contentKey: "badCredentials", buttonKey: "login_ok", 
-              onPressButton: ()=>Navigator.of(context).pop());
+              onPressButton: () => Future(()=>Navigator.of(context).pop()));
     dialog.show(context);
   }
 }

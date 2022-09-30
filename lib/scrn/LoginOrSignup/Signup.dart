@@ -72,7 +72,7 @@ class SignupScreenState extends IntraleState<Signup> {
       titleKey: "reviewTitle", 
       contentKey: "review", 
       buttonKey: "signup_ok", 
-      onPressButton: ()=>context.go('/login'));
+      onPressButton: () => Future(()=>context.go('/login')));
     dialog.show(context);
   }
 

@@ -76,7 +76,7 @@ class RecoveryScreenState extends IntraleState<Recovery> {
               titleKey: "reviewTitle", 
               contentKey: "review", 
               buttonKey: "signup_ok", 
-              onPressButton: ()=>context.go('/confirm'));
+              onPressButton: () => Future(()=>context.go('/confirm')));
     dialog.show(context);
   }
 
@@ -87,7 +87,7 @@ class RecoveryScreenState extends IntraleState<Recovery> {
               titleKey: "errorTitle", 
               contentKey: "error", 
               buttonKey: "signup_ok", 
-              onPressButton: ()=>Navigator.of(context).pop());
+              onPressButton: () => Future(()=>Navigator.of(context).pop()));
     dialog.show(context);
   }
 }

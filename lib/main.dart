@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intrale/IntraleRouter.dart';
@@ -12,6 +13,7 @@ import 'firebase_options.dart';
 /// Run first apps open
 void main() { 
   runApp(IntraleApp());
+  configLoading();
 }
 
 /// Set orienttation
@@ -72,8 +74,26 @@ MaterialApp getApp(){
         GlobalWidgetsLocalizations.delegate
       ],
       title: 'GoRouter Example',
+      builder: EasyLoading.init(),
     );
 
 }
 
 final IntraleRouter _router = IntraleRouter();
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Color(0xFF121940)
+    ..backgroundColor = Colors.transparent
+    ..indicatorColor = Color(0xFF6E48AA)
+    ..textColor = Colors.white
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
+    //..customAnimation = CustomAnimation();
+}

@@ -89,7 +89,7 @@ class ConfirmScreenState extends IntraleState<Confirm> {
       titleKey: "reviewTitle", 
       contentKey: "confirmOk", 
       buttonKey: "signup_ok", 
-      onPressButton: ()=>context.go('/login'));
+      onPressButton: () => Future(()=>context.go('/login')));
     dialog.show(context);
   }
 
@@ -102,7 +102,7 @@ class ConfirmScreenState extends IntraleState<Confirm> {
               titleKey: "errorTitle", 
               contentKey: "error", 
               buttonKey: "signup_ok", 
-              onPressButton: ()=>Navigator.of(context).pop());
+              onPressButton: () => Future(()=>Navigator.of(context).pop()));
     dialog.show(context);
   }
 }

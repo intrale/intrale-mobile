@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as HTTP;
 import 'package:intrale/comp/ItlCustom.dart';
 import 'package:intrale/util/services/Handler.dart';
@@ -63,6 +64,7 @@ abstract class Service<RES extends Response> {
   RES mapToResponse(Map<String, dynamic> responseMap);
 
   Future<RES> post({required Object request}) async {
+    EasyLoading.show();
     await initializeHeaders();
 
     String body = jsonEncode(request);
@@ -90,6 +92,7 @@ abstract class Service<RES extends Response> {
       handler!.execute(response);
     }
 
+    EasyLoading.dismiss();
     return response;
   }
 }

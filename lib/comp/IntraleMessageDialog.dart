@@ -8,7 +8,7 @@ class IntraleMessageDialog extends StatelessWidget {
   String titleKey;
   String contentKey;
   String buttonKey;
-  void Function() onPressButton;
+  Future Function() onPressButton;
 
   IntraleMessageDialog({required this.titleKey, required this.contentKey, required this.buttonKey, required this.onPressButton});
 

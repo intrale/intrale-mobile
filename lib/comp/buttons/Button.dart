@@ -4,7 +4,7 @@ import 'package:intrale/comp/buttons/ContainerButton.dart';
 abstract class Button extends StatelessWidget {
 
   final String descriptionKey;
-  final void Function() onTap;
+  final Future Function() onTap;
   final Color splashColor;
   final EdgeInsetsGeometry padding;
   final double height;
@@ -12,6 +12,8 @@ abstract class Button extends StatelessWidget {
   final AlignmentGeometry alignment;
   final TextStyle style;
   final Decoration decoration;
+
+  bool avaiable = true;
 
   Button({required this.descriptionKey, 
           required this.onTap,
@@ -30,7 +32,10 @@ abstract class Button extends StatelessWidget {
     InkWell(
         splashColor: this.splashColor,
         onTap: () {
-          this.onTap();
+          if (avaiable){
+            avaiable=false;
+            this.onTap().then((value) => avaiable=true).onError((error, stackTrace) => avaiable=true);
+          }
         },
         child: Padding(
           padding: this.padding,

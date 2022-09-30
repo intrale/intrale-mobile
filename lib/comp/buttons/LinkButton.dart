@@ -4,7 +4,7 @@ import 'package:intrale/styles/IntraleStyles.dart';
 
 class LinkButton extends Button {
   final String descriptionKey;
-  final void Function() onTap;
+  final Future Function() onTap;
 
   LinkButton({required this.descriptionKey, required this.onTap}):super(
     descriptionKey: descriptionKey,

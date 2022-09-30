@@ -59,7 +59,7 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                             children: <Widget>[
                               TransparentButton(
                                   descriptionKey: "choseLogin_login",
-                                  onTap: ()=>context.go('/login')),
+                                  onTap: () => Future(()=>context.go('/login'))),
                               topPadding(1.0),
                               Center(
                                 child: Row(
@@ -83,7 +83,7 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                           /// To create animation if user tap == animation play (Click to open code)
                           TransparentButton(
                               descriptionKey: "choseLogin_signup",
-                              onTap: () => context.go('/signup'))
+                              onTap: () => Future(() => context.go('/signup')))
                         ],
                       ),
 

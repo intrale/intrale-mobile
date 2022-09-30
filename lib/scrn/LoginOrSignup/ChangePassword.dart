@@ -108,7 +108,7 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
               titleKey: "errorTitle", 
               contentKey: "error", 
               buttonKey: "signup_ok", 
-              onPressButton: ()=>Navigator.of(context).pop());
+              onPressButton: () => Future(()=>Navigator.of(context).pop()));
     dialog.show(context);
   }
 }
