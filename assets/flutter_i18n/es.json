@@ -28,7 +28,11 @@
     "minLength": "Debe contener al menos{count} caracteres",
     "passwordFormat":"Debe tener formato de contraseña",
 
+    "description":"Descripción",
+
     "itemAdded":"Se agrego al carrito",
+    "addToCart":"Agregar al carrito",
+    "checkout":"Finalizar compra",
 
     "choseLogin_hint":"Seleccione una opción",
     "choseLogin_orSkip":"O",
@@ -61,5 +65,6 @@
 
     "cart_pay":"Pagar",
     "cart_total":"Total ",
+    "cart_subtotal":"Subtotal ",
     "cartNoItem": "No hay productos en el carrito."
 }

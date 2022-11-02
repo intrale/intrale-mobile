@@ -1,8 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intrale/model/Cart.dart';
 import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/model/Product.dart';
+import 'package:intrale/scrn/account/Message.dart';
+import 'package:intrale/scrn/account/Notification.dart';
 import 'package:intrale/scrn/account/Profile.dart';
 import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/DetailProduct.dart';
@@ -14,7 +15,11 @@ class AppState extends ChangeNotifier {
   Map<int, Widget> screens = {
     0: Home(),
     1: CartScreen(),
-    2: profil()
+    2: profil(),
+    //3: exit
+    4: DetailProduct(),
+    5: chat(),
+    6: notification()
   };
 
   Cart cart = Cart();
@@ -38,20 +43,28 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void forwardToHomeScreen() {
+  forwardToHomeScreen() {
     setScreenIndex(0);
   }
 
-  void forwardToCartScreen() {
+  forwardToCartScreen() {
     setScreenIndex(1);
   }
 
-  void forwardToProfileScreen() {
+  forwardToProfileScreen() {
     setScreenIndex(2);
   }
 
-  void forwardToDetailProductScreen() {
-    setScreenIndex(3);
+  forwardToDetailProductScreen() {
+    setScreenIndex(4);
+  }
+
+  forwardToChat() {
+    setScreenIndex(5);
+  }
+
+  forwardToNotifications() {
+    setScreenIndex(6);
   }
 
   List<CartItem> items() => cart.items;
@@ -78,7 +91,7 @@ class AppState extends ChangeNotifier {
     return count;
   }
 
-  void addCartItem(CartItem cartItem) {
+  addCartItem(CartItem cartItem) {
     debugPrint("Agregando cartItem");
     cart.items.add(cartItem);
     debugPrint("notificando cartItem");

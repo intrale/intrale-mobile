@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intrale/comp/buttons/Button.dart';
-import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/styles/DecorationStyles.dart';
+import 'package:intrale/styles/TextStyles.dart';
 
+// ignore: must_be_immutable
 class TransparentButton extends Button {
   final String descriptionKey;
   final Future Function() onTap;
@@ -11,7 +13,7 @@ class TransparentButton extends Button {
     onTap:  onTap,
     height: 52.0, 
     width: 300.0, 
-    style: Styles.TEXT_STYLES.TRANSPARENT_BUTTON, 
-    decoration: Styles.DECORATION_STYLES.TRANSPARENT_BUTTON,
-    padding: EdgeInsets.all(30.0) );
+    style: TextStyles.TRANSPARENT_BUTTON, 
+    decoration: DecorationStyles.TRANSPARENT_BUTTON,
+    padding: EdgeInsets.all(5.0) );
 }

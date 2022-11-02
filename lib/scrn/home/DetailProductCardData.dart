@@ -32,7 +32,7 @@ class DetailProductCardData extends StatelessWidget {
             ),
             Padding(padding: EdgeInsets.only(top: 5.0)),
             Text(
-              gridItem!.price.unitPrice.toString(),
+              gridItem!.price.currencyAcronym + gridItem!.price.unitPrice.toString(),
               style: CUSTOM_TEXT_STYLE,
             ),
             Padding(padding: EdgeInsets.only(top: 10.0)),
@@ -40,7 +40,7 @@ class DetailProductCardData extends StatelessWidget {
               color: Colors.black12,
               height: 1.0,
             ),
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +87,7 @@ class DetailProductCardData extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            )*/
           ],
         ),
       ),

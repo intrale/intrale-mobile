@@ -8,7 +8,7 @@ import 'package:intrale/comp/ItlEmail.dart';
 import 'package:intrale/comp/ItlFields.dart';
 import 'package:intrale/comp/ItlPassword.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
-import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
 import 'package:intrale/util/IntralePreferences.dart';
 import 'package:intrale/util/device/DeviceInfoFactory.dart';
 import 'package:intrale/util/services/Handler.dart';
@@ -67,9 +67,9 @@ class LoginScreenState extends IntraleState<Login> {
             /// padding logo
             mediaQueryTopPadding(40),
             header,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             email,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             password,
 
             SolidButton(
@@ -103,12 +103,14 @@ class LoginScreenState extends IntraleState<Login> {
         SaveNotificationTokenRequest saveNotificationTokenRequest = 
               SaveNotificationTokenRequest.fromArgs(this.email.value, tokens.fcmToken, deviceInfo.id);    
 
-        SaveNotificationTokenService().post(request: saveNotificationTokenRequest).then((value) =>{
+        SaveNotificationTokenService().post(request: saveNotificationTokenRequest)/*.then((value) =>{
           // Ingresa normalmente a la aplicacion
           context.go('/dashboard')
-        });
+        })*/;
       })
     );
+    // Se coloca aca directamente para no demorar el ingreso a la aplicacion
+    context.go('/dashboard');
   }
 
   void onError(Response response) {

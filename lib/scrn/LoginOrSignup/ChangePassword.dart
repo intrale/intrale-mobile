@@ -8,7 +8,7 @@ import 'package:intrale/comp/ItlFields.dart';
 import 'package:intrale/comp/ItlInput.dart';
 import 'package:intrale/comp/ItlPassword.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
-import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
 
 import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/validation/FormatValidation.dart';
@@ -70,11 +70,11 @@ class ChangePasswordState extends IntraleState<ChangePassword> {
             /// padding logo
             mediaQueryTopPadding(40),
             header,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             name,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             familyName,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             newPassword,
 
             SolidButton(

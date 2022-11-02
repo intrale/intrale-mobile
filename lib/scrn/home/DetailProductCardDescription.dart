@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intrale/comp/texts/TranslatedText.dart';
 import 'package:intrale/model/Product.dart';
 
 const TextStyle VIEW_MORE_TEXT_STYLE = TextStyle(
@@ -44,8 +45,7 @@ class DetailProductCardDescription extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Text(
-                  'description',
+                child: TranslatedText(textKey: 'description',
                   style: SUB_HEADER_CUSTOM_TEXT_STYLE,
                 ),
               ),
@@ -54,7 +54,7 @@ class DetailProductCardDescription extends StatelessWidget {
                     top: 15.0, right: 20.0, bottom: 10.0, left: 20.0),
                 child: Text(gridItem!.description, style: DETAIL_TEXT_STYLE),
               ),
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: Center(
                   child: InkWell(
@@ -67,7 +67,7 @@ class DetailProductCardDescription extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              )*/
             ],
           ),
         ),

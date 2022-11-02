@@ -8,9 +8,13 @@ import 'package:intrale/scrn/LoginOrSignup/Login.dart';
 import 'package:intrale/scrn/LoginOrSignup/Recovery.dart';
 import 'package:intrale/scrn/LoginOrSignup/Signup.dart';
 import 'package:intrale/SplashScreen.dart';
+import 'package:intrale/scrn/cart/CartScreen.dart';
+import 'package:intrale/scrn/home/DetailProduct.dart';
 
-class IntraleRouter extends GoRouter{
-  IntraleRouter():super(
+class IntraleRouter {
+
+
+  late final router = GoRouter(
     routes: <GoRoute>[
     GoRoute(
       path: '/',
@@ -60,12 +64,23 @@ class IntraleRouter extends GoRouter{
         Map<String, String>? params = state.extra as Map<String, String>?;
         debugPrint('forward to changePassword:' + params.toString());
         String email = params!['email']!;
-        String password = params!['password']!;
+        String password = params['password']!;
         debugPrint('email:' + email);
         debugPrint('password:' + password);
         return ChangePassword(email: email, password: password);
       }, 
-      
+    ),
+    GoRoute(
+      path: '/detailProduct',
+      builder: (BuildContext context, GoRouterState state) {
+        return DetailProduct();
+      },
+    ),
+    GoRoute(
+      path: '/delivery',
+      builder: (BuildContext context, GoRouterState state) {
+        return CartScreen();
+      },
     )
   ]
 

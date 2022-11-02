@@ -1,11 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:intrale/comp/IntraleState.dart';
-import 'package:intrale/comp/ItlText.dart';
-import 'package:intrale/const/TextStyleConst.dart';
+import 'package:intrale/comp/texts/TranslatedText.dart';
 import 'package:intrale/scrn/LoginOrSignup/ChoseLoginOrSignupCarousel.dart';
 import 'package:intrale/comp/buttons/TransparentButton.dart';
 import 'package:flutter/material.dart';
-import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/styles/DecorationStyles.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
+import 'package:intrale/styles/TextStyles.dart';
 
 class ChoseLogin extends StatefulWidget {
   @override
@@ -14,6 +15,12 @@ class ChoseLogin extends StatefulWidget {
 
 /// Component Widget this layout UI
 class ChoseLoginState extends IntraleState<ChoseLogin> {
+
+    static final Container WHITE_LINE = Container(
+                                      color: Colors.white,
+                                      height: 0.2,
+                                      width: 80.0,
+                                    );
 
   /// Component Widget layout UI
   @override
@@ -27,7 +34,7 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
           Container(
             decoration: BoxDecoration(),
             child: Container(
-              decoration: Styles.DECORATION_STYLES.GRADIENT_BLACK,
+              decoration: DecorationStyles.GRADIENT_BLACK,
               child: ListView(
                 padding: EdgeInsets.all(0.0),
                 children: <Widget>[
@@ -44,12 +51,12 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                               children: <Widget>[
                                 mediaQueryTopPadding(50),
                                 header,
-                                Styles.PADDING_STYLES.ONLY_TOP_250,
-                                ItlText(textKey: "choseLogin_hint", 
+                                PaddingStyles.ONLY_TOP_250,
+                                TranslatedText(textKey: "choseLogin_hint", 
                                   textDirection: TextDirection.ltr,
-                                  style: CHOSE_LOGIN_OR_SIGNUP_SCREEN_HINT,
+                                  style: TextStyles.HINT,
                                 ),
-                                Styles.PADDING_STYLES.ONLY_TOP_250
+                                PaddingStyles.ONLY_TOP_250
                               ],
                             ),
                           ),
@@ -66,13 +73,11 @@ class ChoseLoginState extends IntraleState<ChoseLogin> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     /// To set white line (Click to open code)
-                                    Styles.CONTAINER_STYLES.WHITE_LINE,
-                                    Padding(
-                                      padding: Styles.EDGE_INSETS_GEOMETRY_STYLES.BOTH_SIDES_10,
-                                    ),
-
+                                    WHITE_LINE,
+                                    PaddingStyles.BOTH_SIDES_10,
+                                    
                                     /// To set white line (Click to open code)
-                                    Styles.CONTAINER_STYLES.WHITE_LINE
+                                    WHITE_LINE
                                   ],
                                 ),
                               ),

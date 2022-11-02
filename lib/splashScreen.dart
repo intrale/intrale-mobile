@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:intrale/SplashScreenBackgroundImage.dart';
 import 'package:intrale/comp/IntraleState.dart';
 import 'package:intrale/comp/ItlCustom.dart';
-import 'package:intrale/comp/ItlText.dart';
-import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/comp/texts/TranslatedText.dart';
+import 'package:intrale/styles/DecorationStyles.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
+import 'package:intrale/styles/TextStyles.dart';
 import 'package:intrale/util/IntralePreferences.dart';
 import 'package:intrale/util/Wait.dart';
 import 'package:intrale/util/services/Request.dart';
@@ -33,28 +35,28 @@ class SplashScreenState extends IntraleState<SplashScreen> {
   /// Code Create UI Splash Screen
   Widget build(BuildContext context) {
     
-    ItlText welcomeTo = ItlText(
-                      textKey: "welcomeTo", style: Styles.TEXT_STYLES.WELCOME_PREFIX);
+    TranslatedText welcomeTo = TranslatedText(
+                      textKey: "welcomeTo", style: TextStyles.WELCOME_PREFIX);
 
     Hero hero = Hero(
                       tag: "Intrale",
-                      child: ItlText(
+                      child: TranslatedText(
                           textKey: "businessName",
-                          style: Styles.TEXT_STYLES.WELCOME_BUSINESS_NAME));
+                          style: TextStyles.WELCOME_BUSINESS_NAME));
 
     return Container(
       /// Set Background image in splash screen layout (Click to open code)
       decoration: SplashScreenBackgroundImage(),
       child: Container(
         /// Set gradient black in image splash screen (Click to open code)
-        decoration: Styles.DECORATION_STYLES.GRADIENT_BLACK,
+        decoration: DecorationStyles.GRADIENT_BLACK,
         child: Center(
           child: SingleChildScrollView(
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Styles.PADDING_STYLES.ONLY_TOP_30,
+                  PaddingStyles.ONLY_TOP_30,
 
                   /// Text header "Welcome To" (Click to open code)
                   welcomeTo,

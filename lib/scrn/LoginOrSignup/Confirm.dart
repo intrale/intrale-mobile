@@ -8,7 +8,7 @@ import 'package:intrale/comp/ItlFields.dart';
 import 'package:intrale/comp/ItlInput.dart';
 import 'package:intrale/comp/ItlPassword.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
-import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
 import 'package:intrale/util/services/Error.dart';
 import 'package:intrale/util/services/Response.dart';
 import 'package:intrale/util/services/users/confirm/ConfirmRecoveryRequest.dart';
@@ -56,11 +56,11 @@ class ConfirmScreenState extends IntraleState<Confirm> {
             /// padding logo
             mediaQueryTopPadding(40),
             header,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             email,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             password,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             code,
 
             SolidButton(

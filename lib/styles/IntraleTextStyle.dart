@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class IntraleTextStyle extends TextStyle {
   
-    IntraleTextStyle({
+    const IntraleTextStyle({
       super.color = Colors.black,
       super.fontSize = 15.0,
       super.fontWeight: FontWeight.w500,

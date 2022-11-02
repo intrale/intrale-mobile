@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:intrale/const/TextStyleConst.dart';
+import 'package:intrale/styles/TextStyles.dart';
 
 import 'package:intrale/util/validation/Validator.dart';
 
@@ -95,7 +95,7 @@ class ItlInputState extends State<ItlInput> {
                     icon,
                     color: Colors.black38,
                   ),
-                  labelStyle: INTRALE_TEXT_FIELD),
+                  labelStyle: TextStyles.INPUT_FIELD),
               keyboardType: inputType),
         ),
       ),

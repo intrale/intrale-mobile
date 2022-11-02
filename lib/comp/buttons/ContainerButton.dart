@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intrale/comp/ItlText.dart';
+import 'package:intrale/comp/texts/TranslatedText.dart';
 
 class ContainerButton extends StatelessWidget {
 
@@ -17,7 +17,7 @@ class ContainerButton extends StatelessWidget {
                     this.alignment = FractionalOffset.center,
                     required this.style,
                     required this.decoration
-                  }){}
+                  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ContainerButton extends StatelessWidget {
             height: this.height,
             width: this.width,
             alignment: this.alignment,
-            child: ItlText (
+            child: TranslatedText (
               textKey: this.descriptionKey,
               style: this.style,
             ));

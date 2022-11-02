@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:intrale/scrn/account/Notification.dart';
-import 'package:intrale/scrn/account/Message.dart';
+import 'package:intrale/comp/icons/LocalImageIcon.dart';
+import 'package:intrale/states/AppState.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
+import 'package:provider/provider.dart';
 
 class AppbarGradient extends StatefulWidget {
   @override
@@ -21,7 +23,7 @@ class _AppbarGradientState extends State<AppbarGradient> {
     /// Create component in appbar
     return Container(
       padding: EdgeInsets.only(top: statusBarHeight),
-      height: 58.0 + statusBarHeight,
+      height: 40.0 + statusBarHeight,
       decoration: BoxDecoration(
 
           /// gradient in appbar
@@ -40,45 +42,21 @@ class _AppbarGradientState extends State<AppbarGradient> {
         children: <Widget>[
           /// if user click shape white in appbar navigate to search layout
           InkWell(
-            /*onTap: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => searchAppbar(),
-
-                    /// transtation duration in animation
-                    transitionDuration: Duration(milliseconds: 750),
-
-                    /// animation route to search layout
-                    transitionsBuilder:
-                        (_, Animation<double> animation, __, Widget child) {
-                      return Opacity(
-                        opacity: animation.value,
-                        child: child,
-                      );
-                    }));
-              },*/
-
             /// Create shape background white in appbar (background treva shop text)
             child: Container(
               margin: EdgeInsets.only(left: media.padding.left + 15),
               height: 37.0,
               width: 222.0,
-              /*decoration: BoxDecoration(
-                    color: Colors.cyanAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    shape: BoxShape.rectangle),*/
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   /**/
-                  Padding(padding: EdgeInsets.only(left: 17.0)),
+                  PaddingStyles.ONLY_LEFT_17,
                   Image.asset(
                     "assets/img/Logo.png",
                     height: 22.0,
                   ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                    left: 17.0,
-                  )),
+                  PaddingStyles.ONLY_LEFT_17,
                   Padding(
                     padding: EdgeInsets.only(top: 3.0),
                     child: Text(
@@ -98,40 +76,23 @@ class _AppbarGradientState extends State<AppbarGradient> {
           ),
 
           /// Icon chat (if user click navigate to chat layout)
-          InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => new chat()));
-              },
-              child: Image.asset(
-                "assets/img/chat.png",
-                height: media.devicePixelRatio + 20.0,
-              )),
+          LocalImageIcon(
+            localPath: "assets/img/chat.png", 
+            onTap: () {
+                AppState appState = Provider.of<AppState>(context, listen: false);
+                appState.forwardToChat();
+                return Future(() {});
+              }), 
 
           /// Icon notification (if user click navigate to notification layout)
-          InkWell(
+          LocalImageIcon(
+            localPath: "assets/img/notifications-button.png", 
             onTap: () {
-              Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (_, __, ___) => new notification()));
+              AppState appState = Provider.of<AppState>(context, listen: false);
+              appState.forwardToNotifications();
+              return Future(() {});
             },
-            child: Stack(
-              alignment: AlignmentDirectional(-3.0, -3.0),
-              children: <Widget>[
-                Image.asset(
-                  "assets/img/notifications-button.png",
-                  height: 24.0,
-                ),
-                CircleAvatar(
-                  radius: 8.6,
-                  backgroundColor: Colors.redAccent,
-                  child: Text(
-                    CountNotice,
-                    style: TextStyle(fontSize: 13.0, color: Colors.white),
-                  ),
-                )
-              ],
-            ),
-          ),
+            notificationCircleText: CountNotice),
         ],
       ),
     );

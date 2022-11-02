@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:intrale/comp/icons/ProvidedIcon.dart';
+import 'package:intrale/scrn/home/AppbarGradient.dart';
 import 'package:intrale/states/AppState.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,10 +35,9 @@ class DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => AppState(),
-        child: Consumer<AppState>(builder: (context, appState, child) {
-          return Scaffold(
+    return Consumer<AppState>(builder: (context, appState, child) {
+          return Stack(children: [
+            Scaffold(
               body: appState.getScreen(),
               bottomNavigationBar: Theme(
                   data: Theme.of(context).copyWith(
@@ -45,6 +46,7 @@ class DashboardState extends State<Dashboard> {
                           caption: TextStyle(
                               color: Colors.black26.withOpacity(0.15)))),
                   child: BottomNavigationBar(
+                    //selectedItemColor: Color(0xFF6991C7),
                     type: BottomNavigationBarType.fixed,
                     currentIndex: currentIndex,
                     fixedColor: Color(0xFF6991C7),
@@ -65,7 +67,7 @@ class DashboardState extends State<Dashboard> {
                           label: FlutterI18n.translate(context, 'home')
                           ),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.shopping_cart),
+                          icon: ProvidedIcon(icon:Icons.shopping_cart),
                           label: FlutterI18n.translate(context, 'cart')
                           ),
                       BottomNavigationBarItem(
@@ -77,7 +79,9 @@ class DashboardState extends State<Dashboard> {
                           label: FlutterI18n.translate(context, 'exit')
                           ),
                     ],
-                  )));
-        }));
+                  ))),
+                  AppbarGradient(),
+                  ]);
+        });
   }
 }

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intrale/comp/ItlHeader.dart';
+import 'package:intrale/comp/Header.dart';
 import 'package:intrale/comp/ItlLogo.dart';
 import 'package:intrale/comp/buttons/Button.dart';
 import 'package:intrale/comp/buttons/LinkButton.dart';
@@ -25,7 +25,7 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   ItlLogo logo = ItlLogo();
 
   // Other Components declarations
-  ItlHeader header = ItlHeader();
+  Header header = Header();
   MediaQueryData mediaQueryData = new MediaQueryData();
 
   Handler? okHandler;

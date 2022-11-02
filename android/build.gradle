@@ -1,20 +1,27 @@
 buildscript {
     repositories {
+        mavenCentral()
         google()
         jcenter()
+        maven {
+           url 'https://artifacts.mercadolibre.com/repository/android-releases/'
+        }
     }
  
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
-        //classpath 'com.android.tools.build:gradle:7.0.2'
-        //classpath 'com.android.tools.build:gradle:7.1.1'
+        //classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:7.3.1'
     }
 }
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
         jcenter()
+        maven {
+           url 'https://artifacts.mercadolibre.com/repository/android-releases/'
+        }
     }
 }
 

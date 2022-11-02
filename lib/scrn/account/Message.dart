@@ -8,6 +8,7 @@ class chat extends StatefulWidget {
 class _chatState extends State<chat> {
   @override
   Widget build(BuildContext context) {
+    debugPrint("Building Chat");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

@@ -7,7 +7,9 @@ import 'package:intrale/IntraleRouter.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intrale/states/AppState.dart';
 import 'package:intrale/util/IntralePreferences.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 /// Run first apps open
@@ -53,33 +55,42 @@ class IntraleApp extends StatelessWidget {
 }
 
 
-MaterialApp getApp(){
+Widget getApp(){
 
-  print('Obteniendo fcmToken');
+  print('MaterialApp getApp()');
 
-    return MaterialApp.router(
-      routeInformationProvider: _router.routeInformationProvider,
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
-      localizationsDelegates: [FlutterI18nDelegate(
-        translationLoader: FileTranslationLoader(
-            basePath: 'assets/flutter_i18n',
-            fallbackFile: 'es',
-            useCountryCode: false),
-        missingTranslationHandler: (key, locale) {
-          print("--- Missing Key: $key, languageCode: ${locale?.languageCode}");
-        },
-      ),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => AppState()),
+        Provider(create: (context)=>IntraleRouter())
       ],
-      title: 'GoRouter Example',
-      builder: EasyLoading.init(),
+      child: Builder(builder: (context){
+        final router = Provider.of<IntraleRouter>(context, listen: false).router;
+        return MaterialApp.router(
+          routeInformationProvider: router.routeInformationProvider,
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
+          localizationsDelegates: [FlutterI18nDelegate(
+            translationLoader: FileTranslationLoader(
+                basePath: 'assets/flutter_i18n',
+                fallbackFile: 'es',
+                useCountryCode: false),
+            missingTranslationHandler: (key, locale) {
+              print("--- Missing Key: $key, languageCode: ${locale?.languageCode}");
+            },
+          ),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          title: 'GoRouter Example',
+          builder: EasyLoading.init(),
+        );
+      }),
+    
     );
 
 }
-
-final IntraleRouter _router = IntraleRouter();
 
 void configLoading() {
   EasyLoading.instance

@@ -7,7 +7,7 @@ import 'package:intrale/comp/buttons/SolidButton.dart';
 import 'package:intrale/comp/ItlEmail.dart';
 import 'package:intrale/comp/ItlFields.dart';
 import 'package:intrale/scrn/LoginOrSignup/LoginOrSignupForm.dart';
-import 'package:intrale/styles/IntraleStyles.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
 
 import 'package:intrale/util/services/users/signup/SignupRequest.dart';
 import 'package:intrale/util/services/users/signup/SignupService.dart';
@@ -51,7 +51,7 @@ class SignupScreenState extends IntraleState<Signup> {
                 padding:
                     EdgeInsets.only(top: mediaQueryData.padding.top + 40.0)),
             header,
-            Styles.PADDING_STYLES.EDGE_INSETS_ALL_10,
+            PaddingStyles.EDGE_INSETS_ALL_10,
             email,
 
             SolidButton(

@@ -1,11 +1,16 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:intrale/comp/buttons/SolidButton.dart';
+import 'package:intrale/comp/buttons/TransparentButton.dart';
 import 'package:intrale/model/CartItem.dart';
 import 'package:intrale/model/Price.dart';
 import 'package:intrale/model/Product.dart';
 import 'package:intrale/scrn/home/DetailProductCartPayButton.dart';
 import 'package:intrale/scrn/home/DetailProductChatButton.dart';
 import 'package:intrale/states/AppState.dart';
+import 'package:intrale/styles/DecorationStyles.dart';
 import 'package:provider/provider.dart';
 
 class DetailProductAddItemButton extends StatelessWidget {
@@ -17,6 +22,31 @@ class DetailProductAddItemButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
+
+      return  Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SolidButton(descriptionKey: 'addToCart', onTap: () {
+                      return appState.addCartItem(CartItem(
+                        id: gridItem!.id,
+                        name: gridItem!.name,
+                        description: gridItem!.description,
+                        price: Price(
+                            currencyAcronym: gridItem!.price.currencyAcronym,
+                            unitPrice: gridItem!.price.unitPrice),
+                        count: 1));
+                    }),
+                    SolidButton(
+                      descriptionKey: 'checkout', 
+                      onTap: () => appState.forwardToCartScreen(),
+                      decoration: DecorationStyles.SECUNDARY_SOLID_BUTTON,
+                      )
+                  ],
+
+                );
+
+
+      /*
       return InkWell(
         onTap: () {
           var snackbar = SnackBar(
@@ -57,15 +87,17 @@ class DetailProductAddItemButton extends StatelessWidget {
                 ),
 
                 /// Chat Icon
-                DetailProductChatButton(),
+                //DetailProductChatButton(),
 
                 /// Button Pay
-                DetailProductCartPayButton(),
+                //DetailProductCartPayButton(),
+               
+                
               ],
             ),
           ),
         ),
-      );
+      );*/
     });
   }
 }
