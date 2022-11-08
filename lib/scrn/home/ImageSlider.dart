@@ -13,7 +13,7 @@ class ImageSliderState extends State<ImageSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 121.0,
+      height: MediaQuery.of(context).size.height / 5.5,
       child: new Carousel(
         boxFit: BoxFit.cover,
         dotColor: Color(0xFF6991C7).withOpacity(0.8),

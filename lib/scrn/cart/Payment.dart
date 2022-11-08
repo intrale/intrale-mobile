@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intrale/scrn/Dashboard.dart';
 import 'package:intrale/scrn/cart/CartScreen.dart';
-
-class payment extends StatefulWidget {
+//TODO: Revisar si es necesario este componente
+class payment1 extends StatefulWidget {
   @override
   _paymentState createState() => _paymentState();
 }
 
-class _paymentState extends State<payment> {
+class _paymentState extends State<payment1> {
   /// Duration for popup card if user succes to payment
   StartTime() async {
     return Timer(Duration(milliseconds: 1450), navigator);

@@ -105,6 +105,6 @@ void configLoading() {
     ..textColor = Colors.white
     ..maskColor = Colors.blue.withOpacity(0.5)
     ..userInteractions = true
-    ..dismissOnTap = false;
+    ..dismissOnTap = true;
     //..customAnimation = CustomAnimation();
 }

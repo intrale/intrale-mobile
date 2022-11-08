@@ -71,7 +71,7 @@ class LoginScreenState extends IntraleState<Login> {
             email,
             PaddingStyles.EDGE_INSETS_ALL_10,
             password,
-
+            PaddingStyles.EDGE_INSETS_ALL_10,
             SolidButton(
               descriptionKey: "login_submit",
               onTap: () => onSubmit() ,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intrale/scrn/cart/Payment.dart';
-
-class delivery extends StatefulWidget {
+//TODO: Revisar si es necesario este componente
+class delivery1 extends StatefulWidget {
   @override
   _deliveryState createState() => _deliveryState();
 }
 
-class _deliveryState extends State<delivery> {
+class _deliveryState extends State<delivery1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +77,7 @@ class _deliveryState extends State<delivery> {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(PageRouteBuilder(
-                        pageBuilder: (_, __, ___) => payment()));
+                        pageBuilder: (_, __, ___) => payment1()));
                   },
                   child: Container(
                     height: 55.0,

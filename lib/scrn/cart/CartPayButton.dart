@@ -15,7 +15,7 @@ class CartPayButton extends StatefulWidget {
   @override
   CartPayButtonState createState() => CartPayButtonState();
 }
-
+//TODO: Revisar si es necesario este componente
 class CartPayButtonState extends State<CartPayButton> {
   @override
   Widget build(BuildContext context) {

@@ -67,7 +67,10 @@ class DashboardState extends State<Dashboard> {
                           label: FlutterI18n.translate(context, 'home')
                           ),
                       BottomNavigationBarItem(
-                          icon: ProvidedIcon(icon:Icons.shopping_cart),
+                          icon: ProvidedIcon(
+                            icon:Icons.shopping_cart,
+                            notificationCircleText: appState.cartCountNotificationText(),
+                          ),
                           label: FlutterI18n.translate(context, 'cart')
                           ),
                       BottomNavigationBarItem(

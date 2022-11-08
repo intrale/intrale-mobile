@@ -91,6 +91,14 @@ class AppState extends ChangeNotifier {
     return count;
   }
 
+  String? cartCountNotificationText(){
+    int count = cartCount();
+    if (count>0){
+      return count.toString();
+    }
+    return null;
+  }
+
   addCartItem(CartItem cartItem) {
     debugPrint("Agregando cartItem");
     cart.items.add(cartItem);
