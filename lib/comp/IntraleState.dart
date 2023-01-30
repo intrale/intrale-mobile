@@ -32,7 +32,7 @@ abstract class IntraleState<T extends StatefulWidget> extends State<T>
   Handler? errorHandler;
 
   IntraleState() {
-    notHaveButton = LinkButton(descriptionKey: "notHave", onTap: () => Future(()=>context.go('location')));
+    notHaveButton = LinkButton(descriptionKey: "notHave", onTap: () => Future(()=>context.go('/signup')));
     missingButton = LinkButton(descriptionKey: "missing", onTap: () => Future(()=> context.go('/recovery')));
     haveCodeButton = LinkButton(descriptionKey: "haveCode", onTap: () => Future(()=> context.go('/confirm')));
     haveUserButton = LinkButton(descriptionKey: "haveUser", onTap: () => Future(()=> context.go('/login')));

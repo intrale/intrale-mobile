@@ -67,17 +67,17 @@ class AppState extends ChangeNotifier {
     setScreenIndex(6);
   }
 
-  List<CartItem> items() => cart.items;
+  Set<CartItem> items() => cart.items;
 
-  CartItem item(int index) => cart.items[index];
+  CartItem item(int index) => cart.items.elementAt(index);
 
   void increase(int index) {
-    cart.items[index].increase();
+    cart.items.elementAt(index).increase();
     notifyListeners();
   }
 
   void decrease(int index) {
-    cart.items[index].decrease();
+    cart.items.elementAt(index).decrease();
     notifyListeners();
   }
 
@@ -91,6 +91,17 @@ class AppState extends ChangeNotifier {
     return count;
   }
 
+  String getTotalPrice() {
+    String currencyAcronym = '';
+    double price = 0;
+    cart.items.forEach((element) {
+      price += element.getItemPrice();
+      currencyAcronym = element.price.currencyAcronym;
+    });
+    return currencyAcronym + (price).toString();
+
+  }
+
   String? cartCountNotificationText(){
     int count = cartCount();
     if (count>0){
@@ -101,13 +112,17 @@ class AppState extends ChangeNotifier {
 
   addCartItem(CartItem cartItem) {
     debugPrint("Agregando cartItem");
-    cart.items.add(cartItem);
+    if (cart.items.contains(cartItem)){
+      cart.items.lookup(cartItem)!.increase();
+    } else {
+      cart.items.add(cartItem);
+    }
     debugPrint("notificando cartItem");
     notifyListeners();
   }
 
   void removeCartItem(int index) {
-    cart.items.remove(index);
+    debugPrint("remove:" + cart.items.remove(item(index)).toString());
     notifyListeners();
   }
 }

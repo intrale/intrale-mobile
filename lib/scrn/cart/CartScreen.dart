@@ -1,15 +1,21 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intrale/comp/buttons/SolidButton.dart';
-import 'package:intrale/comp/images/CachedImage.dart';
+import 'package:intrale/comp/icons/ProvidedIcon.dart';
 import 'package:intrale/comp/images/ScaledImage.dart';
+import 'package:intrale/comp/texts/TranslatedText.dart';
+import 'package:intrale/model/OrderProduct.dart';
 import 'package:intrale/scrn/cart/CartItemCard.dart';
-import 'package:intrale/scrn/cart/CartPayButton.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intrale/scrn/cart/NoItemCart.dart';
 import 'package:intrale/states/AppState.dart';
+import 'package:intrale/styles/DecorationStyles.dart';
+import 'package:intrale/styles/PaddingStyles.dart';
+import 'package:intrale/styles/TextStyles.dart';
+import 'package:intrale/util/IntralePreferences.dart';
+import 'package:intrale/util/services/delivery/saveorder/SaveOrderRequest.dart';
+import 'package:intrale/util/services/delivery/saveorder/SaveOrderService.dart';
 import 'package:intrale/util/services/mercadopago/preferences/CheckoutPreferencesRequest.dart';
 import 'package:intrale/util/services/mercadopago/preferences/CheckoutPreferencesService.dart';
 import 'package:intrale/util/services/mercadopago/preferences/Item.dart';
@@ -18,43 +24,7 @@ import 'package:provider/provider.dart';
 
 import 'package:intrale_mobile_mercadopago/intrale_mobile_mercadopago.dart';
 
-const TextStyle TITLE_TEXT_STYLE = TextStyle(
-    fontFamily: "Gotik",
-    fontSize: 18.0,
-    color: Colors.black54,
-    fontWeight: FontWeight.w700);
-
-const TextStyle CART_PAY_TEXT_STYLE = TextStyle(
-    color: Colors.white, fontFamily: "Sans", fontWeight: FontWeight.w600);
-
-const TextStyle TOTAL_TEXT_STYLE = TextStyle(
-    color: Colors.black,
-    fontWeight: FontWeight.w500,
-    fontSize: 15.5,
-    fontFamily: "Sans");
-
-const TextStyle ITEM_DESCRIPTION_TEXT_STYLE = TextStyle(
-  color: Colors.black54,
-  fontWeight: FontWeight.w500,
-  fontSize: 12.0,
-);
-
-const TextStyle ITEM_NAME_TEXT_STYLE = TextStyle(
-  fontWeight: FontWeight.w700,
-  fontFamily: "Sans",
-  color: Colors.black87,
-);
-
 const MERCADO_PAGO_CHANNEL = const MethodChannel('intrale.com/mercado_pago');
-
-// platform channel method calling
-/*Future<Null> startPayment(
-    String publicKey, String preferenceId) async {
-  IntraleMobileMercadopago.startPayment(
-          publicKey: publicKey, preferenceId: preferenceId)
-      .then((value) => debugPrint("startPayment:" + value.toString()));
-}*/
-
 
 class CartScreen extends StatefulWidget {
   @override
@@ -62,6 +32,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class CartScreenState extends State<CartScreen> {
+
+  SaveOrderService saveOrderService = new SaveOrderService();
 
   @override
   void initState() {
@@ -76,10 +48,8 @@ class CartScreenState extends State<CartScreen> {
             iconTheme: IconThemeData(color: Color(0xFF6991C7)),
             centerTitle: true,
             backgroundColor: Colors.white,
-            title: Text(
-              FlutterI18n.translate(context, 'cart'),
-              style: TITLE_TEXT_STYLE,
-            ),
+            title: 
+              TranslatedText(textKey: 'cart', style: TextStyles.CART_TITLE),
             elevation: 0.0,
           ),
           body: appState.cartLength() > 0
@@ -91,21 +61,12 @@ class CartScreenState extends State<CartScreen> {
                     return Slidable(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 1.0, left: 13.0, right: 13.0),
+                            top: 1.0, left: 20.0, right: 20.0),
 
                         /// Background Constructor for card
                         child: Container(
                           height: 220.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12.withOpacity(0.1),
-                                blurRadius: 3.5,
-                                spreadRadius: 0.4,
-                              )
-                            ],
-                          ),
+                          decoration: DecorationStyles.CART_CARD,
                           child: 
                           ListView(
                             shrinkWrap: true,
@@ -119,26 +80,34 @@ class CartScreenState extends State<CartScreen> {
 
                                       /// Image item
                                       child: Container(
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  Colors.white.withOpacity(0.1),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.black12
-                                                        .withOpacity(0.1),
-                                                    blurRadius: 0.5,
-                                                    spreadRadius: 0.1)
-                                              ]),
+                                          decoration: DecorationStyles.CART_IMAGE,
                                           child: 
                                           ScaledImage(
                                             path: '/dev/files/get/INTRALE/products/${appState.item(position).id}/main.jpg',
-                                            height: 64,
-                                            width: 64,
+                                            height: 128,
+                                            width: 128,
                                           ))),
                                   CartItemCard(position),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.1,
+                                    alignment: Alignment.bottomRight,
+                                    child: 
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            debugPrint('Eliminando del carrito');
+                                            appState.removeCartItem(position);
+                                          });
+                                        },
+                                        child: 
+                                            ProvidedIcon(
+                                              icon:Icons.delete_rounded
+                                            )
+
+                                      ))
                                 ],
                               ),
-                              Padding(padding: EdgeInsets.only(top: 8.0)),
+                              PaddingStyles.ONLY_TOP_8,
                               Divider(
                                 height: 2.0,
                                 color: Colors.black12,
@@ -161,10 +130,9 @@ class CartScreenState extends State<CartScreen> {
                                             appState
                                                 .item(position)
                                                 .getTotalPrice(),
-                                        style: TOTAL_TEXT_STYLE,
+                                        style: TextStyles.CART_SUBTOTAL,
                                       ),
                                     ),
-                                    //CartPayButton(),
                                   ],
                                 ),
                               ),
@@ -176,14 +144,46 @@ class CartScreenState extends State<CartScreen> {
                   },
                   scrollDirection: Axis.vertical,
                 ),
+                Divider(
+                                height: 2.0,
+                                color: Colors.black12,
+                              ),
+                Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 9.0, left: 10.0, right: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
+
+                                      /// Total price of item buy
+                                      child: Text(
+                                        FlutterI18n.translate(
+                                                context, 'cart_total') +
+                                            appState
+                                                .getTotalPrice(),
+                                        style: TextStyles.CART_SUBTOTAL,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),              
                 SolidButton(descriptionKey: 'cart_pay', 
                 onTap: () {
                     AppState appState = Provider.of<AppState>(context, listen: false);
 
-                    CheckoutPreferencesService service = CheckoutPreferencesService();
+                    return IntralePreferences().readEmail().then((value) {
 
+                    SaveOrderRequest saveOrderRequest = new SaveOrderRequest(
+                      email: value!,
+                      deliveryLocation: "Direccion de prueba");
+                    saveOrderRequest.products = [];
                     CheckoutPreferencesRequest request = CheckoutPreferencesRequest();
                     request.items = [];
+
                     appState.cart.items.forEach((element) {
                       Item item = Item();
                       item.id = element.id;
@@ -192,23 +192,29 @@ class CartScreenState extends State<CartScreen> {
                       item.quantity = element.count;
                       item.currency_id = element.price.currencyAcronym;
                       item.unit_price = element.price.unitPrice;
+                      item.picture_url = "https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com" + '/dev/files/get/INTRALE/products/${element.id}/main.jpg';
                       request.items!.add(item);
+
+
+                      OrderProduct orderProduct = OrderProduct(productId: element.id, count: element.count);
+                      saveOrderRequest.products!.add(orderProduct);
                     });
 
-                    /*Item item = Item();
-                    item.id = '1';
-                    item.title = 'Producto 1';
-                    item.description = 'Prueba';
-                    item.quantity = 1;
-                    item.currency_id = "\$";
+                    
 
-                    item.unit_price = 200;*/
+                    CheckoutPreferencesService service = CheckoutPreferencesService();
+                    request.external_reference = 'Prueba Referencia';
 
                     Payer payer = Payer();
-                    payer.email = 'mail@mail.com';
+                    payer.email = value;
                     request.payer = payer;
 
+                    request.notification_url = "https://mgnr0htbvd.execute-api.us-east-2.amazonaws.com/dev/delivery";
+
                     return service.post(request: request).then((value) => {
+                              saveOrderRequest.collectorId = value.collector_id,
+                              saveOrderService.post(request: saveOrderRequest),
+
                               IntraleMobileMercadopago.startPayment(
                                 publicKey: 'TEST-aa0147af-3dfc-4172-a474-c7c44a0cd8fa', 
                                 preferenceId: value.id!)
@@ -217,12 +223,12 @@ class CartScreenState extends State<CartScreen> {
                                   Provider.of<AppState>(context, listen: false).cart.items.clear(),
                                   appState.forwardToHomeScreen()
                                 })
-                          /*startPayment(
-                              'TEST-aa0147af-3dfc-4172-a474-c7c44a0cd8fa', value.id!)*/
                         });
+                  
+                    });
+                  
+                  
                   }),
-                
-                //CartPayButton()
                 ])
               : NoItemCart());
     });

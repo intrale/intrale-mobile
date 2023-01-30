@@ -11,8 +11,6 @@ class CartItem {
   Price price;
   int count;
 
-  //CartItem() {}
-
   CartItem(
       {required this.id,
       required this.name,
@@ -20,13 +18,28 @@ class CartItem {
       required this.price,
       required this.count});
 
+  @override
+  bool operator ==(other) {
+    if (other is! CartItem) {
+      return false;
+    }
+    return id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+
   factory CartItem.fromJson(Map<String, dynamic> json) =>
       _$CartItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$CartItemToJson(this);
 
+  double getItemPrice(){
+    return price.unitPrice * count;
+  }
+
   String getTotalPrice() {
-    return price.currencyAcronym + (price.unitPrice * count).toString();
+    return price.currencyAcronym + (getItemPrice()).toString();
   }
 
   void increase() {

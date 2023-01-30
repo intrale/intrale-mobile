@@ -133,8 +133,8 @@ class _notificationState extends State<notification> {
 }
 
 void _onTapItem(BuildContext context, Post post) {
-  Scaffold.of(context).showSnackBar(
-      new SnackBar(content: new Text(post.id.toString() + ' - ' + post.title)));
+  /*Scaffold.of(context).showSnackBar(
+      new SnackBar(content: new Text(post.id.toString() + ' - ' + post.title)));*/
 }
 
 class noItemNotifications extends StatelessWidget {

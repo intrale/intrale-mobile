@@ -93,4 +93,12 @@ class TextStyles {
     color: Colors.white,
     fontSize: 13.0);
 
+  static const IntraleTextStyle CART_TITLE = IntraleTextStyle(
+    fontFamily: "Gotik",
+    fontSize: 18.0,
+    color: Colors.black54,
+    fontWeight: FontWeight.w700);
+
+  static const IntraleTextStyle CART_SUBTOTAL = IntraleTextStyle();
+
 }

@@ -96,17 +96,14 @@ class LoginScreenState extends IntraleState<Login> {
   void onOk(Response response) {
     SigninResponse signinResponse = response as SigninResponse;
 
-    IntralePreferences().write(signinResponse.idToken!, signinResponse.accessToken!);
+    IntralePreferences().write(this.email.value, signinResponse.idToken!, signinResponse.accessToken!);
 
     IntralePreferences().read().then((tokens) => 
       DeviceInfoFactory().getDeviceInfo().then((deviceInfo) {
         SaveNotificationTokenRequest saveNotificationTokenRequest = 
               SaveNotificationTokenRequest.fromArgs(this.email.value, tokens.fcmToken, deviceInfo.id);    
 
-        SaveNotificationTokenService().post(request: saveNotificationTokenRequest)/*.then((value) =>{
-          // Ingresa normalmente a la aplicacion
-          context.go('/dashboard')
-        })*/;
+        SaveNotificationTokenService().post(request: saveNotificationTokenRequest);
       })
     );
     // Se coloca aca directamente para no demorar el ingreso a la aplicacion

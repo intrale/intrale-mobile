@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intrale/comp/icons/ProvidedIcon.dart';
 import 'package:intrale/states/AppState.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +15,10 @@ class CartItemIncrease extends StatefulWidget {
     appState.increase(position);
   }
 
-  String symbol() {
-    return "+";
+  Widget button() {
+    return ProvidedIcon(
+                            icon:Icons.add_circle
+                          );
   }
 }
 
@@ -29,14 +32,9 @@ class CartItemIncreaseState extends State<CartItemIncrease> {
             widget.action(appState);
           });
         },
-        child: Container(
-          height: 30.0,
-          width: 28.0,
-          decoration: BoxDecoration(
-              border: Border(
-                  left: BorderSide(color: Colors.black12.withOpacity(0.1)))),
-          child: Center(child: Text(widget.symbol())),
-        ),
+        child: 
+            widget.button()
+
       );
     });
   }

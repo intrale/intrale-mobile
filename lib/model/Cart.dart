@@ -5,7 +5,10 @@ part 'Cart.g.dart';
 
 @JsonSerializable()
 class Cart {
-  List<CartItem> items = [];
+
+  Set<CartItem> items = Set<CartItem>();
+
+  //List<CartItem> items = [];
 
   Cart();
 

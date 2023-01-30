@@ -4,6 +4,7 @@ import 'package:intrale/scrn/account/Profile.dart';
 import 'package:intrale/scrn/cart/CartScreen.dart';
 import 'package:intrale/scrn/home/Home.dart';
 
+//FIXME: ver si es necesario
 class ScreenState extends ChangeNotifier {
   int screenIndex = 0;
 

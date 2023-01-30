@@ -9,18 +9,19 @@ import 'package:intrale/styles/TextStyles.dart';
 import 'package:intrale/util/services/products/read/ReadProductsRequest.dart';
 import 'package:intrale/util/services/products/read/ReadProductsService.dart';
 
+//FIXME: limpiar codigo
 class Home extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
 }
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
-  bool isStarted = false;
+  bool isStarting = true;
   ReadProductsService? readProductsServices;
   List<Product> gridItemArray = [];
 
   static const int pageSize = 8;
-  ScrollController _controller = ScrollController(initialScrollOffset:  1);
+  ScrollController _controller = ScrollController(initialScrollOffset:  1500);
   int pageCount = 0;
   bool listenerBlocked = false;
   
@@ -37,7 +38,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   executeListener() {
-  if (!listenerBlocked) {
+    //debugPrint("offset:" + _controller.offset.toString());
+  if (isStarting || (!listenerBlocked && _controller.offset>500)) {
+        isStarting = false;
         listenerBlocked = true;
         readProductsServices?.post(request: ReadProductsRequest()).then((value) => {
           setState(() {
@@ -50,17 +53,13 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 endIndex = value.products!.length;
               }
 
-              if (startIndex > value.products!.length){
-                pageCount = 0;
-                listenerBlocked = false;
-                gridItemArray.removeRange(0, pageSize);
-                executeListener();
-              } else {
+              if (startIndex < value.products!.length){
                 gridItemArray.addAll(value.products!.sublist(startIndex, endIndex));
                 debugPrint("gridItemArray.length:" + gridItemArray.length.toString() +  ", pageCount:" + pageCount.toString() +", startIndex:" +startIndex.toString() + ", finalIndex:" + endIndex.toString());
                 pageCount++;
-                listenerBlocked = false;
               }
+              listenerBlocked = false;
+
             }
           })
         });

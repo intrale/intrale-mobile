@@ -50,4 +50,24 @@ class DecorationStyles {
                 )
               ]);
 
+
+  static const BoxDecoration CART_CARD = BoxDecoration(color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12/*.withOpacity(0.1)*/,
+                                blurRadius: 3.5,
+                                spreadRadius: 0.4,
+                              )
+                            ]);
+
+  static const BoxDecoration CART_IMAGE = BoxDecoration(
+                                              color:
+                                                  Colors.white/*.withOpacity(0.1)*/,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.black12
+                                                        /*.withOpacity(0.1)*/,
+                                                    blurRadius: 0.5,
+                                                    spreadRadius: 0.1)
+                                              ]);
 }
